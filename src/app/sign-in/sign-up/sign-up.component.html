@@ -1,0 +1,27 @@
+
+<p-dialog [(visible)]="modal" [modal]="true" [header]="modalHeader" [resizable]="false">
+    <ng-template pTemplate="content">
+      <!-- Modal content -->
+      <form (ngSubmit)="registerUser()" #loginForm="ngForm">
+        <div class="p-field">
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" pInputText [(ngModel)]="name" required />
+        </div>
+        <div class="p-field">
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" pPassword [(ngModel)]="email" required />
+        </div>
+        <div class="p-field">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" pPassword [(ngModel)]="password" required />
+        </div>
+        <div class="p-field">
+            <label for="amount">Account amount: </label>
+            <input type="number" id="amount" name="amount" pPassword [(ngModel)]="amount" required />
+        </div>
+        <p-button type="submit" label="Register"></p-button>
+        <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
+      </form>
+    </ng-template>    
+  </p-dialog>
+  
