@@ -10,7 +10,7 @@ export class SignUpComponent {
   name = ""
   email = "";
   password = "";
-  amount: number = 0;
+  amount!: number;
   modalHeader = "Sign Up"
   closeModal(){
     this.modal = !this.modal;

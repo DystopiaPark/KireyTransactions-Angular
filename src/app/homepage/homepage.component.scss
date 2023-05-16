@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+  }
+  
+  .logo {
+    flex: 1;
+  }
+  
+  .navigation {
+    margin-right: 20px;
+  }
+  
+  .navigation a {
+    margin-right: 10px;
+  }
+  
+  .sign-out {
+    margin-left: auto;
+  }

@@ -6,3 +6,7 @@ label {
 .inline-btn {
     display: inline;
 }
+.btns {
+    display: flex;
+    justify-content: space-between;
+}

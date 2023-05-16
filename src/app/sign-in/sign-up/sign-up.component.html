@@ -1,7 +1,6 @@
 
 <p-dialog [(visible)]="modal" [modal]="true" [header]="modalHeader" [resizable]="false">
     <ng-template pTemplate="content">
-      <!-- Modal content -->
       <form (ngSubmit)="registerUser()" #loginForm="ngForm">
         <div class="p-field">
             <label for="name">Name: </label>
@@ -9,7 +8,7 @@
         </div>
         <div class="p-field">
             <label for="email">Email: </label>
-            <input type="email" id="email" name="email" pPassword [(ngModel)]="email" required />
+            <input type="email" id="email" name="email" pPassword [(ngModel)]="email" required email />
         </div>
         <div class="p-field">
             <label for="password">Password: </label>
@@ -19,8 +18,10 @@
             <label for="amount">Account amount: </label>
             <input type="number" id="amount" name="amount" pPassword [(ngModel)]="amount" required />
         </div>
-        <p-button type="submit" label="Register"></p-button>
-        <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
+        <div class="btns">
+          <p-button type="submit" label="Register"></p-button>
+          <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
+        </div>
       </form>
     </ng-template>    
   </p-dialog>
