@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent {
+  displayModal: boolean = false;
 
+
+  showModal() {
+    this.displayModal = !this.displayModal;    
+  }
 }

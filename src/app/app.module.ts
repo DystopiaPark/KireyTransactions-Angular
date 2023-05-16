@@ -17,6 +17,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { AmountComponent } from './homepage/amount/amount.component';
+import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AmountComponent } from './homepage/amount/amount.component';
     HomepageComponent,
     SignUpComponent,
     TransactionsComponent,
-    AmountComponent, 
+    AmountComponent,
+    TransactionModalComponent, 
   ],
   imports: [
     BrowserModule,
