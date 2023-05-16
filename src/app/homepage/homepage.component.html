@@ -9,4 +9,7 @@
     <div class="sign-out">
       <button pButton type="button" (click)="signOut()" label="Sign Out"></button>
     </div>
-  </header>
+</header>
+  <p>Welcome, {{"name"}} your current balance is {{"amount"}}</p>
+  <p-button type="button" label="Change Amount" (click)="showModal()"></p-button>
+  <app-amount [modal]="displayModal"></app-amount>
