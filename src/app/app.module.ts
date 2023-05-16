@@ -9,17 +9,21 @@ import { DialogModule } from 'primeng/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputNumberModule } from 'primeng/inputnumber';
+
+
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     HomepageComponent,
-    SignUpComponent
+    SignUpComponent,
+    TransactionsComponent, 
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,7 @@ import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
     ButtonModule,
     DialogModule,
     BrowserAnimationsModule,
-    InputNumberModule
+    InputNumberModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
