@@ -1,5 +1,5 @@
 
-<p-dialog [(visible)]="modalOpen" [modal]="true" [header]="modalHeader" [resizable]="false">
+<p-dialog [(visible)]="modalOpen" [modal]="true" [header]="modalHeader" [resizable]="false" [closable]="false" [closeOnEscape]="false">
     <ng-template pTemplate="content">
       <form (ngSubmit)="registerUser()" #loginForm="ngForm">
         <div class="p-field">

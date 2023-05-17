@@ -19,3 +19,15 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 }
+
+// login(incomingMail: string, incomingPassword: string) {
+//   array.forEach((el)=> {
+//     if(el.mail === incomingMail){
+//       if (incomingPassword === el.password){
+//         return 200;
+//       } else {return 403}
+
+//     } else { return 403}
+    
+//   })
+// }
