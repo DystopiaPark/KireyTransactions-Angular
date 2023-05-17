@@ -1,0 +1,11 @@
+{
+   "users": [
+        {
+            "name": "Filip Stojanovic",
+            "email": "kva@kva.com",
+            "password": "1235813",
+            "amount": 500 
+        }
+    ]
+}
+

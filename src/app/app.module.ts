@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from "primeng/password";
@@ -9,7 +10,6 @@ import { DialogModule } from 'primeng/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputNumberModule } from 'primeng/inputnumber';
-
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -40,6 +40,7 @@ import { TransactionModalComponent } from './transactions/transaction-modal/tran
     DialogModule,
     BrowserAnimationsModule,
     InputNumberModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
