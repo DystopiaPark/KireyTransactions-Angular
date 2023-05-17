@@ -38,7 +38,7 @@
                 <small class="p-error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.dirty">
                 Please enter a valid email address.
                 </small>
-                <small class="p-error" *ngIf="isEmailExists && signupForm.get('email')?.valid">
+                <small class="p-error" *ngIf="emailExists && signupForm.get('email')?.valid">
                 Email already exists.
                 </small>
             </div>
@@ -61,9 +61,7 @@
     </form>
     <div class="p-field">
         <p>Don't have an account? Sign up.</p>
-        <p-button type="button" label="Sign up" (click)="showModal()"></p-button>
+        <p-button type="button" label="Sign up" (click)="openModal() "></p-button>
     </div>
 </div>
-
-
-<app-sign-up [modal]="displayModal"></app-sign-up>
+<app-sign-up [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-sign-up>

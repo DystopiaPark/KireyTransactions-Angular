@@ -19,6 +19,13 @@
       "password": "11111",
       "amount": 502,
       "id": 353931
+    },
+    {
+      "name": "Petar Stojcic",
+      "email": "bla@bla.com",
+      "password": "1235813",
+      "amount": 500,
+      "id": 922014
     }
   ]
 }

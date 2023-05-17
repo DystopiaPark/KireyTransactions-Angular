@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 export class SignInComponent implements OnInit {
   signupForm!: FormGroup;
   msg = 'No Errors';
-  isEmailExists = false;
+  emailExists = false;
   
   constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder) {}
 
@@ -45,12 +45,17 @@ export class SignInComponent implements OnInit {
   }
 
   // MODAL
-  displayModal: boolean = false;
 
-  showModal() {
-    this.displayModal = !this.displayModal;
-    console.log(this.displayModal);
+  modalOpen = false;
+
+  @Output() modalClosed = new EventEmitter<void>();
+
+  openModal(): void {
+    this.modalOpen = true;
   }
 
+  closeModal(): void {
+    this.modalOpen = false;
+  }
 
 }
