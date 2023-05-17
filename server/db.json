@@ -1,11 +1,38 @@
 {
-   "users": [
-        {
-            "name": "Filip Stojanovic",
-            "email": "kva@kva.com",
-            "password": "1235813",
-            "amount": 500 
-        }
-    ]
+  "users": [
+    {
+      "name": "Filip Stojanovic",
+      "email": "kva@kva.com",
+      "password": "1235813",
+      "amount": 500
+    },
+    {
+      "name": "Nemanja Zivkovic",
+      "email": "mwa@mwa.com",
+      "password": "1111",
+      "amount": 2122,
+      "id": 360887
+    },
+    {
+      "name": "Nemanja Zivkovic",
+      "email": "mwa@mwa.com",
+      "password": "1111",
+      "amount": 2122,
+      "id": 733563
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "",
+      "amount": 0,
+      "id": 376602
+    },
+    {
+      "name": "a",
+      "email": "33@a",
+      "password": "1235813",
+      "amount": 22,
+      "id": 593267
+    }
+  ]
 }
-
