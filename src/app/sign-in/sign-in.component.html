@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="login-form">
     <h2>Login</h2>
     <form (ngSubmit)="login()" #loginForm="ngForm">
@@ -16,6 +16,54 @@
     <p>Don't have an account? Sign up.</p>
     <p-button type="button" label="Sign up" (click)="showModal()"></p-button>
     </div>
+</div> -->
+
+
+
+
+<div class="login-form">
+    <h2>Login</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="login()">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="email">Email</label>
+                <input
+                id="email"
+                type="email"
+                formControlName="email"
+                pInputText
+                [ngClass]="{ 'p-invalid': signupForm.get('email')?.invalid && signupForm.get('email')?.dirty }"
+                
+                />
+                <small class="p-error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.dirty">
+                Please enter a valid email address.
+                </small>
+                <small class="p-error" *ngIf="isEmailExists && signupForm.get('email')?.valid">
+                Email already exists.
+                </small>
+            </div>
+
+            <div class="p-field">
+                <label for="password">Password</label>
+                <input
+                id="password"
+                type="password"
+                formControlName="password"
+                pInputText
+                [ngClass]="{ 'p-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.dirty }"
+                />
+                <small class="p-error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.dirty">
+                Password must contain at least 5 characters, one uppercase letter, one special character, and one number.
+                </small>
+            </div>
+            <p-button type="submit" label="Sign in" [disabled]="signupForm.invalid"></p-button>
+        </div>
+    </form>
+    <div class="p-field">
+        <p>Don't have an account? Sign up.</p>
+        <p-button type="button" label="Sign up" (click)="showModal()"></p-button>
+    </div>
 </div>
+
 
 <app-sign-up [modal]="displayModal"></app-sign-up>

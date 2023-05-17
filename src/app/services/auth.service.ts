@@ -8,7 +8,7 @@ export class AuthService {
   constructor(private router: Router) {}
 
   login(mail: string, pword: string) {
-    if (mail === 'kva@kva.com' && pword === '1235813') {
+    if (mail === 'meu@meu.com' && pword === '!A123') {
       return 200;
     } else {
       return 403;
