@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,17 +9,23 @@ import { Router } from '@angular/router';
 export class HomepageComponent {
   constructor(private router: Router) {}
 
-  displayModal: boolean = false;
-
 signOut(){
   this.router.navigate(['/login']);
 }
 
 
 
-showModal() {
-  this.displayModal = !this.displayModal;
-  console.log(this.displayModal);
-  
-}
+  // MODAL
+
+  modalOpen = false;
+
+  @Output() modalClosed = new EventEmitter<void>();
+
+  openModal(): void {
+    this.modalOpen = true;
+  }
+
+  closeModal(): void {
+    this.modalOpen = false;
+  }
 }

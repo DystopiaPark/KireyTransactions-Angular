@@ -26,6 +26,13 @@
       "password": "1235813",
       "amount": 500,
       "id": 922014
+    },
+    {
+      "name": "Nikola Savic",
+      "email": "qqq@qqq.com",
+      "password": "!A123",
+      "accountAmount": 500,
+      "id": 849695
     }
   ]
 }

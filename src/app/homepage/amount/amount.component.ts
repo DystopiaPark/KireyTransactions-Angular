@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-amount',
@@ -10,8 +10,14 @@ export class AmountComponent {
 
   amount!: number;
   modalHeader = "Set new amount"
-  closeModal(){
-    this.modal = !this.modal;
-  }
-  registerUser () {}
+
+  saveAmount () {}
+
+    // MODAL
+
+    @Input() modalOpen = false;
+    @Output() modalClosed = new EventEmitter<void>();
+    closeModal(): void {
+      this.modalClosed.emit();
+    }
 }

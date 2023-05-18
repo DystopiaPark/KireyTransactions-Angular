@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { User } from '../common/models/user';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,7 +13,6 @@ export class SignInComponent implements OnInit {
   signupForm!: FormGroup;
   msg = 'No Errors';
   emailExists = false;
-  
   constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -23,9 +23,12 @@ export class SignInComponent implements OnInit {
   }  
   
   // LOGIN
-  login() {    
-    const email = this.signupForm.get('email')?.value;
-    const password = this.signupForm.get('password')?.value;
+  login() {  
+    // const email  = this.signupForm.get('email')?.value;
+    // const password = this.signupForm.get('password')?.value;
+    const loginUser: User = this.signupForm.value;
+    const email  = loginUser.email;
+    const password = loginUser.password;
 
     if (email.trim().length === 0) {
       this.msg = 'Mail is required';

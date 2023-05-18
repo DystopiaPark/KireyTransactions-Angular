@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/common/models/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,19 +9,25 @@ import { User } from 'src/app/common/models/user';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-constructor(private usersService: UsersService) {}
+  emailExists = false;
+constructor(private usersService: UsersService, private formBuilder: FormBuilder) {}
+signupForm!: FormGroup;
 
   modalHeader = "Sign Up"
 
-  user: User = {
-    name: "",
-    email: "",
-    password: "",
-    amount: 0,
-    id: 0,
-  }
+  ngOnInit(): void {
+    this.signupForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{5,}$/)]],
+      accountAmount: ['', Validators.required]
+
+    });
+  }  
+
   registerUser () {
-    this.usersService.create(this.user);
+    const newUser: User = this.signupForm.value;
+    this.usersService.create(newUser);
     this.closeModal();
   }
 
@@ -31,6 +38,4 @@ constructor(private usersService: UsersService) {}
   closeModal(): void {
     this.modalClosed.emit();
   }
-
- 
 }
