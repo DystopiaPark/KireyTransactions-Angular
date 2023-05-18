@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-transactions',
@@ -6,10 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent {
-  displayModal: boolean = false;
 
 
-  showModal() {
-    this.displayModal = !this.displayModal;    
+  // MODAL
+
+  modalOpen = false;
+
+  @Output() modalClosed = new EventEmitter<void>();
+
+  openModal(): void {
+    this.modalOpen = true;
+  }
+
+  closeModal(): void {
+    this.modalOpen = false;
   }
 }

@@ -11,5 +11,5 @@
     </div>
 </header>
   <p>Welcome, {{"name"}} your current balance is {{"amount"}}</p>
-  <p-button type="button" label="Change amount" (click)="openModal() "></p-button>
+  <p-button type="button" label="Change amount" (click)="openModal()"></p-button>
   <app-amount [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-amount>

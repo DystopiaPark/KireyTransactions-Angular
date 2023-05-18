@@ -1,2 +1,2 @@
-<p-button type="button" label="Add Transaction" (click)="showModal()"></p-button>
-<app-transaction-modal [modal]="displayModal"></app-transaction-modal>
+<p-button type="button" label="Add Transaction" (click)="openModal()"></p-button>
+<app-transaction-modal [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-transaction-modal>
