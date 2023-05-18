@@ -11,7 +11,6 @@ import { User } from '../common/models/user';
 })
 export class SignInComponent implements OnInit {
   signupForm!: FormGroup;
-  msg = 'No Errors';
   emailExists = false;
   constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder) {}
 
@@ -23,30 +22,25 @@ export class SignInComponent implements OnInit {
   }  
   
   // LOGIN
-  login() {  
+  async login() {  
     // const email  = this.signupForm.get('email')?.value;
     // const password = this.signupForm.get('password')?.value;
     const loginUser: User = this.signupForm.value;
     const email  = loginUser.email;
     const password = loginUser.password;
-
-    if (email.trim().length === 0) {
-      this.msg = 'Mail is required';
-    } else if (password.trim().length === 0) {
-      this.msg = 'Password is required';
-    } else {
-      let res = this.auth.login(email, password);
-      if (res === 200) {
-        this.msg = "Successful Login!"
-        this.router.navigate(['home']);
-      }
-      if (res === 403) {
-        this.msg = 'Invalid Credentials';
-      }
+    try {
+    let res = await this.auth.userLogin(email, password);
+    if (res === 200) {
+      const userObject = this.auth.getUserObject(email);
+      console.log(userObject);      
+      this.router.navigate(['home']);
+    } else if (res === 403) {
+    }} catch (error) {
+      console.log('Login failed:', error);
     }
-    alert(this.msg)
   }
 
+  
   // MODAL
 
   modalOpen = false;

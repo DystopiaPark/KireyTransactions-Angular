@@ -12,47 +12,35 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  all(){
-    return this.http.get(this.getUrl());
-  }
-
   find(email: string) {
-    return this.http.get(this.getUrlWithMail(email));
+    return this.http.get('http://localhost:3000/users?email=' + email)
   }
   randomID(){
     return Math.floor(Math.random() * 1000000)
   }
+
   create (user: User) {
   user.id = this.randomID();
-
-    // Check if the email already exists in the database
-  this.http.get('http://localhost:3000/users?email=?' + user.email)
+  this.http.get('http://localhost:3000/users?email=' + user.email)
   .subscribe(
-    (response: Object) => {
-      console.log(Object.keys(response).length, user.email);
-    
+    (response: Object) => { 
       if (Object.keys(response).length > 0) {
-        // Email already exists
         console.error('Email already exists in the database.');
-        // Handle error or display error message
+        alert(`${user.email} already exists in the database!`)
       } else {
-        // Email does not exist, proceed with user creation
         this.http.post('http://localhost:3000/users', user)
           .subscribe(
             response => {
               console.log('User created successfully:', response);
-              // Handle success response here
             },
             error => {
               console.error('Error creating user:', error);
-              // Handle error response here
             }
           );
       }
     },
     error => {
       console.error('Error checking email in the database:', error);
-      // Handle error response here
     }
   );
   }
