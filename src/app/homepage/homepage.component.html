@@ -7,9 +7,9 @@
         <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
     </div>
     <div class="sign-out">
-      <button pButton type="button" (click)="signOut()" label="Sign Out"></button>
+      <button pButton type="button" (click)="logout()" label="Sign Out"></button>
     </div>
 </header>
-  <p>Welcome, {{"name"}} your current balance is {{"amount"}}</p>
-  <p-button type="button" label="Change amount" (click)="openModal()"></p-button>
+  <p>Welcome, {{data.name}} your current balance is {{data.accountAmount}}</p>
+  <p-button type="button" label="Change amount" (click)="openModal()" (click)="kvak()"></p-button>
   <app-amount [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-amount>

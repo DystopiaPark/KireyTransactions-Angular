@@ -10,12 +10,19 @@ import { Router } from '@angular/router';
 export class HomepageComponent {
   constructor(private router: Router) {}
 
-signOut(){
-  this.router.navigate(['/login']);
-  // this.sessionStorageService.remove('key');
-}
+  logout() {
+    localStorage.removeItem('userData');
+    this.router.navigate(['login']);
+  }
 
+  kvak() {
+    let rawData: any = localStorage.getItem("userData");
+    let convertedData: any = JSON.parse(rawData);
+    let objectData: any = convertedData[0]
+    return objectData;
+  }
 
+  data:any = this.kvak();
 
 // MODAL
   modalOpen = false;

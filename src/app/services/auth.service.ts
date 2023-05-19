@@ -1,46 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from './users.service';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private router: Router, private users: UsersService) {}
+  constructor(private router: Router, private users: UsersService, private http: HttpClient) {}
 
-  userLogin(incomingMail:string, incomingPassword:string) {
-    return new Promise((resolve, reject) => {
-      const object = this.users.find(incomingMail);
-      if (object) {
-        object.subscribe((data: any) => {
-          const realPassword = data[0]?.password;
-          if (incomingPassword === realPassword) {
-            resolve(200);
-          } else {
-            console.log("Mail doesn't exist or password is incorrect");
-            reject(403);
-          }
-        });
-      } else {
-        console.log("Object not found");
-        reject(403);
-      }
-    });
-  }
-
-  getUserObject(incomingMail:string) {
-    const object = this.users.find(incomingMail);
-    object.subscribe((data: any) => {
-      const userObject = data[0];
-      console.log(userObject);
-      return userObject;
+userLogin(data:any) {
+  this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'}).subscribe((value:any) => { 
+    if (value && value.body.length === 1) {
+      console.log(value);
       
-  })}
-
-  logout() {
-    this.router.navigate(['login']);
+      localStorage.setItem("userData", JSON.stringify(value.body))
+      this.router.navigate(["home"])
+    }else {
+      alert("Email doesn't exist or your password is wrong")
+    }
+  }, err => {
+    alert("something went wrong try again")
   }
+  )
+}
 }
 
 
@@ -58,3 +41,32 @@ export class AuthService {
 // removeUser(): void {
 //   localStorage.removeItem('user');
 // }
+
+// userLogin(incomingMail:string, incomingPassword:string) {
+//   return new Promise((resolve, reject) => {
+//     const object = this.users.find(incomingMail);
+//     if (object) {
+//       object.subscribe((data: any) => {
+//         const realPassword = data[0]?.password;
+//         if (incomingPassword === realPassword) {
+//           resolve(200);
+//         } else {
+//           console.log("Mail doesn't exist or password is incorrect");
+//           reject(403);
+//         }
+//       });
+//     } else {
+//       console.log("Object not found");
+//       reject(403);
+//     }
+//   });
+// }
+
+  // getUserObject(incomingMail:string) {
+  //   const object = this.users.find(incomingMail);
+  //   object.subscribe((data: any) => {
+  //     const userObject = data[0];
+  //     console.log(userObject);
+  //     return userObject;
+      
+  // })}
