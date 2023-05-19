@@ -3,65 +3,23 @@
     {
       "name": "Filip Stojanovic",
       "email": "kva@kva.com",
-      "password": "1235813",
-      "amount": 500,
+      "password": "!A123",
+      "accountAmount": 700,
       "id": 331881
-    },
-    {
-      "name": "Nemanja Zivkovic",
-      "email": "mwa@mwa.com",
-      "password": "1111",
-      "amount": 2122,
-      "id": 360887
-    },
-    {
-      "name": "Nikola Savic",
-      "email": "a@a.com",
-      "password": "11111",
-      "amount": 502,
-      "id": 353931
-    },
-    {
-      "name": "Petar Stojcic",
-      "email": "bla@bla.com",
-      "password": "1235813",
-      "amount": 500,
-      "id": 922014
     },
     {
       "name": "Nikola Savic",
       "email": "qqq@qqq.com",
       "password": "!A123",
-      "accountAmount": 500,
+      "accountAmount": 550,
       "id": 849695
     },
     {
-      "name": "Milan Pavlovic",
+      "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 500,
-      "id": 742841
-    },
-    {
-      "name": "eko",
-      "email": "eko@eko.com",
-      "password": "123AQ!",
-      "accountAmount": 222,
-      "id": 216050
-    },
-    {
-      "name": "Milivoje Miletic",
-      "email": "mili@mili.com",
-      "password": "!A123",
-      "accountAmount": 500,
-      "id": 843010
-    },
-    {
-      "name": "Marko Ristic",
-      "email": "mar@mar.com",
-      "password": "!A123",
-      "accountAmount": 433,
-      "id": 130292
+      "accountAmount": 12000,
+      "id": 536738
     }
   ]
 }

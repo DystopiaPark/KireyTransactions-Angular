@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output  } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -7,24 +7,29 @@ import { Router } from '@angular/router';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent {
+export class HomepageComponent  {
+  data:any = this.getUserData();
+  amount:number = this.data.accountAmount;
+
   constructor(private router: Router) {}
 
+// getUserData from local storage logic
+  getUserData() {
+    let rawData: any = localStorage.getItem("userData");
+    let convertedData: any = JSON.parse(rawData);
+    let objectData: any = convertedData[0];
+    return objectData;
+  }
+// onAmountChanged get value from child component logic
+  onAmountChanged(amount: number) {
+    this.amount = amount;
+  }
+// logout logic
   logout() {
     localStorage.removeItem('userData');
     this.router.navigate(['login']);
   }
-
-  kvak() {
-    let rawData: any = localStorage.getItem("userData");
-    let convertedData: any = JSON.parse(rawData);
-    let objectData: any = convertedData[0]
-    return objectData;
-  }
-
-  data:any = this.kvak();
-
-// MODAL
+// modal logic
   modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
@@ -32,5 +37,6 @@ export class HomepageComponent {
   }
   closeModal(): void {
     this.modalOpen = false;
+
   }
 }

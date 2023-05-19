@@ -12,8 +12,6 @@ export class AuthService {
 userLogin(data:any) {
   this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'}).subscribe((value:any) => { 
     if (value && value.body.length === 1) {
-      console.log(value);
-      
       localStorage.setItem("userData", JSON.stringify(value.body))
       this.router.navigate(["home"])
     }else {

@@ -12,9 +12,6 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  find(email: string) {
-    return this.http.get('http://localhost:3000/users?email=' + email)
-  }
   randomID(){
     return Math.floor(Math.random() * 1000000)
   }
@@ -45,20 +42,23 @@ export class UsersService {
   );
   }
 
-  update (user: any) {
-    return this.http.put(this.getUrlWithMail(user.email), user)
-  }
-
-  delete(email: string) {
-    return this.http.delete(this.getUrlWithMail(email));
-  }
-
-
-  private getUrl() {
-    return `${BASE_URL}/${this.model}}`;
-  }
-
-  private getUrlWithMail(email: string){
-    return `${this.getUrl()}/${email}`;
-  }
 }
+
+// find(email: string) {
+//   return this.http.get('http://localhost:3000/users?email=' + email)
+// }
+
+// update (user: any) {
+//   return this.http.put(this.getUrlWithMail(user.email), user)
+// }
+
+// delete(email: string) {
+//   return this.http.delete(this.getUrlWithMail(email));
+// }
+
+//   private getUrlWithMail(email: string){
+//   return `${this.getUrl()}/${email}`;
+// }
+// private getUrl() {
+//   return `${BASE_URL}/${this.model}}`;
+// }
