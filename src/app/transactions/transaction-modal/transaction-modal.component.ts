@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Transactions } from 'src/app/common/models/transactions';
 
 @Component({
   selector: 'app-transaction-modal',
@@ -6,12 +8,33 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./transaction-modal.component.scss']
 })
 export class TransactionModalComponent {
-  purchase!: string;
-  category!: string;
-  timeAndDate!: Date;
-  spent!: number;
+  purchaseForm!: FormGroup;
+  data:any = this.getUserData();
+  amount:number = this.data.accountAmount;
   modalHeader = "Sign Up"
-  addTransaction() {}
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  getUserData() {
+    let rawData: any = localStorage.getItem("userData");
+    let convertedData: any = JSON.parse(rawData);
+    let objectData: any = convertedData[0];
+    return objectData;
+  }
+
+  ngOnInit(): void {
+    this.purchaseForm = this.formBuilder.group({
+      purchase: ['', Validators.required],
+      category: ['', [Validators.required]],
+      timeAndDate: ['', [Validators.required]],
+      amountSpent: ['', [Validators.required, Validators.max(this.amount)]]
+    });
+  }  
+
+
+  addTransaction() {
+    
+  }
 
   // MODAL
 

@@ -1,6 +1,6 @@
 export interface Transactions {
-    dateOfPurchase: Date;
     purchase: string;
     category: string;
+    timeAndDate: Date;
     amountSpent: number;
 }

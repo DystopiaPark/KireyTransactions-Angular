@@ -1,4 +1,4 @@
-
+<!-- 
 <p-dialog [(visible)]="modalOpen" [modal]="true" [closable]="false" [header]="modalHeader" [resizable]="false">
     <ng-template pTemplate="content">
       <form (ngSubmit)="addTransaction()" #loginForm="ngForm">
@@ -12,11 +12,11 @@
         </div>
         <div class="p-field">
             <label for="timeAndDate">Time and Date: </label>
-            <input type="date" id="timeAndDate" name="timeAndDate" pPassword [(ngModel)]="timeAndDate" required />
+            <input type="datetime-local" id="timeAndDate" name="timeAndDate" pPassword [(ngModel)]="timeAndDate" required />
         </div>
         <div class="p-field">
             <label for="spent">Amount Spent: </label>
-            <input type="number" id="spent" name="spent" pPassword [(ngModel)]="spent" required />
+            <input type="number" id="spent" name="spent" pPassword [(ngModel)]="amountSpent" required />
         </div>
         <div class="btns">
           <p-button type="submit" label="Save transaction"></p-button>
@@ -24,5 +24,57 @@
         </div>
       </form>
     </ng-template>    
-  </p-dialog>
+</p-dialog> -->
+  
+<p-dialog [(visible)]="modalOpen" [modal]="true" [header]="modalHeader" [resizable]="false" [closable]="false" [closeOnEscape]="false">
+    <ng-template pTemplate="content">
+      <form [formGroup]="purchaseForm" (ngSubmit)="addTransaction()">
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="purchase">Purchase: </label>
+            <input id="purchase" type="text" formControlName="purchase" pInputText />
+            <small class="p-error" *ngIf="purchaseForm.get('purchase')?.invalid && purchaseForm.get('purchase')?.dirty">
+              Purchase is required.
+            </small>
+          </div>
+  
+           <div class="p-field">
+            <label for="category">Category: </label>
+            <input id="category" type="text" formControlName="category" pInputText />
+            <small class="p-error" *ngIf="purchaseForm.get('category')?.invalid && purchaseForm.get('category')?.dirty">
+              Category is required.
+            </small>
+          </div>
+          
+           <div class="p-field">
+            <label for="timeAndDate">Category: </label>
+            <input id="timeAndDate" type="datetime-local" formControlName="timeAndDate" pInputText />
+            <small class="p-error" *ngIf="purchaseForm.get('timeAndDate')?.invalid && purchaseForm.get('timeAndDate')?.dirty">
+              Date is required.
+            </small>
+          </div>
+          
+  
+          <div class="p-field">
+            <label for="amountSpent">Account Amount</label>
+            <input
+              id="amountSpent"
+              type="number"
+              formControlName="amountSpent"
+              pInputText
+              [ngClass]="{ 'p-invalid': purchaseForm.get('amountSpent')?.invalid && purchaseForm.get('amountSpent')?.dirty }"
+            />
+            <small class="p-error" *ngIf="purchaseForm.get('amountSpent')?.invalid && purchaseForm.get('amountSpent')?.dirty">
+              Amount spent can't be more than existing amount.
+            </small>
+          </div>
+  
+          <div class="btns">
+            <p-button type="submit" label="Save transaction" [disabled]="purchaseForm.invalid"></p-button>
+            <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+</p-dialog>
   
