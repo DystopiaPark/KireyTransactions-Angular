@@ -38,7 +38,6 @@ export class AmountComponent implements OnInit {
           console.log('Amount updated successfully:', response);
             // parent component
             this.amountChanged.emit(this.amount);
-
           // local storage
             localStorage.setItem("userData", JSON.stringify(responseBody))
         },

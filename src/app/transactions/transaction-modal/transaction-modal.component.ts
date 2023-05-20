@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Transactions } from 'src/app/common/models/transactions';
+import { HttpClient } from '@angular/common/http';
+import { User } from 'src/app/common/models/user';
 
 @Component({
   selector: 'app-transaction-modal',
@@ -13,7 +15,7 @@ export class TransactionModalComponent {
   amount:number = this.data.accountAmount;
   modalHeader = "Sign Up"
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");
@@ -33,6 +35,50 @@ export class TransactionModalComponent {
 
 
   addTransaction() {
+    console.log(this.purchaseForm.value);
+    const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
+  const urlPut = `http://localhost:3000/users/${this.data.id}`;
+  this.http.get(url, {observe:'response'}).subscribe(
+    (response: any) => {
+      const responseBody = response.body;
+      const object: User = response.body[0];
+      if (object.transactions) {
+      object.transactions.push(this.purchaseForm.value)
+      this.http.put(urlPut, object).subscribe(
+          response => {
+            console.log('Amount updated successfully:', response);
+              // parent component
+              // this.amountChanged.emit(this.amount);
+            // local storage
+              localStorage.setItem("userData", JSON.stringify(responseBody))
+          },
+          error => {
+            console.error('Failed to update amount:', error);
+          }
+        );   
+    } else {
+      object.transactions = [];
+      object.transactions.push(this.purchaseForm.value)
+      this.http.put(urlPut, object).subscribe(
+          response => {
+            console.log('Amount updated successfully:', response);
+              // parent component
+              // this.amountChanged.emit(this.amount);
+            // local storage
+              localStorage.setItem("userData", JSON.stringify(responseBody))
+          },
+          error => {
+            console.error('Failed to update amount:', error);
+          }
+        );   
+    } 
+    },
+  
+    error => {
+      console.error('Failed to retrieve object:', error);
+    }
+  );
+  this.closeModal();
     
   }
 
@@ -44,3 +90,16 @@ export class TransactionModalComponent {
     this.modalClosed.emit();
   }
 }
+
+// this.http.put(urlPut, updatedObject).subscribe(
+//   response => {
+//     console.log('Amount updated successfully:', response);
+//       // parent component
+//       // this.amountChanged.emit(this.amount);
+//     // local storage
+//       localStorage.setItem("userData", JSON.stringify(responseBody))
+//   },
+//   error => {
+//     console.error('Failed to update amount:', error);
+//   }
+// );

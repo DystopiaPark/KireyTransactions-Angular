@@ -1,2 +1,22 @@
 <p-button type="button" label="Add Transaction" (click)="openModal()"></p-button>
+<h1>Purchase Table</h1>
+
+<p-table>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Purchase</th>
+      <th>Category</th>
+      <th>Time and Date</th>
+      <th>Amount Spent</th>
+    </tr>
+  </ng-template>
+  <!-- <ng-template pTemplate="body" let-purchase>
+    <tr *ngIf="purchaseExists(purchase)">
+      <td>{{ purchase.purchase }}</td>
+      <td>{{ purchase.category }}</td>
+      <td>{{ purchase.timeAndDate }}</td>
+      <td>{{ purchase.amountSpent }}</td>
+    </tr>
+  </ng-template> -->
+</p-table>
 <app-transaction-modal [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-transaction-modal>

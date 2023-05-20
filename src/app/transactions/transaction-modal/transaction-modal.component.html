@@ -47,7 +47,7 @@
           </div>
           
            <div class="p-field">
-            <label for="timeAndDate">Category: </label>
+            <label for="timeAndDate">Time and date: </label>
             <input id="timeAndDate" type="datetime-local" formControlName="timeAndDate" pInputText />
             <small class="p-error" *ngIf="purchaseForm.get('timeAndDate')?.invalid && purchaseForm.get('timeAndDate')?.dirty">
               Date is required.
@@ -56,7 +56,7 @@
           
   
           <div class="p-field">
-            <label for="amountSpent">Account Amount</label>
+            <label for="amountSpent">Amount spent</label>
             <input
               id="amountSpent"
               type="number"
