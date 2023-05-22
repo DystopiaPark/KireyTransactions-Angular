@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../common/models/user';
+import { Transactions } from '../common/models/transactions';
 
 @Component({
   selector: 'app-transactions',
@@ -8,10 +9,13 @@ import { User } from '../common/models/user';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent {
+
   data:any = this.getUserData();
-  transactionArray = this.data.transactions;
   selectedTransaction: any;
+  transactionArray: Transactions[] = this.data.transactions? this.data.transactions : [];
+
   constructor (private http: HttpClient){}
+
 
 
   getUserData() {
@@ -21,10 +25,8 @@ export class TransactionsComponent {
     return objectData;
   }
 
-  sendTransactionData(transaction: any) {
+  sendSelectedTransactionToChild(transaction: any) {
     this.selectedTransaction = transaction;
-
-    
   }
 
   deleteTransaction(transaction: any) {

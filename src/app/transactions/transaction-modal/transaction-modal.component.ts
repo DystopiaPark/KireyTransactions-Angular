@@ -48,9 +48,9 @@ export class TransactionModalComponent {
     (response: any) => {
       const responseBody = response.body;
       const userObject: User = response.body[0];
-      if (userObject.transactions) {
       this.transactionObject = this.purchaseForm.value;  
       this.transactionObject.id = this.randomID();
+      if (userObject.transactions) {
       userObject.transactions.push(this.transactionObject)
       this.transactionArray.push(this.transactionObject)
       this.http.put(urlPut, userObject).subscribe(
@@ -67,10 +67,8 @@ export class TransactionModalComponent {
         );   
     } else {
       userObject.transactions = [];
-      this.transactionObject = this.purchaseForm.value;  
-      this.transactionObject.id = this.randomID();
-      userObject.transactions.push(this.transactionObject)
-      this.transactionArray.push(this.transactionObject)
+      userObject.transactions.push(this.transactionObject);
+      this.transactionArray.push(this.transactionObject);
       this.http.put(urlPut, userObject).subscribe(
           response => {
             console.log('Amount updated successfully:', response);

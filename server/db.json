@@ -4,7 +4,7 @@
       "name": "Nikola Savic",
       "email": "qqq@qqq.com",
       "password": "!A123",
-      "accountAmount": 330,
+      "accountAmount": 345,
       "id": 849695,
       "transactions": [
         {
@@ -15,7 +15,7 @@
           "id": 426923
         },
         {
-          "purchase": "Air Jordans 133",
+          "purchase": "Air Jordans 134",
           "category": "Sneakers",
           "timeAndDate": "2023-05-22T11:04",
           "amountSpent": 31,
@@ -35,42 +35,101 @@
       "email": "fil@fil.com",
       "password": "!A123",
       "accountAmount": 600,
-      "id": 196997,
+      "id": 487827,
+      "transactions": []
+    },
+    {
+      "name": "Milivoje Miletic",
+      "email": "mil@mil.com",
+      "password": "!A123",
+      "accountAmount": 2,
+      "id": 662698,
+      "transactions": [
+        {
+          "purchase": "3",
+          "category": "4",
+          "timeAndDate": "2023-05-22T14:09",
+          "amountSpent": 1,
+          "id": 51184
+        }
+      ]
+    },
+    {
+      "name": "Milan Pavlovic",
+      "email": "kva@kva.com",
+      "password": "!A123",
+      "accountAmount": 22,
+      "id": 455063,
+      "transactions": [
+        {
+          "purchase": "22",
+          "category": "22",
+          "timeAndDate": "2023-05-22T14:15",
+          "amountSpent": 1,
+          "id": 762528
+        }
+      ]
+    },
+    {
+      "name": "meu@meu.com",
+      "email": "meu@meu.com",
+      "password": "!A123",
+      "accountAmount": 22,
+      "id": 352593,
+      "transactions": []
+    },
+    {
+      "name": "bre@bre.com",
+      "email": "bre@bre.com",
+      "password": "!A123",
+      "accountAmount": 22,
+      "id": 987809,
+      "transactions": [
+        {
+          "purchase": "Air Jordans 4",
+          "category": "22",
+          "timeAndDate": "2023-05-22T14:41",
+          "amountSpent": 22,
+          "id": 592319
+        }
+      ]
+    },
+    {
+      "name": "Nemanja Stojkovic",
+      "email": "nem@nem.com",
+      "password": "!A123",
+      "accountAmount": 22,
+      "id": 704840,
       "transactions": [
         {
           "purchase": "Air Jordans 2",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T01:22",
-          "amountSpent": 2,
-          "id": 293546
+          "category": "2",
+          "timeAndDate": "2023-05-22T14:44",
+          "amountSpent": 22,
+          "id": 833490
         },
         {
           "purchase": "Air Jordans 3",
           "category": "Sneakers",
-          "timeAndDate": "2023-05-22T01:22",
-          "amountSpent": 2,
-          "id": 97846
-        },
+          "timeAndDate": "2023-05-22T14:44",
+          "amountSpent": 1,
+          "id": 407864
+        }
+      ]
+    },
+    {
+      "name": "Petar",
+      "email": "pet@pet.com",
+      "password": "!A123",
+      "accountAmount": 55,
+      "id": 21369,
+      "transactions": [
         {
-          "purchase": "Air Jordans 10",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T13:26",
+          "purchase": "22",
+          "category": "31",
+          "timeAndDate": "2023-05-22T14:56",
           "amountSpent": 22,
-          "id": 760526
-        },
-        {
-          "purchase": "Air Jordans 4",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T13:29",
-          "amountSpent": 22,
-          "id": 411824
-        },
-        {
-          "purchase": "Air Jordans 23",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T13:30",
-          "amountSpent": 13,
-          "id": 698768
+          "id": 503265
         }
       ]
     }

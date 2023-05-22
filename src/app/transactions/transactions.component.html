@@ -19,7 +19,7 @@
       <td>{{ transaction.timeAndDate | date: "medium" }}</td>
       <td>{{ transaction.amountSpent }}</td>
       <td>
-        <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="sendTransactionData(transaction)" (click)="openEditModal()"></button>
+        <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="sendSelectedTransactionToChild(transaction)" (click)="openEditModal()"></button>
       </td>
       <td>
         <button pButton icon="pi pi-trash" class="p-button-danger" (click)="deleteTransaction(transaction)"></button>

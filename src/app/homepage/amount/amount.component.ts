@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-amount',
@@ -11,12 +12,17 @@ export class AmountComponent implements OnInit {
   @Input() data: any;
   amount!: number;
   modalHeader = "Set new amount"
+  signupForm!: FormGroup;
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
-      this.amount = this.data.accountAmount;
-  }
+    this.amount = this.data.accountAmount;
+    this.signupForm = this.formBuilder.group({
+    amount: ['', Validators.required]
+  }); 
+  }  
+  
 
   @Output() amountChanged = new EventEmitter<number>();
 

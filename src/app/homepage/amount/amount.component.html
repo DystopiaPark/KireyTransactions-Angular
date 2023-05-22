@@ -1,15 +1,24 @@
 <p-dialog [(visible)]="modalOpen" [modal]="true" [closable]="false" [header]="modalHeader" [resizable]="false">
-    <ng-template pTemplate="content">
-      <form (ngSubmit)="saveAmount()" #loginForm="ngForm">
-        <div class="p-field">
-            <label for="amount">Amount: </label>
-            <input type="number" id="amount" name="amount" pInputText [(ngModel)]="amount" required />
-        </div>
-        <div class="btns">
-          <p-button type="submit" label="Save amount"></p-button>
-          <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
-        </div>
-      </form>
-    </ng-template>    
-  </p-dialog>
-  
+   <ng-template pTemplate="content">
+    <form [formGroup]="signupForm" (ngSubmit)="saveAmount()">
+      <div class="p-field">
+        <label for="amount">Account Amount</label>
+        <input
+          id="amount"
+          type="number"
+          formControlName="amount"
+          pInputText
+          [(ngModel)]="amount"
+          [ngClass]="{ 'p-invalid': signupForm.get('amount')?.invalid && signupForm.get('amount')?.dirty }"
+        />
+        <small class="p-error" *ngIf="signupForm.get('amount')?.invalid && signupForm.get('amount')?.dirty">
+          Account amount must be a number.
+        </small>
+      </div>
+      <div class="btns">
+        <p-button type="submit" label="Save amount" [disabled]="signupForm.invalid"></p-button>
+        <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>
