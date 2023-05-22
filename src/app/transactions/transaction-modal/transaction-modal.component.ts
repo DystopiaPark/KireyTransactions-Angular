@@ -57,7 +57,7 @@ export class TransactionModalComponent {
           response => {
             console.log('Amount updated successfully:', response);
               // parent component
-              // this.amountChanged.emit(this.amount);
+              this.purchaseForm.reset();
             // local storage
               localStorage.setItem("userData", JSON.stringify(responseBody))
           },
@@ -70,11 +70,11 @@ export class TransactionModalComponent {
       this.transactionObject = this.purchaseForm.value;  
       this.transactionObject.id = this.randomID();
       userObject.transactions.push(this.transactionObject)
+      this.transactionArray.push(this.transactionObject)
       this.http.put(urlPut, userObject).subscribe(
           response => {
             console.log('Amount updated successfully:', response);
-              // parent component
-              // this.amountChanged.emit(this.amount);
+            this.purchaseForm.reset();
             // local storage
               localStorage.setItem("userData", JSON.stringify(responseBody))
           },

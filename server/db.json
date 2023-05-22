@@ -40,9 +40,37 @@
         {
           "purchase": "Air Jordans 2",
           "category": "Sneakers",
-          "timeAndDate": "2023-05-22T16:18",
+          "timeAndDate": "2023-05-22T01:22",
           "amountSpent": 2,
-          "id": 109591
+          "id": 293546
+        },
+        {
+          "purchase": "Air Jordans 3",
+          "category": "Sneakers",
+          "timeAndDate": "2023-05-22T01:22",
+          "amountSpent": 2,
+          "id": 97846
+        },
+        {
+          "purchase": "Air Jordans 10",
+          "category": "Sneakers",
+          "timeAndDate": "2023-05-22T13:26",
+          "amountSpent": 22,
+          "id": 760526
+        },
+        {
+          "purchase": "Air Jordans 4",
+          "category": "Sneakers",
+          "timeAndDate": "2023-05-22T13:29",
+          "amountSpent": 22,
+          "id": 411824
+        },
+        {
+          "purchase": "Air Jordans 23",
+          "category": "Sneakers",
+          "timeAndDate": "2023-05-22T13:30",
+          "amountSpent": 13,
+          "id": 698768
         }
       ]
     }
