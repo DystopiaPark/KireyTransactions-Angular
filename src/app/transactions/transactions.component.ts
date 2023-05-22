@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../common/models/user';
 import { Transactions } from '../common/models/transactions';
@@ -15,8 +15,6 @@ export class TransactionsComponent {
   transactionArray: Transactions[] = this.data.transactions? this.data.transactions : [];
 
   constructor (private http: HttpClient){}
-
-
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");

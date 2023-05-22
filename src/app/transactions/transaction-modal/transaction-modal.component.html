@@ -1,31 +1,3 @@
-<!-- 
-<p-dialog [(visible)]="modalOpen" [modal]="true" [closable]="false" [header]="modalHeader" [resizable]="false">
-    <ng-template pTemplate="content">
-      <form (ngSubmit)="addTransaction()" #loginForm="ngForm">
-        <div class="p-field">
-            <label for="purchase">Purchase: </label>
-            <input type="text" id="purchase" name="purchase" pInputText [(ngModel)]="purchase" required />
-        </div>
-        <div class="p-field">
-            <label for="category">Category: </label>
-            <input type="text" id="category" name="category" pPassword [(ngModel)]="category" required />
-        </div>
-        <div class="p-field">
-            <label for="timeAndDate">Time and Date: </label>
-            <input type="datetime-local" id="timeAndDate" name="timeAndDate" pPassword [(ngModel)]="timeAndDate" required />
-        </div>
-        <div class="p-field">
-            <label for="spent">Amount Spent: </label>
-            <input type="number" id="spent" name="spent" pPassword [(ngModel)]="amountSpent" required />
-        </div>
-        <div class="btns">
-          <p-button type="submit" label="Save transaction"></p-button>
-          <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
-        </div>
-      </form>
-    </ng-template>    
-</p-dialog> -->
-  
 <p-dialog [(visible)]="modalOpen" [modal]="true" [header]="modalHeader" [resizable]="false" [closable]="false" [closeOnEscape]="false">
     <ng-template pTemplate="content">
       <form [formGroup]="purchaseForm" (ngSubmit)="addTransaction()">

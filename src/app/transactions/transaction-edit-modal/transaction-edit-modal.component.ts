@@ -56,8 +56,6 @@ export class TransactionEditModalComponent {
       this.http.put(urlPut, userObject).subscribe(
           response => {
             console.log('Amount updated successfully:', response);
-              // parent component
-              // this.amountChanged.emit(this.amount);
             // local storage
               localStorage.setItem("userData", JSON.stringify(responseBody))
           },

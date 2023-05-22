@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../common/models/user';
 
-const BASE_URL = "http://localhost:3000";
-
 @Injectable({
   providedIn: 'root'
 })
@@ -41,24 +39,4 @@ export class UsersService {
     }
   );
   }
-
 }
-
-// find(email: string) {
-//   return this.http.get('http://localhost:3000/users?email=' + email)
-// }
-
-// update (user: any) {
-//   return this.http.put(this.getUrlWithMail(user.email), user)
-// }
-
-// delete(email: string) {
-//   return this.http.delete(this.getUrlWithMail(email));
-// }
-
-//   private getUrlWithMail(email: string){
-//   return `${this.getUrl()}/${email}`;
-// }
-// private getUrl() {
-//   return `${BASE_URL}/${this.model}}`;
-// }

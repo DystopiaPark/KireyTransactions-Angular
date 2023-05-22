@@ -43,20 +43,3 @@ export class SignInComponent implements OnInit {
   }
 
 }
-  // async login() {  
-  //   // const email  = this.signupForm.get('email')?.value;
-  //   // const password = this.signupForm.get('password')?.value;
-  //   const loginUser: User = this.signupForm.value;
-  //   const email  = loginUser.email;
-  //   const password = loginUser.password;
-  //   try {
-  //   let res = await this.auth.userLogin(email, password);
-  //   if (res === 200) {
-  //     const userObject = this.auth.getUserObject(email);
-  //     console.log(userObject);      
-  //     this.router.navigate(['home']);
-  //   } else if (res === 403) {
-  //   }} catch (error) {
-  //     console.log('Login failed:', error);
-  //   }
-  // }
