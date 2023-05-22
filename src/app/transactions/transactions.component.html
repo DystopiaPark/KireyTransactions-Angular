@@ -16,7 +16,7 @@
     <tr>
       <td>{{ transaction.purchase }}</td>
       <td>{{ transaction.category }}</td>
-      <td>{{ transaction.timeAndDate }}</td>
+      <td>{{ transaction.timeAndDate | date: "medium" }}</td>
       <td>{{ transaction.amountSpent }}</td>
       <td>
         <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="editTransaction(transaction)"></button>
