@@ -1,22 +1,30 @@
 <p-button type="button" label="Add Transaction" (click)="openModal()"></p-button>
 <h1>Purchase Table</h1>
 
-<p-table>
+<p-table [value]="transactionArray">
   <ng-template pTemplate="header">
     <tr>
       <th>Purchase</th>
       <th>Category</th>
       <th>Time and Date</th>
       <th>Amount Spent</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
   </ng-template>
-  <!-- <ng-template pTemplate="body" let-purchase>
-    <tr *ngIf="purchaseExists(purchase)">
-      <td>{{ purchase.purchase }}</td>
-      <td>{{ purchase.category }}</td>
-      <td>{{ purchase.timeAndDate }}</td>
-      <td>{{ purchase.amountSpent }}</td>
+  <ng-template pTemplate="body" let-transaction>
+    <tr>
+      <td>{{ transaction.purchase }}</td>
+      <td>{{ transaction.category }}</td>
+      <td>{{ transaction.timeAndDate }}</td>
+      <td>{{ transaction.amountSpent }}</td>
+      <td>
+        <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="editTransaction(transaction)"></button>
+      </td>
+      <td>
+        <button pButton icon="pi pi-trash" class="p-button-danger" (click)="deleteTransaction(transaction)"></button>
+      </td>
     </tr>
-  </ng-template> -->
+  </ng-template>
 </p-table>
-<app-transaction-modal [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-transaction-modal>
+<app-transaction-modal [modalOpen]="modalOpen" (modalClosed)="closeModal()" [transactionArray]="transactionArray"></app-transaction-modal>

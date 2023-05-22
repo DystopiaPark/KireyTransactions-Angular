@@ -10,10 +10,13 @@ import { User } from 'src/app/common/models/user';
   styleUrls: ['./transaction-modal.component.scss']
 })
 export class TransactionModalComponent {
+  @Input() transactionArray: any;
+
   purchaseForm!: FormGroup;
   data:any = this.getUserData();
   amount:number = this.data.accountAmount;
   modalHeader = "Sign Up"
+  transactionObject!: Transactions;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
@@ -33,18 +36,24 @@ export class TransactionModalComponent {
     });
   }  
 
+  randomID(){
+    return Math.floor(Math.random() * 1000000)
+  }
 
   addTransaction() {
-    console.log(this.purchaseForm.value);
-    const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
+  console.log(this.purchaseForm.value);
+  const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
   const urlPut = `http://localhost:3000/users/${this.data.id}`;
   this.http.get(url, {observe:'response'}).subscribe(
     (response: any) => {
       const responseBody = response.body;
-      const object: User = response.body[0];
-      if (object.transactions) {
-      object.transactions.push(this.purchaseForm.value)
-      this.http.put(urlPut, object).subscribe(
+      const userObject: User = response.body[0];
+      if (userObject.transactions) {
+      this.transactionObject = this.purchaseForm.value;  
+      this.transactionObject.id = this.randomID();
+      userObject.transactions.push(this.transactionObject)
+      this.transactionArray.push(this.transactionObject)
+      this.http.put(urlPut, userObject).subscribe(
           response => {
             console.log('Amount updated successfully:', response);
               // parent component
@@ -57,9 +66,11 @@ export class TransactionModalComponent {
           }
         );   
     } else {
-      object.transactions = [];
-      object.transactions.push(this.purchaseForm.value)
-      this.http.put(urlPut, object).subscribe(
+      userObject.transactions = [];
+      this.transactionObject = this.purchaseForm.value;  
+      this.transactionObject.id = this.randomID();
+      userObject.transactions.push(this.transactionObject)
+      this.http.put(urlPut, userObject).subscribe(
           response => {
             console.log('Amount updated successfully:', response);
               // parent component
@@ -79,7 +90,6 @@ export class TransactionModalComponent {
     }
   );
   this.closeModal();
-    
   }
 
   // MODAL
