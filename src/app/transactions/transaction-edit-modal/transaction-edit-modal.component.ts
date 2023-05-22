@@ -5,17 +5,18 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/common/models/user';
 
 @Component({
-  selector: 'app-transaction-modal',
-  templateUrl: './transaction-modal.component.html',
-  styleUrls: ['./transaction-modal.component.scss']
+  selector: 'app-transaction-edit-modal',
+  templateUrl: './transaction-edit-modal.component.html',
+  styleUrls: ['./transaction-edit-modal.component.scss']
 })
-export class TransactionModalComponent {
+export class TransactionEditModalComponent {
   @Input() transactionArray: any;
+  @Input() selectedTransaction: any;
 
   purchaseForm!: FormGroup;
   data:any = this.getUserData();
   amount:number = this.data.accountAmount;
-  modalHeader = "Sign Up"
+  modalHeader = "Edit transaction"
   transactionObject!: Transactions;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
@@ -40,19 +41,18 @@ export class TransactionModalComponent {
     return Math.floor(Math.random() * 1000000)
   }
 
-  addTransaction() {
-  console.log(this.purchaseForm.value);
+  editTransaction() {
   const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
   const urlPut = `http://localhost:3000/users/${this.data.id}`;
   this.http.get(url, {observe:'response'}).subscribe(
     (response: any) => {
       const responseBody = response.body;
       const userObject: User = response.body[0];
-      if (userObject.transactions) {
-      this.transactionObject = this.purchaseForm.value;  
-      this.transactionObject.id = this.randomID();
-      userObject.transactions.push(this.transactionObject)
-      this.transactionArray.push(this.transactionObject)
+      userObject.transactions?.forEach((el, index) => {
+        if (el.id === this.selectedTransaction.id){
+          userObject.transactions?.splice(index,1, this.selectedTransaction);
+        }
+      })
       this.http.put(urlPut, userObject).subscribe(
           response => {
             console.log('Amount updated successfully:', response);
@@ -65,38 +65,17 @@ export class TransactionModalComponent {
             console.error('Failed to update amount:', error);
           }
         );   
-    } else {
-      userObject.transactions = [];
-      this.transactionObject = this.purchaseForm.value;  
-      this.transactionObject.id = this.randomID();
-      userObject.transactions.push(this.transactionObject)
-      this.http.put(urlPut, userObject).subscribe(
-          response => {
-            console.log('Amount updated successfully:', response);
-              // parent component
-              // this.amountChanged.emit(this.amount);
-            // local storage
-              localStorage.setItem("userData", JSON.stringify(responseBody))
-          },
-          error => {
-            console.error('Failed to update amount:', error);
-          }
-        );   
-    } 
     },
-  
-    error => {
-      console.error('Failed to retrieve object:', error);
-    }
   );
-  this.closeModal();
+  this.closeEditModal();
   }
 
-  // MODAL
 
-  @Input() modalOpen = false;
-  @Output() modalClosed = new EventEmitter<void>();
-  closeModal(): void {
-    this.modalClosed.emit();
+  // EDIT MODAL
+
+  @Input() modalEditOpen = false;
+  @Output() modalEditClosed = new EventEmitter<void>();
+  closeEditModal(): void {
+    this.modalEditClosed.emit();
   }
 }

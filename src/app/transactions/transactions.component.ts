@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../common/models/user';
+
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
@@ -9,7 +10,7 @@ import { User } from '../common/models/user';
 export class TransactionsComponent {
   data:any = this.getUserData();
   transactionArray = this.data.transactions;
-
+  selectedTransaction: any;
   constructor (private http: HttpClient){}
 
 
@@ -20,10 +21,9 @@ export class TransactionsComponent {
     return objectData;
   }
 
-  editTransaction(transaction: any) {
-    console.log('Edit', transaction);
-    console.log(this.data.id);
-    console.log(this.data.transactions[0]);
+  sendTransactionData(transaction: any) {
+    this.selectedTransaction = transaction;
+
     
   }
 
@@ -43,8 +43,6 @@ export class TransactionsComponent {
         this.http.put(urlPut, userObject).subscribe(
             response => {
               console.log('Amount updated successfully:', response);
-                // parent component
-                // this.amountChanged.emit(this.amount);
               // local storage
                 localStorage.setItem("userData", JSON.stringify(responseBody))
             },
@@ -53,7 +51,6 @@ export class TransactionsComponent {
             }
           );   
           })
-
     const index = this.transactionArray.indexOf(transaction);
     if (index !== -1) {
       this.transactionArray.splice(index, 1);
@@ -69,4 +66,13 @@ export class TransactionsComponent {
   closeModal(): void {
     this.modalOpen = false;
   }
+    // EDIT MODAL
+    modalEditOpen = false;
+    @Output() modalEditClosed = new EventEmitter<void>();
+    openEditModal(): void {
+      this.modalEditOpen = true;
+    }
+    closeEditModal(): void {
+      this.modalEditOpen = false;
+    }
 }

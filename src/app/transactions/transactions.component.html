@@ -19,7 +19,7 @@
       <td>{{ transaction.timeAndDate | date: "medium" }}</td>
       <td>{{ transaction.amountSpent }}</td>
       <td>
-        <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="editTransaction(transaction)"></button>
+        <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="sendTransactionData(transaction)" (click)="openEditModal()"></button>
       </td>
       <td>
         <button pButton icon="pi pi-trash" class="p-button-danger" (click)="deleteTransaction(transaction)"></button>
@@ -28,3 +28,4 @@
   </ng-template>
 </p-table>
 <app-transaction-modal [modalOpen]="modalOpen" (modalClosed)="closeModal()" [transactionArray]="transactionArray"></app-transaction-modal>
+<app-transaction-edit-modal [modalEditOpen]="modalEditOpen" (modalEditClosed)="closeEditModal()" [selectedTransaction]="selectedTransaction" [transactionArray]="transactionArray"></app-transaction-edit-modal>

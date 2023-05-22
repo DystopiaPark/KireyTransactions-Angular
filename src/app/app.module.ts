@@ -19,6 +19,7 @@ import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { AmountComponent } from './homepage/amount/amount.component';
 import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
+import { TransactionEditModalComponent } from './transactions/transaction-edit-modal/transaction-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TransactionModalComponent } from './transactions/transaction-modal/tran
     SignUpComponent,
     TransactionsComponent,
     AmountComponent,
-    TransactionModalComponent, 
+    TransactionModalComponent,
+    TransactionEditModalComponent, 
   ],
   imports: [
     BrowserModule,
