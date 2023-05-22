@@ -10,9 +10,9 @@ import { Transactions } from '../common/models/transactions';
 })
 export class TransactionsComponent {
 
-  data:any = this.getUserData();
+  userData:any = this.getUserData();
   selectedTransaction: any;
-  transactionArray: Transactions[] = this.data.transactions? this.data.transactions : [];
+  transactionArray: Transactions[] = this.userData.transactions? this.userData.transactions : [];
 
   constructor (private http: HttpClient){}
 
@@ -29,8 +29,8 @@ export class TransactionsComponent {
 
   deleteTransaction(transaction: any) {
     console.log('Delete', transaction);
-    const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
-    const urlPut = `http://localhost:3000/users/${this.data.id}`;
+    const url = `http://localhost:3000/users?email=${this.userData.email}&password=${this.userData.password}`;
+    const urlPut = `http://localhost:3000/users/${this.userData.id}`;
     this.http.get(url, {observe:'response'}).subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -44,7 +44,7 @@ export class TransactionsComponent {
             response => {
               console.log('Amount updated successfully:', response);
               // local storage
-                localStorage.setItem("userData", JSON.stringify(responseBody))
+                localStorage.setItem("userData", JSON.stringify(responseBody)) // crazy stuff :D
             },
             error => {
               console.error('Failed to update amount:', error);
@@ -57,7 +57,7 @@ export class TransactionsComponent {
     }
   }
 
-  // MODAL
+  // ADD TRANSACTION MODAL
   modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
@@ -66,13 +66,13 @@ export class TransactionsComponent {
   closeModal(): void {
     this.modalOpen = false;
   }
-    // EDIT MODAL
-    modalEditOpen = false;
-    @Output() modalEditClosed = new EventEmitter<void>();
-    openEditModal(): void {
-      this.modalEditOpen = true;
-    }
-    closeEditModal(): void {
-      this.modalEditOpen = false;
-    }
+  // EDIT TRANSACTION MODAL
+  modalEditOpen = false;
+  @Output() modalEditClosed = new EventEmitter<void>();
+  openEditModal(): void {
+    this.modalEditOpen = true;
+  }
+  closeEditModal(): void {
+    this.modalEditOpen = false;
+  }
 }

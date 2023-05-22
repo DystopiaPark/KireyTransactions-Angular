@@ -8,25 +8,11 @@
       "id": 849695,
       "transactions": [
         {
-          "purchase": "Air Jordans 4",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T02:03",
-          "amountSpent": 25,
-          "id": 426923
-        },
-        {
-          "purchase": "Air Jordans 134",
+          "purchase": "Air Jordans 123",
           "category": "Sneakers",
           "timeAndDate": "2023-05-22T11:04",
           "amountSpent": 31,
           "id": 680619
-        },
-        {
-          "purchase": "Air Jordans 2",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T13:17",
-          "amountSpent": 2,
-          "id": 344100
         }
       ]
     },
@@ -36,15 +22,7 @@
       "password": "!A123",
       "accountAmount": 330,
       "id": 671740,
-      "transactions": [
-        {
-          "purchase": "Air Jordans 2",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T03:16",
-          "amountSpent": 25,
-          "id": 652794
-        }
-      ]
+      "transactions": []
     }
   ]
 }
