@@ -13,6 +13,13 @@
           "timeAndDate": "2023-05-22T11:04",
           "amountSpent": 31,
           "id": 680619
+        },
+        {
+          "purchase": "Air Jordans",
+          "category": "Sneakers",
+          "timeAndDate": "2023-05-23T09:19",
+          "amountSpent": 122,
+          "id": 131898
         }
       ]
     },
@@ -23,6 +30,38 @@
       "accountAmount": 330,
       "id": 671740,
       "transactions": []
+    },
+    {
+      "name": "Stefan Zdravkovic",
+      "email": "ste@ste.com",
+      "password": "!A123",
+      "accountAmount": 250,
+      "id": 863154,
+      "transactions": [
+        {
+          "purchase": "Air Jordans 2",
+          "category": "Sneakers",
+          "timeAndDate": "2023-05-13T11:44",
+          "amountSpent": 215,
+          "id": 641006
+        }
+      ]
+    },
+    {
+      "name": "Milivoje Miletic",
+      "email": "mil@mil.com",
+      "password": "!A123",
+      "accountAmount": 600,
+      "id": 126355,
+      "transactions": [
+        {
+          "purchase": "Air Jordans 2",
+          "category": "Sneakers",
+          "timeAndDate": "2023-05-23T22:04",
+          "amountSpent": 500,
+          "id": 298104
+        }
+      ]
     }
   ]
 }

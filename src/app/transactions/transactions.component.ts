@@ -42,12 +42,12 @@ export class TransactionsComponent {
         })
         this.http.put(urlPut, userObject).subscribe(
             response => {
-              console.log('Amount updated successfully:', response);
+              console.log('Transaction deleted successfully:', response);
               // local storage
                 localStorage.setItem("userData", JSON.stringify(responseBody)) // crazy stuff :D
             },
             error => {
-              console.error('Failed to update amount:', error);
+              console.error('Failed to delete transaction:', error);
             }
           );   
           })

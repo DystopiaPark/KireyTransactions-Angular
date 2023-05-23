@@ -55,14 +55,14 @@ export class TransactionModalComponent {
       this.transactionArray.push(this.transactionObject)
       this.http.put(urlPut, userObject).subscribe(
           response => {
-            console.log('Amount updated successfully:', response);
+            console.log('Transaction added successfully:', response);
               // parent component
               this.purchaseForm.reset();
             // local storage
               localStorage.setItem("userData", JSON.stringify(responseBody))
           },
           error => {
-            console.error('Failed to update amount:', error);
+            console.error('Failed to add transaction:', error);
           }
         );   
     } else {
@@ -71,13 +71,13 @@ export class TransactionModalComponent {
       this.transactionArray.push(this.transactionObject);
       this.http.put(urlPut, userObject).subscribe(
           response => {
-            console.log('Amount updated successfully:', response);
+            console.log('Transaction added successfully:', response);
             this.purchaseForm.reset();
             // local storage
               localStorage.setItem("userData", JSON.stringify(responseBody))
           },
           error => {
-            console.error('Failed to update amount:', error);
+            console.error('Failed to add transaction:', error);
           }
         );   
     } 

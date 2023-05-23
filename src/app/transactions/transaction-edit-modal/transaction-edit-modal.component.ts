@@ -55,12 +55,12 @@ export class TransactionEditModalComponent {
       })
       this.http.put(urlPut, userObject).subscribe(
           response => {
-            console.log('Amount updated successfully:', response);
+            console.log('Transaction edited successfully:', response);
             // local storage
               localStorage.setItem("userData", JSON.stringify(responseBody))
           },
           error => {
-            console.error('Failed to update amount:', error);
+            console.error('Failed to edit transaction:', error);
           }
         );   
     },
