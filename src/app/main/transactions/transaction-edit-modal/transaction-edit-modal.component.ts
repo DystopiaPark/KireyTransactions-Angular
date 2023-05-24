@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Transactions } from 'src/app/common/models/transactions';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/common/models/user';
@@ -15,11 +15,9 @@ export class TransactionEditModalComponent {
 
   purchaseForm!: FormGroup;
   data:any = this.getUserData();
-  validatorAmount:number = this.data.accountAmount;
   modalHeader = "Edit transaction"
   transactionObject!: Transactions;
 
-  previousAmount!: number;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
@@ -36,32 +34,11 @@ export class TransactionEditModalComponent {
       purchase: ['', Validators.required],
       category: ['', [Validators.required]],
       timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required,]] //this.amountValidator(this.validatorAmount)]]
+      amountSpent: ['', [Validators.required,]]
     });
 
-    this.previousAmount = this.purchaseForm.get('amountSpent')?.value;
   }  
 
-
-  // // Custom validator function
-  // amountValidator(amount: number): ValidatorFn {
-  //   return (control: AbstractControl): { [key: string]: any } | null => {
-  //     const enteredAmount = parseFloat(control.value);
-  //     return enteredAmount > amount ? { 'exceededAmount': true } : null;
-  //   };
-  // }
-  
-  // // Update the amount validator when this.amount changes
-  // updateAmountValidator(): void {
-  //   this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.validatorAmount)]);
-  //   this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
-  // }
-
-
-
-  randomID(){
-    return Math.floor(Math.random() * 1000000)
-  }
 
   editTransaction() {
   const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
@@ -71,24 +48,25 @@ export class TransactionEditModalComponent {
       const responseBody = response.body;
       const userObject: User = response.body[0];
       this.transactionObject = this.purchaseForm.value;  
-  
+      let prevAmount!: number;
+
+      userObject.transactions?.forEach((el) => {
+        if (el.id === this.selectedTransaction.id){
+          prevAmount = el.amountSpent;
+        }
+      })
+
+      
+      userObject.accountAmount = userObject.accountAmount - (this.transactionObject.amountSpent - prevAmount);
 
 
-      console.log(`Current amount in bank: ${userObject.accountAmount} Amount after update: ${this.transactionObject.amountSpent} Amount before update: ${this.previousAmount}` );
+      console.log(`Current amount in bank: ${userObject.accountAmount} Amount after update: ${this.transactionObject.amountSpent} Amount before update: ${prevAmount}` );
       
 
 
 
 
 
-
-
-
-
-
-
-
-      // this.updateAmountValidator();
       userObject.transactions?.forEach((el, index) => {
         if (el.id === this.selectedTransaction.id){
           userObject.transactions?.splice(index, 1, this.selectedTransaction);
@@ -111,7 +89,6 @@ export class TransactionEditModalComponent {
 
 
   // EDIT MODAL
-
   @Input() modalEditOpen = false;
   @Output() modalEditClosed = new EventEmitter<void>();
   closeEditModal(): void {
