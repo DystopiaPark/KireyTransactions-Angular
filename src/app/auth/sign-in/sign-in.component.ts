@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User } from '../common/models/user';
+import { User } from '../../common/models/user';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../common/models/user';
-import { Transactions } from '../common/models/transactions';
+import { User } from '../../common/models/user';
+import { Transactions } from '../../common/models/transactions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',
@@ -14,7 +15,7 @@ export class TransactionsComponent {
   selectedTransaction: any;
   transactionArray: Transactions[] = this.userData.transactions? this.userData.transactions : [];
 
-  constructor (private http: HttpClient){}
+  constructor (private http: HttpClient, private router: Router){}
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");
@@ -56,6 +57,14 @@ export class TransactionsComponent {
       this.transactionArray.splice(index, 1);
     }
   }
+
+
+  logout() {
+    localStorage.removeItem('userData');
+    localStorage.removeItem("auth");
+    this.router.navigate(['auth/signin']);
+  }
+
 
   // ADD TRANSACTION MODAL
   modalOpen = false;

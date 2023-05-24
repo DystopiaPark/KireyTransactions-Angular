@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomepageComponent } from './homepage.component';
-import { RouterModule, Routes } from '@angular/router';
-import { AmountComponent } from './amount/amount.component';
+import { MainRoutingModule } from './main-routing.module';
+import { HomepageComponent } from './homepage/homepage.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -12,15 +12,15 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
-
-const routes: Routes = [
-  { path: '', component: HomepageComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-];
+import { AmountComponent } from './homepage/amount/amount.component';
+import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
+import { TransactionEditModalComponent } from './transactions/transaction-edit-modal/transaction-edit-modal.component';
 
 @NgModule({
-  declarations: [HomepageComponent, AmountComponent],
+  declarations: [HomepageComponent, TransactionsComponent, AmountComponent, TransactionModalComponent, TransactionEditModalComponent],
   imports: [
+    CommonModule,
+    MainRoutingModule,
     CardModule, 
     InputTextModule,
     PasswordModule,
@@ -31,10 +31,6 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     TableModule,
-    CommonModule,
-    RouterModule.forChild(routes)],
-  exports: [
-    RouterModule
   ]
 })
-export class HomepageModule { }
+export class MainModule { }

@@ -27,7 +27,7 @@ export class AuthService {
           localStorage.setItem("userData", JSON.stringify(value.body))
           localStorage.setItem("auth" , JSON.stringify(this.isAuthenticated));
           this.isAuthenticated.next(true);
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/main/homepage');
       }else {
         alert("Email doesn't exist or your password is wrong")
       }

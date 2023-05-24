@@ -51,7 +51,7 @@
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 5,
+      "accountAmount": 55,
       "id": 126355,
       "transactions": [
         {
@@ -95,8 +95,22 @@
           "timeAndDate": "2023-05-24T11:10",
           "amountSpent": 15,
           "id": 465490
+        },
+        {
+          "purchase": "Air Jordans 2",
+          "category": "22",
+          "timeAndDate": "2023-05-24T13:47",
+          "amountSpent": 1,
+          "id": 29086
         }
       ]
+    },
+    {
+      "name": "Mirko Zikic",
+      "email": "mir@mir.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 462713
     }
   ]
 }

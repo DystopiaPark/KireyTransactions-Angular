@@ -1,40 +1,34 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { CommonModule } from '@angular/common';
+import { AuthRoutingModule } from './auth-routing.module';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from "primeng/password";
+import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
-
-import { AppComponent } from './app.component';
+import { SignUprouteComponent } from './sign-uproute/sign-uproute.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    // TransactionsComponent, 
-  ],
+  declarations: [SignInComponent, SignUpComponent, SignUprouteComponent],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    CommonModule,
+    AuthRoutingModule,
     CardModule, 
     InputTextModule,
     PasswordModule,
     FormsModule,
     ButtonModule,
     DialogModule,
-    BrowserAnimationsModule,
     InputNumberModule,
     HttpClientModule,
     ReactiveFormsModule,
     TableModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  ]
 })
-export class AppModule { }
+export class AuthModule { }

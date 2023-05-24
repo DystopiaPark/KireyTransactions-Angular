@@ -1,0 +1,67 @@
+<h1>Sign up!</h1>
+
+<div class="login-form">
+    <form [formGroup]="signupForm" (ngSubmit)="registerUser()">
+    <div class="p-fluid">
+        <div class="p-field">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" pInputText />
+        <small class="p-error" *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.dirty">
+            Name is required.
+        </small>
+        </div>
+
+        <div class="p-field">
+            <label for="email">Email</label>
+            <input
+            id="email"
+            type="email"
+            formControlName="email"
+            pInputText
+            [ngClass]="{ 'p-invalid': signupForm.get('email')?.invalid && signupForm.get('email')?.dirty }"
+            />
+            <small class="p-error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.dirty">
+            Please enter a valid email address.
+            </small>
+            <small class="p-error" *ngIf="emailExists && signupForm.get('email')?.valid">
+            Email already exists.
+            </small>
+        </div>
+        
+        <div class="p-field">
+            <label for="password">Password</label>
+            <input
+            id="password"
+            type="password"
+            formControlName="password"
+            pPassword
+            [ngClass]="{ 'p-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.dirty }"
+            />
+            <small class="p-error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.dirty">
+            Password must contain at least 5 characters, one uppercase letter, one special character, and one number.
+            </small>
+        </div>
+
+        <div class="p-field">
+        <label for="accountAmount">Account Amount</label>
+        <input
+            id="accountAmount"
+            type="number"
+            formControlName="accountAmount"
+            pInputText
+            [ngClass]="{ 'p-invalid': signupForm.get('accountAmount')?.invalid && signupForm.get('accountAmount')?.dirty }"
+        />
+        <small class="p-error" *ngIf="signupForm.get('accountAmount')?.invalid && signupForm.get('accountAmount')?.dirty">
+            Account amount must be a number.
+        </small>
+        </div>
+
+        <div class="btns">
+        <p-button type="submit" label="Register" [disabled]="signupForm.invalid"></p-button>
+        </div>
+    </div>
+    </form>
+</div>
+<div class="container">
+    <button pButton  routerLink="/auth/signin">Back to login page</button>
+</div>

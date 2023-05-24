@@ -28,7 +28,7 @@ export class HomepageComponent  {
   logout() {
     localStorage.removeItem('userData');
     localStorage.removeItem("auth");
-    this.router.navigate(['login']);
+    this.router.navigate(['auth/signin']);
   }
 // modal logic
   modalOpen = false;
