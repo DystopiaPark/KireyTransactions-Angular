@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User } from '../../common/models/user';
 import { HttpClient } from '@angular/common/http';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class SignInComponent implements OnInit {
   signupForm!: FormGroup;
   emailExists = false;
-  constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder, private http: HttpClient, private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -24,7 +24,19 @@ export class SignInComponent implements OnInit {
   
   // LOGIN
   login(data:any) {
-    this.auth.userLogin(data);
+    let receivedData = this.usersService.getUser(data)
+    receivedData.subscribe((value:any) => { 
+      if (value && value.body.length === 1) {
+          localStorage.setItem("userData", JSON.stringify(value.body))
+          localStorage.setItem("auth", JSON.stringify(this.auth.isAuthenticated));
+          this.auth.isAuthenticated.next(true);
+          this.router.navigateByUrl('/main/homepage');
+      } else {
+        alert("Email doesn't exist or your password is wrong")
+      }
+    }, err => {
+      alert("something went wrong try again")
+    })
   }
 
   

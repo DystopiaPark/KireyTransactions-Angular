@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/common/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SignUpComponent {
   emailExists = false;
-constructor(private usersService: UsersService, private formBuilder: FormBuilder) {}
+constructor(private usersService: UsersService, private formBuilder: FormBuilder, private http: HttpClient) {}
 signupForm!: FormGroup;
 
   modalHeader = "Sign Up"
@@ -21,13 +22,37 @@ signupForm!: FormGroup;
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{5,}$/)]],
       accountAmount: ['', Validators.required]
-
     });
   }  
+  randomID(){
+    return Math.floor(Math.random() * 1000000)
+  }
 
   registerUser () {
     const newUser: User = this.signupForm.value;
-    this.usersService.create(newUser);
+    newUser.id = this.randomID();
+    let email = this.usersService.getUserEmail(newUser);
+    email.subscribe(
+      (response: Object) => { 
+        if (Object.keys(response).length > 0) {
+          console.error('Email already exists in the database.');
+          alert(`${newUser.email} already exists in the database!`)
+        } else {
+          this.http.post('http://localhost:3000/users', newUser)
+            .subscribe(
+              response => {
+                console.log('User created successfully:', response);
+              },
+              error => {
+                console.error('Error creating user:', error);
+              }
+            );
+        }
+      },
+      error => {
+        console.error('Error checking email in the database:', error);
+      }
+    );
     this.closeModal();
   }
 

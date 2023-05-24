@@ -51,15 +51,22 @@
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 40,
+      "accountAmount": 5,
       "id": 126355,
       "transactions": [
         {
           "purchase": "Air Jordans 2",
           "category": "Sneakers",
           "timeAndDate": "2023-05-23T14:50",
-          "amountSpent": 55,
+          "amountSpent": 60,
           "id": 226598
+        },
+        {
+          "purchase": "Air Jordans 4",
+          "category": "2",
+          "timeAndDate": "2023-05-24T15:22",
+          "amountSpent": 35,
+          "id": 503137
         }
       ]
     },
@@ -69,6 +76,34 @@
       "password": "!A123",
       "accountAmount": 222,
       "id": 462713
+    },
+    {
+      "name": "Predrag Stojkovic",
+      "email": "pre@pre.com",
+      "password": "!A123",
+      "accountAmount": 500,
+      "id": 604671
+    },
+    {
+      "name": "Marjan Stojiljkovic",
+      "email": "mar@mar.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 314085
+    },
+    {
+      "name": "Tarkan Stengi",
+      "email": "tar@tar.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 28079
+    },
+    {
+      "name": "Petko Prikic",
+      "email": "pet@pet.com",
+      "password": "!A123",
+      "accountAmount": 11,
+      "id": 79840
     }
   ]
 }

@@ -3,6 +3,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/common/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-uproute',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class SignUprouteComponent {
   emailExists = false;
 
-  constructor(private usersService: UsersService, private formBuilder: FormBuilder, private router: Router) {}
+  constructor(private usersService: UsersService, private formBuilder: FormBuilder, private http: HttpClient) {}
 signupForm!: FormGroup;
 
   modalHeader = "Sign Up"
@@ -27,10 +28,36 @@ signupForm!: FormGroup;
     });
   }  
 
+  randomID(){
+    return Math.floor(Math.random() * 1000000)
+  }
+
   registerUser () {
     const newUser: User = this.signupForm.value;
-    this.usersService.create(newUser);
-    this.router.navigateByUrl("/auth/signin");
+    newUser.id = this.randomID();
+    let email = this.usersService.getUserEmail(newUser);
+    email.subscribe(
+      (response: Object) => { 
+        if (Object.keys(response).length > 0) {
+          console.error('Email already exists in the database.');
+          alert(`${newUser.email} already exists in the database!`)
+        } else {
+          this.http.post('http://localhost:3000/users', newUser)
+            .subscribe(
+              response => {
+                this.signupForm.reset();
+                console.log('User created successfully:', response);
+              },
+              error => {
+                console.error('Error creating user:', error);
+              }
+            );
+        }
+      },
+      error => {
+        console.error('Error checking email in the database:', error);
+      }
+    );
   }
 }
 

@@ -49,19 +49,19 @@ export class TransactionEditModalComponent {
       const userObject: User = response.body[0];
       this.transactionObject = this.purchaseForm.value;  
       let prevAmount!: number;
-
       userObject.transactions?.forEach((el) => {
         if (el.id === this.selectedTransaction.id){
           prevAmount = el.amountSpent;
         }
       })
-
-      
       userObject.accountAmount = userObject.accountAmount - (this.transactionObject.amountSpent - prevAmount);
 
 
-      console.log(`Current amount in bank: ${userObject.accountAmount} Amount after update: ${this.transactionObject.amountSpent} Amount before update: ${prevAmount}` );
       
+      
+
+
+
 
 
 
