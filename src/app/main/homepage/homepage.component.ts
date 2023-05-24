@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output  } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ export class HomepageComponent  {
   data:any = this.getUserData();
   amount:number = this.data.accountAmount;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private usersService: UsersService) {}
 
 // getUserData from local storage logic
   getUserData() {
@@ -20,6 +21,8 @@ export class HomepageComponent  {
     let objectData: any = convertedData[0];
     return objectData;
   }
+
+
 // onAmountChanged get value from child component logic
   onAmountChanged(amount: number) {
     this.amount = amount;
@@ -28,6 +31,7 @@ export class HomepageComponent  {
   logout() {
     localStorage.removeItem('userData');
     localStorage.removeItem("auth");
+    localStorage.removeItem("currUser");
     this.router.navigate(['auth/signin']);
   }
 // modal logic

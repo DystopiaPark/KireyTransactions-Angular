@@ -28,6 +28,10 @@ export class SignInComponent implements OnInit {
     receivedData.subscribe((value:any) => { 
       if (value && value.body.length === 1) {
           localStorage.setItem("userData", JSON.stringify(value.body))
+          let concreteUser = value.body[0];
+          delete concreteUser.transactions;
+          let newBody = [concreteUser];
+          localStorage.setItem("currUser", JSON.stringify(newBody));
           localStorage.setItem("auth", JSON.stringify(this.auth.isAuthenticated));
           this.auth.isAuthenticated.next(true);
           this.router.navigateByUrl('/main/homepage');

@@ -62,6 +62,7 @@ export class TransactionsComponent {
   logout() {
     localStorage.removeItem('userData');
     localStorage.removeItem("auth");
+    localStorage.removeItem("currUser");
     this.router.navigate(['auth/signin']);
   }
 
