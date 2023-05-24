@@ -11,24 +11,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
+import { HomepageModule } from './homepage/homepage.module';
+
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { HomepageComponent } from './homepage/homepage.component';
 import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
 import { TransactionsComponent } from './transactions/transactions.component';
-import { AmountComponent } from './homepage/amount/amount.component';
 import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
 import { TransactionEditModalComponent } from './transactions/transaction-edit-modal/transaction-edit-modal.component';
+import { AuthGuard } from './common/guards/auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
-    HomepageComponent,
     SignUpComponent,
     TransactionsComponent,
-    AmountComponent,
     TransactionModalComponent,
     TransactionEditModalComponent, 
   ],
@@ -45,7 +44,8 @@ import { TransactionEditModalComponent } from './transactions/transaction-edit-m
     InputNumberModule,
     HttpClientModule,
     ReactiveFormsModule,
-    TableModule
+    TableModule,
+    HomepageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

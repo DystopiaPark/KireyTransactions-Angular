@@ -4,7 +4,7 @@ export interface User {
     name: string;
     email: string;
     password: string;
-    amount: number;
+    accountAmount: number;
     id: number;
     transactions?: Transactions[];
 }

@@ -31,15 +31,11 @@ export class SignInComponent implements OnInit {
   // MODAL
 
   modalOpen = false;
-
   @Output() modalClosed = new EventEmitter<void>();
-
   openModal(): void {
     this.modalOpen = true;
   }
-
   closeModal(): void {
     this.modalOpen = false;
   }
-
 }

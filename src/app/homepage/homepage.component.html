@@ -11,5 +11,5 @@
     </div>
 </header>
   <p>Welcome, {{data?.name}} your current balance is {{amount}}</p>
-  <p-button type="button" label="Change amount" (click)="openModal()"></p-button>
+  <button pButton type="button" label="Change amount" (click)="openModal()"></button>
   <app-amount [data]="data" (amountChanged)="onAmountChanged($event)" [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-amount>

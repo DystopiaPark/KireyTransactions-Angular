@@ -27,6 +27,7 @@ export class HomepageComponent  {
 // logout logic
   logout() {
     localStorage.removeItem('userData');
+    localStorage.removeItem("auth");
     this.router.navigate(['login']);
   }
 // modal logic

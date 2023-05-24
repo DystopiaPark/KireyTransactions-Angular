@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Transactions } from 'src/app/common/models/transactions';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/common/models/user';
@@ -11,13 +11,15 @@ import { User } from 'src/app/common/models/user';
 })
 export class TransactionEditModalComponent {
   @Input() transactionArray: any;
-  @Input() selectedTransaction: any;
+  @Input() selectedTransaction!: any;
 
   purchaseForm!: FormGroup;
   data:any = this.getUserData();
-  amount:number = this.data.accountAmount;
+  validatorAmount:number = this.data.accountAmount;
   modalHeader = "Edit transaction"
   transactionObject!: Transactions;
+
+  previousAmount!: number;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
@@ -29,13 +31,33 @@ export class TransactionEditModalComponent {
   }
 
   ngOnInit(): void {
+
     this.purchaseForm = this.formBuilder.group({
       purchase: ['', Validators.required],
       category: ['', [Validators.required]],
       timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required, Validators.max(this.amount)]]
+      amountSpent: ['', [Validators.required,]] //this.amountValidator(this.validatorAmount)]]
     });
+
+    this.previousAmount = this.purchaseForm.get('amountSpent')?.value;
   }  
+
+
+  // // Custom validator function
+  // amountValidator(amount: number): ValidatorFn {
+  //   return (control: AbstractControl): { [key: string]: any } | null => {
+  //     const enteredAmount = parseFloat(control.value);
+  //     return enteredAmount > amount ? { 'exceededAmount': true } : null;
+  //   };
+  // }
+  
+  // // Update the amount validator when this.amount changes
+  // updateAmountValidator(): void {
+  //   this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.validatorAmount)]);
+  //   this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
+  // }
+
+
 
   randomID(){
     return Math.floor(Math.random() * 1000000)
@@ -48,9 +70,28 @@ export class TransactionEditModalComponent {
     (response: any) => {
       const responseBody = response.body;
       const userObject: User = response.body[0];
+      this.transactionObject = this.purchaseForm.value;  
+  
+
+
+      console.log(`Current amount in bank: ${userObject.accountAmount} Amount after update: ${this.transactionObject.amountSpent} Amount before update: ${this.previousAmount}` );
+      
+
+
+
+
+
+
+
+
+
+
+
+
+      // this.updateAmountValidator();
       userObject.transactions?.forEach((el, index) => {
         if (el.id === this.selectedTransaction.id){
-          userObject.transactions?.splice(index,1, this.selectedTransaction);
+          userObject.transactions?.splice(index, 1, this.selectedTransaction);
         }
       })
       this.http.put(urlPut, userObject).subscribe(
