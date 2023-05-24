@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../common/models/user';
 import { Transactions } from '../../common/models/transactions';
 import { Router } from '@angular/router';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-transactions',
@@ -15,7 +16,7 @@ export class TransactionsComponent {
   selectedTransaction: any;
   transactionArray: Transactions[] = this.userData.transactions? this.userData.transactions : [];
 
-  constructor (private http: HttpClient, private router: Router){}
+  constructor (private http: HttpClient, private router: Router, private usersService: UsersService){}
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");
@@ -30,9 +31,8 @@ export class TransactionsComponent {
 
   deleteTransaction(transaction: any) {
     console.log('Delete', transaction);
-    const url = `http://localhost:3000/users?email=${this.userData.email}&password=${this.userData.password}`;
-    const urlPut = `http://localhost:3000/users/${this.userData.id}`;
-    this.http.get(url, {observe:'response'}).subscribe(
+    let receivedData = this.usersService.getUser(this.userData);
+    receivedData.subscribe(
       (response: any) => {
         const responseBody = response.body;
         const userObject: User = response.body[0];
@@ -41,7 +41,8 @@ export class TransactionsComponent {
             userObject.transactions?.splice(index,1);
           }
         })
-        this.http.put(urlPut, userObject).subscribe(
+        let deleteTransaction = this.usersService.deleteTransaction(this.userData.id, userObject)
+        deleteTransaction.subscribe(
             response => {
               console.log('Transaction deleted successfully:', response);
               // local storage

@@ -31,14 +31,15 @@ signupForm!: FormGroup;
   registerUser () {
     const newUser: User = this.signupForm.value;
     newUser.id = this.randomID();
-    let email = this.usersService.getUserEmail(newUser);
-    email.subscribe(
+    let receivedData = this.usersService.getUserEmail(newUser);
+    let postUser = this.usersService.createUser(newUser);
+    receivedData.subscribe(
       (response: Object) => { 
         if (Object.keys(response).length > 0) {
           console.error('Email already exists in the database.');
           alert(`${newUser.email} already exists in the database!`)
         } else {
-          this.http.post('http://localhost:3000/users', newUser)
+          postUser
             .subscribe(
               response => {
                 console.log('User created successfully:', response);

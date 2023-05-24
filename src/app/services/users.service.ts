@@ -21,4 +21,12 @@ export class UsersService {
   getUserEmail (user: User) {
   return this.http.get('http://localhost:3000/users?email=' + user.email)
   }
+  
+  deleteTransaction (data:any, object: any) {
+    return this.http.put(`http://localhost:3000/users/${data.id}`, object)
+  }
+
+  createUser (user: any) {
+   return this.http.post('http://localhost:3000/users', user);
+  }
 }

@@ -51,22 +51,15 @@
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 5,
+      "accountAmount": 8,
       "id": 126355,
       "transactions": [
         {
           "purchase": "Air Jordans 2",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-23T14:50",
-          "amountSpent": 60,
-          "id": 226598
-        },
-        {
-          "purchase": "Air Jordans 4",
-          "category": "2",
-          "timeAndDate": "2023-05-24T15:22",
-          "amountSpent": 35,
-          "id": 503137
+          "category": "124124",
+          "timeAndDate": "2023-05-24T19:14",
+          "amountSpent": 22,
+          "id": 118216
         }
       ]
     },
@@ -104,6 +97,13 @@
       "password": "!A123",
       "accountAmount": 11,
       "id": 79840
+    },
+    {
+      "name": "Djole Djokic",
+      "email": "djo@djo.com",
+      "password": "!A123",
+      "accountAmount": 200,
+      "id": 456783
     }
   ]
 }

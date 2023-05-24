@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-amount',
@@ -14,7 +15,7 @@ export class AmountComponent implements OnInit {
   modalHeader = "Set new amount"
   signupForm!: FormGroup;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder){}
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private usersService: UsersService){}
 
   ngOnInit(): void {
     this.amount = this.data.accountAmount;
@@ -28,9 +29,9 @@ export class AmountComponent implements OnInit {
 
   // saveAmount in local storage, json server and ship it to parent component to be rendered
   saveAmount () {
-  const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
+  let receivedData = this.usersService.getUser(this.data);
   const urlPut = `http://localhost:3000/users/${this.data.id}`;
-  this.http.get(url, {observe:'response'}).subscribe(
+  receivedData.subscribe(
     (response: any) => {
       console.log(this.data.email);
       const responseBody = response.body;
