@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { Transactions } from 'src/app/common/models/transactions';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/common/models/user';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-transaction-modal',
@@ -18,7 +19,7 @@ export class TransactionModalComponent {
   modalHeader = "Sign Up"
   transactionObject!: Transactions;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private usersService: UsersService) {}
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");
@@ -57,10 +58,7 @@ updateAmountValidator(): void {
   }
 
   addTransaction() {
-  console.log(this.purchaseForm.value);
-  const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
-  const urlPut = `http://localhost:3000/users/${this.data.id}`;
-  this.http.get(url, {observe:'response'}).subscribe(
+  this.usersService.getUser(this.data).subscribe(
     (response: any) => {
       const responseBody = response.body;
       const userObject: User = response.body[0];
@@ -72,7 +70,7 @@ updateAmountValidator(): void {
       if (userObject.transactions) {
       userObject.transactions.push(this.transactionObject);
       this.transactionArray.push(this.transactionObject);
-      this.http.put(urlPut, userObject).subscribe(
+      this.usersService.editUser(this.data, userObject).subscribe(
           response => {
             console.log('Transaction added successfully:', response);
               // parent component
@@ -89,7 +87,7 @@ updateAmountValidator(): void {
       userObject.transactions = [];
       userObject.transactions.push(this.transactionObject);
       this.transactionArray.push(this.transactionObject);
-      this.http.put(urlPut, userObject).subscribe(
+      this.usersService.editUser(this.data, userObject).subscribe(
           response => {
             console.log('Transaction added successfully:', response);
             this.purchaseForm.reset();

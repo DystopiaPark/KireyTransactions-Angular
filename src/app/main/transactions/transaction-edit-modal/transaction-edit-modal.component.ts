@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Transactions } from 'src/app/common/models/transactions';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/common/models/user';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-transaction-edit-modal',
@@ -19,7 +20,7 @@ export class TransactionEditModalComponent {
   transactionObject!: Transactions;
 
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private usersService: UsersService) {}
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");
@@ -41,9 +42,7 @@ export class TransactionEditModalComponent {
 
 
   editTransaction() {
-  const url = `http://localhost:3000/users?email=${this.data.email}&password=${this.data.password}`;
-  const urlPut = `http://localhost:3000/users/${this.data.id}`;
-  this.http.get(url, {observe:'response'}).subscribe(
+  this.usersService.getUser(this.data).subscribe(
     (response: any) => {
       const responseBody = response.body;
       const userObject: User = response.body[0];
@@ -72,7 +71,7 @@ export class TransactionEditModalComponent {
           userObject.transactions?.splice(index, 1, this.selectedTransaction);
         }
       })
-      this.http.put(urlPut, userObject).subscribe(
+      this.usersService.editUser(this.data, userObject).subscribe(
           response => {
             console.log('Transaction edited successfully:', response);
             // local storage

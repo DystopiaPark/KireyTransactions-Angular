@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { User } from '../../common/models/user';
 import { Transactions } from '../../common/models/transactions';
 import { Router } from '@angular/router';
@@ -16,7 +15,7 @@ export class TransactionsComponent {
   selectedTransaction: any;
   transactionArray: Transactions[] = this.userData.transactions? this.userData.transactions : [];
 
-  constructor (private http: HttpClient, private router: Router, private usersService: UsersService){}
+  constructor (private router: Router, private usersService: UsersService){}
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");
@@ -31,8 +30,7 @@ export class TransactionsComponent {
 
   deleteTransaction(transaction: any) {
     console.log('Delete', transaction);
-    let receivedData = this.usersService.getUser(this.userData);
-    receivedData.subscribe(
+    this.usersService.getUser(this.userData).subscribe(
       (response: any) => {
         const responseBody = response.body;
         const userObject: User = response.body[0];
@@ -41,8 +39,7 @@ export class TransactionsComponent {
             userObject.transactions?.splice(index,1);
           }
         })
-        let deleteTransaction = this.usersService.deleteTransaction(this.userData.id, userObject)
-        deleteTransaction.subscribe(
+        this.usersService.deleteTransaction(this.userData.id, userObject).subscribe(
             response => {
               console.log('Transaction deleted successfully:', response);
               // local storage

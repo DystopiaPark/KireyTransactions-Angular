@@ -34,7 +34,7 @@
             id="password"
             type="password"
             formControlName="password"
-            pPassword
+            pInputText
             [ngClass]="{ 'p-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.dirty }"
             />
             <small class="p-error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.dirty">

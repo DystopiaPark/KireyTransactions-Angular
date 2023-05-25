@@ -10,10 +10,6 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  getUserData(data:any) {
-    return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`);
-  }
-
   getUser(data:any) {
     return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
    }
@@ -24,6 +20,10 @@ export class UsersService {
   
   deleteTransaction (data:any, object: any) {
     return this.http.put(`http://localhost:3000/users/${data.id}`, object)
+  }
+
+  editUser (user: any, object: any) {
+    return this.http.put(`http://localhost:3000/users/${user.id}`, object)
   }
 
   createUser (user: any) {

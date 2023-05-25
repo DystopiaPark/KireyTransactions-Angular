@@ -5,6 +5,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UsersService } from 'src/app/services/users.service';
 
+const passwordPattern: RegExp = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{5,}$/;
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -18,14 +20,13 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{5,}$/)]],
+      password: ['', [Validators.required, Validators.pattern(passwordPattern)]],
     });
   }  
   
   // LOGIN
   login(data:any) {
-    let receivedData = this.usersService.getUser(data);
-    receivedData.subscribe((value:any) => { 
+    this.usersService.getUser(data).subscribe((value:any) => { 
       if (value && value.body.length === 1) {
           localStorage.setItem("userData", JSON.stringify(value.body))
           let concreteUser = value.body[0];

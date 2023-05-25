@@ -29,18 +29,15 @@ export class AmountComponent implements OnInit {
 
   // saveAmount in local storage, json server and ship it to parent component to be rendered
   saveAmount () {
-  let receivedData = this.usersService.getUser(this.data);
-  const urlPut = `http://localhost:3000/users/${this.data.id}`;
-  receivedData.subscribe(
+    this.usersService.getUser(this.data).subscribe(
     (response: any) => {
-      console.log(this.data.email);
       const responseBody = response.body;
       const concreteObject = response.body[0];
       const updatedObject = { ...concreteObject, accountAmount: this.amount };
       responseBody.shift();
       responseBody.push(updatedObject)
       // server  
-      this.http.put(urlPut, updatedObject).subscribe(
+      this.usersService.editUser(this.data, updatedObject).subscribe(
         response => {
           console.log('Amount updated successfully:', response);
             // parent component
