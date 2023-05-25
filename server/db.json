@@ -51,7 +51,7 @@
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 333,
+      "accountAmount": 50,
       "id": 126355,
       "transactions": [
         {
@@ -65,7 +65,7 @@
           "purchase": "Air Jordans 3",
           "category": "Sneakers",
           "timeAndDate": "2023-05-25T09:27",
-          "amountSpent": 222,
+          "amountSpent": 225,
           "id": 577185
         }
       ]
@@ -111,6 +111,34 @@
       "password": "!A123",
       "accountAmount": 200,
       "id": 456783
+    },
+    {
+      "name": "Nemanja Nikolic",
+      "email": "nem@nem.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 932193
+    },
+    {
+      "name": "Nikola Savic",
+      "email": "nikol@nikol.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 169426
+    },
+    {
+      "name": "Nikola Savic",
+      "email": "nikola@nikola.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 290481
+    },
+    {
+      "name": "Milivoje Miletic",
+      "email": "mili@mili.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 113539
     }
   ]
 }

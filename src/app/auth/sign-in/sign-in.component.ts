@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { UsersService } from 'src/app/services/users.service';
 import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 
@@ -12,12 +11,12 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  signupForm!: FormGroup;
-  emailExists = false;
-  constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder, private http: HttpClient, private usersService: UsersService) {}
+  signinForm!: FormGroup;
+  wrongCredentials = false;
+  constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   ngOnInit(): void {
-    this.signupForm = this.formBuilder.group({
+    this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(passwordPattern)]],
     });
@@ -36,7 +35,10 @@ export class SignInComponent implements OnInit {
           this.auth.isAuthenticated.next(true);
           this.router.navigateByUrl('/main/homepage');
       } else {
-        alert("Email doesn't exist or your password is wrong")
+        this.wrongCredentials = true;
+        setTimeout(()=> {
+          this.wrongCredentials = false;
+        }, 1000)
       }
     }, err => {
       alert("something went wrong try again")

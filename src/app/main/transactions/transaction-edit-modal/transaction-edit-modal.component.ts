@@ -12,13 +12,13 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class TransactionEditModalComponent {
   @Input() transactionArray: any;
-  @Input() selectedTransaction!: any;
+  @Input() selectedTransaction: any;
 
   purchaseForm!: FormGroup;
   data:any = this.getUserData();
   modalHeader = "Edit transaction"
   transactionObject!: Transactions;
-
+  previousAmount: any;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private usersService: UsersService) {}
 
@@ -30,14 +30,15 @@ export class TransactionEditModalComponent {
   }
 
   ngOnInit(): void {
-
+    this.previousAmount = this.selectedTransaction.amountSpent;
+    console.log(this.data.accountAmount, this.previousAmount);
+    // this.currAmount = this.data.
     this.purchaseForm = this.formBuilder.group({
       purchase: ['', Validators.required],
       category: ['', [Validators.required]],
       timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required,]]
+      amountSpent: ['', [Validators.required, Validators.max(this.previousAmount + this.data.accountAmount)]]
     });
-
   }  
 
 
@@ -83,6 +84,7 @@ export class TransactionEditModalComponent {
         );   
     },
   );
+  this.selectedTransaction = undefined;
   this.closeEditModal();
   }
 
@@ -92,5 +94,6 @@ export class TransactionEditModalComponent {
   @Output() modalEditClosed = new EventEmitter<void>();
   closeEditModal(): void {
     this.modalEditClosed.emit();
+    this.selectedTransaction = undefined;
   }
 }

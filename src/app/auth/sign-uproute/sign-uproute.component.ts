@@ -16,8 +16,6 @@ export class SignUprouteComponent {
   constructor(private usersService: UsersService, private formBuilder: FormBuilder, private http: HttpClient) {}
   signupForm!: FormGroup;
 
-  modalHeader = "Sign Up"
-
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -35,13 +33,16 @@ export class SignUprouteComponent {
       (response: Object) => { 
         if (Object.keys(response).length > 0) {
           console.error('Email already exists in the database.');
-          alert(`${newUser.email} already exists in the database!`)
+          this.emailExists = true;
+          setTimeout(()=> {
+            this.emailExists = false;
+          }, 1000)
         } else {
           this.usersService.createUser(newUser)
             .subscribe(
               response => {
-                this.signupForm.reset();
                 console.log('User created successfully:', response);
+                this.signupForm.reset();
               },
               error => {
                 console.error('Error creating user:', error);
@@ -55,5 +56,3 @@ export class SignUprouteComponent {
     );
   }
 }
-
-
