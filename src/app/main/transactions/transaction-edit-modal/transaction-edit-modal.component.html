@@ -4,7 +4,7 @@
         <div class="p-fluid">
           <div class="p-field">
             <label for="purchase">Purchase: </label>
-            <input id="purchase" type="text" formControlName="purchase" pInputText [(ngModel)]="selectedTransaction.purchase" />
+            <input id="purchase" type="text" formControlName="purchase" pInputText />
             <small class="p-error" *ngIf="purchaseForm.get('purchase')?.invalid && purchaseForm.get('purchase')?.dirty">
               Purchase is required.
             </small>
@@ -12,7 +12,7 @@
   
            <div class="p-field">
             <label for="category">Category: </label>
-            <input id="category" type="text" formControlName="category" pInputText [(ngModel)]="selectedTransaction.category" />
+            <input id="category" type="text" formControlName="category" pInputText />
             <small class="p-error" *ngIf="purchaseForm.get('category')?.invalid && purchaseForm.get('category')?.dirty">
               Category is required.
             </small>
@@ -20,7 +20,7 @@
           
            <div class="p-field">
             <label for="timeAndDate">Time and date: </label>
-            <input id="timeAndDate" type="datetime-local" formControlName="timeAndDate" pInputText [(ngModel)]="selectedTransaction.timeAndDate" />
+            <input id="timeAndDate" type="datetime-local" formControlName="timeAndDate" pInputText />
             <small class="p-error" *ngIf="purchaseForm.get('timeAndDate')?.invalid && purchaseForm.get('timeAndDate')?.dirty">
               Date is required.
             </small>
@@ -33,7 +33,6 @@
               type="number"
               formControlName="amountSpent"
               pInputText
-              [(ngModel)]="selectedTransaction.amountSpent"
               [ngClass]="{ 'p-invalid': purchaseForm.get('amountSpent')?.invalid && purchaseForm.get('amountSpent')?.dirty }"
             />
             <small class="p-error" *ngIf="purchaseForm.get('amountSpent')?.invalid && purchaseForm.get('amountSpent')?.dirty">

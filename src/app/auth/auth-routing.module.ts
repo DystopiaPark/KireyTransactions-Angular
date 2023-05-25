@@ -1,15 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUprouteComponent } from './sign-uproute/sign-uproute.component';
+import { RouterModule } from '@angular/router';
+import { authRoutes } from './auth-routes';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/auth/signin', pathMatch: 'full' },
-  { path: 'signin', component: SignInComponent },
-  { path: 'signup', component: SignUprouteComponent },
-];
+
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(authRoutes)],
   exports: [RouterModule]
 })
 export class AuthRoutingModule { }

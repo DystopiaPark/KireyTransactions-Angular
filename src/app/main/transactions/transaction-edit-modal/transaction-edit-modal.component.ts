@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Transactions } from 'src/app/common/models/transactions';
-import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/common/models/user';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -17,10 +16,11 @@ export class TransactionEditModalComponent {
   purchaseForm!: FormGroup;
   data:any = this.getUserData();
   modalHeader = "Edit transaction"
-  transactionObject!: Transactions;
+  selectedTransactionNewValue!: Transactions;
   previousAmount: any;
+  initialTransactionId: any;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private usersService: UsersService) {}
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   getUserData() {
     let rawData: any = localStorage.getItem("userData");
@@ -30,52 +30,53 @@ export class TransactionEditModalComponent {
   }
 
   ngOnInit(): void {
+    console.log(this.selectedTransaction.amountSpent);
+    
+    this.initialTransactionId = this.selectedTransaction.id;
     this.previousAmount = this.selectedTransaction.amountSpent;
-    console.log(this.data.accountAmount, this.previousAmount);
-    // this.currAmount = this.data.
     this.purchaseForm = this.formBuilder.group({
-      purchase: ['', Validators.required],
-      category: ['', [Validators.required]],
-      timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required, Validators.max(this.previousAmount + this.data.accountAmount)]]
+      purchase: new FormControl(this.selectedTransaction.purchase, Validators.required),
+      category: new FormControl(this.selectedTransaction.category, Validators.required),
+      timeAndDate: new FormControl(this.selectedTransaction.timeAndDate, Validators.required),
+      amountSpent: new FormControl(this.selectedTransaction.amountSpent, [
+        Validators.required,
+        Validators.max(this.previousAmount + this.data.accountAmount)
+      ])
     });
-  }  
-
+  }
+  
+  @Output() transactionChanged = new EventEmitter<number>();
 
   editTransaction() {
+
+    
+  // console.log(this.selectedTransaction.amountSpent, this.previousAmount);
+  
   this.usersService.getUser(this.data).subscribe(
     (response: any) => {
       const responseBody = response.body;
       const userObject: User = response.body[0];
-      this.transactionObject = this.purchaseForm.value;  
-      let prevAmount!: number;
-      userObject.transactions?.forEach((el) => {
-        if (el.id === this.selectedTransaction.id){
-          prevAmount = el.amountSpent;
-        }
-      })
-      userObject.accountAmount = userObject.accountAmount - (this.transactionObject.amountSpent - prevAmount);
+      this.selectedTransactionNewValue = this.purchaseForm.value; 
+      this.selectedTransactionNewValue.id = this.selectedTransaction.id; 
 
-
-      
-      
-
-
-
-
-
-
-
-
+      userObject.accountAmount = userObject.accountAmount - (this.selectedTransactionNewValue.amountSpent - this.previousAmount);
+      // update in server
       userObject.transactions?.forEach((el, index) => {
         if (el.id === this.selectedTransaction.id){
-          userObject.transactions?.splice(index, 1, this.selectedTransaction);
+          userObject.transactions?.splice(index, 1, this.selectedTransactionNewValue);
+        }
+      })
+      // update in local array
+      this.transactionArray.forEach((el:any, index:number) => {
+        if (el.id === this.selectedTransaction.id){
+          this.transactionArray.splice(index, 1, this.selectedTransactionNewValue);
         }
       })
       this.usersService.editUser(this.data, userObject).subscribe(
           response => {
             console.log('Transaction edited successfully:', response);
             // local storage
+            this.transactionChanged.emit(undefined);
               localStorage.setItem("userData", JSON.stringify(responseBody))
           },
           error => {
@@ -84,7 +85,6 @@ export class TransactionEditModalComponent {
         );   
     },
   );
-  this.selectedTransaction = undefined;
   this.closeEditModal();
   }
 
@@ -94,6 +94,7 @@ export class TransactionEditModalComponent {
   @Output() modalEditClosed = new EventEmitter<void>();
   closeEditModal(): void {
     this.modalEditClosed.emit();
-    this.selectedTransaction = undefined;
+    this.transactionChanged.emit(undefined);
+    console.log(this.selectedTransaction);
   }
 }

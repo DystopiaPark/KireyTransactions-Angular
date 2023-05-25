@@ -39,7 +39,7 @@ export class TransactionsComponent {
             userObject.transactions?.splice(index,1);
           }
         })
-        this.usersService.deleteTransaction(this.userData.id, userObject).subscribe(
+        this.usersService.deleteTransaction(this.userData, userObject).subscribe(
             response => {
               console.log('Transaction deleted successfully:', response);
               // local storage
@@ -56,7 +56,6 @@ export class TransactionsComponent {
     }
   }
 
-
   logout() {
     localStorage.removeItem('userData');
     localStorage.removeItem("auth");
@@ -64,12 +63,15 @@ export class TransactionsComponent {
     this.router.navigate(['auth/signin']);
   }
 
+  onTransactionChanged(transaction: any) {
+    this.selectedTransaction = transaction;
+  }
 
   // ADD TRANSACTION MODAL
   modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
-    this.modalOpen = true;
+    this.modalOpen = true;    
   }
   closeModal(): void {
     this.modalOpen = false;
@@ -79,6 +81,8 @@ export class TransactionsComponent {
   @Output() modalEditClosed = new EventEmitter<void>();
   openEditModal(): void {
     this.modalEditOpen = true;
+    console.log(this.selectedTransaction);
+
   }
   closeEditModal(): void {
     this.modalEditOpen = false;
