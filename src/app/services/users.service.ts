@@ -10,6 +10,10 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
+  randomID(){
+    return Math.floor(Math.random() * 1000000)
+  }
+
   getUser(data:any) {
     return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
    }

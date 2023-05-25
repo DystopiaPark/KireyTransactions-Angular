@@ -4,8 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UsersService } from 'src/app/services/users.service';
-
-const passwordPattern: RegExp = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{5,}$/;
+import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 
 @Component({
   selector: 'app-sign-in',

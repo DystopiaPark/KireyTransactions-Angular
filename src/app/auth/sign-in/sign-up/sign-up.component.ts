@@ -3,6 +3,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/common/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,17 +21,14 @@ signupForm!: FormGroup;
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{5,}$/)]],
+      password: ['', [Validators.required, Validators.pattern(passwordPattern)]],
       accountAmount: ['', Validators.required]
     });
   }  
-  randomID(){
-    return Math.floor(Math.random() * 1000000)
-  }
-
+  
   registerUser () {
     const newUser: User = this.signupForm.value;
-    newUser.id = this.randomID();
+    newUser.id = this.usersService.randomID();
     this.usersService.getUserEmail(newUser).subscribe(
       (response: Object) => { 
         if (Object.keys(response).length > 0) {

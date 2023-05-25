@@ -53,17 +53,13 @@ updateAmountValidator(): void {
   this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
 }
 
-  randomID(){
-    return Math.floor(Math.random() * 1000000)
-  }
-
   addTransaction() {
   this.usersService.getUser(this.data).subscribe(
     (response: any) => {
       const responseBody = response.body;
       const userObject: User = response.body[0];
       this.transactionObject = this.purchaseForm.value;  
-      this.transactionObject.id = this.randomID();
+      this.transactionObject.id = this.usersService.randomID();
       userObject.accountAmount -= this.transactionObject.amountSpent;
       this.amount = userObject.accountAmount;
       this.updateAmountValidator();
