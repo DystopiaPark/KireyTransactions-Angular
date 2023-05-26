@@ -8,7 +8,6 @@
           type="number"
           formControlName="amount"
           pInputText
-          [(ngModel)]="amount"
           [ngClass]="{ 'p-invalid': amountForm.get('amount')?.invalid && amountForm.get('amount')?.dirty }"
         />
         <small class="p-error" *ngIf="amountForm.get('amount')?.invalid && amountForm.get('amount')?.dirty">

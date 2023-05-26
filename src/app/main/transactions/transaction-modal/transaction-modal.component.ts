@@ -58,6 +58,7 @@ updateAmountValidator(): void {
   this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.amount)]);
   this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
 }
+@Output() amountChanged = new EventEmitter<number>();
 
 addTransaction() {
   this.usersService.getUser().subscribe(
@@ -75,6 +76,7 @@ addTransaction() {
       this.usersService.editUser(this.user, userObject).subscribe(
         response => {
           console.log('Transaction added successfully:', response);
+          this.amountChanged.emit(this.amount);
           this.transactionArray.push(this.transactionObject);
           this.purchaseForm.reset();
         },

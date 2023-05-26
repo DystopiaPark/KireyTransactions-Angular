@@ -10,6 +10,6 @@
       <button pButton type="button" (click)="logout()" label="Sign Out"></button>
     </div>
 </header>
-  <p (click)="logStuff()">Welcome, {{user?.name}} your current balance is {{amount}}</p>
+  <p>Welcome, {{user?.name}} your current balance is {{amount}}</p>
   <button pButton type="button" label="Change amount" (click)="openModal()"></button>
   <app-amount (amountChanged)="onAmountChanged($event)" [modalOpen]="modalOpen" (modalClosed)="closeModal()"></app-amount>

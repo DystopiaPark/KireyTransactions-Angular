@@ -8,9 +8,9 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./amount.component.scss']
 })
 export class AmountComponent implements OnInit {
-  amount!:number;
+  amount!: number;
   user!: any;
-  modalHeader = "Set new amount"
+  modalHeader = "Set new amount";
   amountForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService){}
@@ -22,6 +22,7 @@ export class AmountComponent implements OnInit {
         if (responseBody && responseBody.length > 0) {
           this.user = responseBody[0];
           this.amount = this.user.accountAmount;
+          this.initializeForm();
         } else {
           console.error('User data not found.');
         }
@@ -30,46 +31,36 @@ export class AmountComponent implements OnInit {
         console.error('Failed to fetch user data:', error);
       }
     );
+  }
 
+  initializeForm(): void {
     this.amountForm = this.formBuilder.group({
-    amount: new FormControl(this.amount, [ Validators.required])
-  }); 
-  }  
-  
+      amount: [this.amount, Validators.required]
+    });
+  }
+
   @Output() amountChanged = new EventEmitter<number>();
 
-  // saveAmount in local storage, json server and ship it to parent component to be rendered
-  saveAmount () {
-    this.usersService.getUser().subscribe(
-    (response: any) => {
-      const responseBody = response.body;
-      const concreteObject = response.body[0];
-      const updatedObject = { ...concreteObject, accountAmount: this.amount };
-      responseBody.shift();
-      responseBody.push(updatedObject)
-      // server  
+  saveAmount(): void {
+    if (this.amountForm.valid) {
+      const updatedObject = { ...this.user, accountAmount: this.amountForm.value.amount };
       this.usersService.editUser(this.user, updatedObject).subscribe(
         response => {
           console.log('Amount updated successfully:', response);
-            // parent component
-            this.amountChanged.emit(this.amount);
-          // local storage
+          this.amountChanged.emit(this.amountForm.value.amount);
         },
         error => {
           console.error('Failed to update amount:', error);
         }
       );
-    },
-    error => {
-      console.error('Failed to retrieve object:', error);
     }
-  );
-  this.closeModal();
+    this.closeModal();
   }
 
   // MODAL
   @Input() modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
+
   closeModal(): void {
     this.modalClosed.emit();
   }

@@ -17,6 +17,14 @@ export class TransactionsComponent implements OnInit {
 
   constructor (private router: Router, private usersService: UsersService){}
 
+  // onAmountChanged get value from child component
+  onAmountChanged(kva: number) {
+    this.amount = kva;
+  }
+  onAmountChanged2(amount: number) {
+    this.amount = amount;
+  }
+
   ngOnInit(): void {
     this.usersService.getUser().subscribe(
       (response: any) => {
@@ -46,7 +54,6 @@ export class TransactionsComponent implements OnInit {
     console.log('Delete', transaction);
     this.usersService.getUser().subscribe(
       (response: any) => {
-        const responseBody = response.body;
         const userObject: User = response.body[0];
         userObject.transactions?.forEach((el, index) => {
           if (el.id === transaction.id){
@@ -59,8 +66,6 @@ export class TransactionsComponent implements OnInit {
         this.usersService.deleteTransaction(this.user, userObject).subscribe(
             response => {
               console.log('Transaction deleted successfully:', response);
-              // local storage
-                localStorage.setItem("userData", JSON.stringify(responseBody)) // crazy stuff :D
             },
             error => {
               console.error('Failed to delete transaction:', error);

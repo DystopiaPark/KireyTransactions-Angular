@@ -29,11 +29,7 @@ export class HomepageComponent implements OnInit  {
     );
   }
 
-  logStuff(){
-    console.log(this.user);
-    console.log(this.user.accountAmount);
-    console.log(this.amount);
-  }
+
 
   constructor(private router: Router, private usersService: UsersService) {}
 
@@ -45,7 +41,6 @@ export class HomepageComponent implements OnInit  {
   logout() {
     localStorage.removeItem('userData');
     localStorage.removeItem("auth");
-    localStorage.removeItem("currUser");
     this.router.navigate(['auth/signin']);
   }
 // modal 

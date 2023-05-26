@@ -19,6 +19,7 @@ export class TransactionEditModalComponent implements OnInit {
   selectedTransactionNewValue!: Transactions;
   accountAmount: any;
   previousAmount: any;
+  amount: any;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService) {}
 
@@ -61,19 +62,20 @@ export class TransactionEditModalComponent implements OnInit {
       }
     );
   }
-  
+
+  @Output() amountChanged = new EventEmitter<number>();
   @Output() transactionChanged = new EventEmitter<number>();
 
   editTransaction() {
   console.log(this.previousAmount, this.accountAmount, this.user);
   this.usersService.getUser().subscribe(
     (response: any) => {
-      const responseBody = response.body;
       const userObject: User = response.body[0];
       this.selectedTransactionNewValue = this.purchaseForm.value; 
       this.selectedTransactionNewValue.id = this.selectedTransaction.id; 
       userObject.accountAmount = userObject.accountAmount - (this.selectedTransactionNewValue.amountSpent - this.previousAmount);
       this.accountAmount = userObject.accountAmount;
+      this.amount = userObject.accountAmount;
       // update in server
       userObject.transactions?.forEach((el, index) => {
         if (el.id === this.selectedTransaction.id){
@@ -89,9 +91,9 @@ export class TransactionEditModalComponent implements OnInit {
       this.usersService.editUser(this.user, userObject).subscribe(
           response => {
             console.log('Transaction edited successfully:', response);
-            // local storage
+            // to set component unrendered again
+            this.amountChanged.emit(this.amount);
             this.transactionChanged.emit(undefined);
-              localStorage.setItem("userData", JSON.stringify(responseBody))
           },
           error => {
             console.error('Failed to edit transaction:', error);
