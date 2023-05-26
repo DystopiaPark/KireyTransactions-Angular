@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output  } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output  } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -8,33 +8,47 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent  {
-  data:any = this.getUserData();
-  amount:number = this.data.accountAmount;
+export class HomepageComponent implements OnInit  {
+  user!: any;
+  amount!:number;
+
+  ngOnInit(): void {
+    this.usersService.getUser().subscribe(
+      (response: any) => {
+        const responseBody = response.body;
+        if (responseBody && responseBody.length > 0) {
+          this.user = responseBody[0];
+          this.amount = this.user.accountAmount;
+        } else {
+          console.error('User data not found.');
+        }
+      },
+      (error: any) => {
+        console.error('Failed to fetch user data:', error);
+      }
+    );
+  }
+
+  logStuff(){
+    console.log(this.user);
+    console.log(this.user.accountAmount);
+    console.log(this.amount);
+  }
 
   constructor(private router: Router, private usersService: UsersService) {}
 
-// getUserData from local storage logic
-  getUserData() {
-    let rawData: any = localStorage.getItem("userData");
-    let convertedData: any = JSON.parse(rawData);
-    let objectData: any = convertedData[0];
-    return objectData;
-  }
-
-
-// onAmountChanged get value from child component logic
+// onAmountChanged get value from child component
   onAmountChanged(amount: number) {
     this.amount = amount;
   }
-// logout logic
+// logout 
   logout() {
     localStorage.removeItem('userData');
     localStorage.removeItem("auth");
     localStorage.removeItem("currUser");
     this.router.navigate(['auth/signin']);
   }
-// modal logic
+// modal 
   modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
@@ -42,6 +56,5 @@ export class HomepageComponent  {
   }
   closeModal(): void {
     this.modalOpen = false;
-
   }
 }

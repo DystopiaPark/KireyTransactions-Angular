@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { User } from '../../common/models/user';
 import { Transactions } from '../../common/models/transactions';
 import { Router } from '@angular/router';
@@ -9,20 +9,34 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent {
-
-  userData:any = this.getUserData();
+export class TransactionsComponent implements OnInit {
   selectedTransaction: any;
-  transactionArray: Transactions[] = this.userData.transactions? this.userData.transactions : [];
+  user:any;
+  transactionArray!: Transactions[];
+  amount: any;
 
   constructor (private router: Router, private usersService: UsersService){}
 
-  getUserData() {
-    let rawData: any = localStorage.getItem("userData");
-    let convertedData: any = JSON.parse(rawData);
-    let objectData: any = convertedData[0];
-    return objectData;
+  ngOnInit(): void {
+    this.usersService.getUser().subscribe(
+      (response: any) => {
+        const responseBody = response.body;
+        if (responseBody && responseBody.length > 0) {
+          this.user = responseBody[0];
+          this.transactionArray = this.user.transactions? this.user.transactions : [];
+          this.amount = this.user.accountAmount;
+        } else {
+          console.error('User data not found.');
+        }
+      },
+      (error: any) => {
+        console.error('Failed to fetch user data:', error);
+      }
+    );
   }
+  
+
+
 
   sendSelectedTransactionToChild(transaction: any) {
     this.selectedTransaction = transaction;
@@ -30,7 +44,7 @@ export class TransactionsComponent {
 
   deleteTransaction(transaction: any) {
     console.log('Delete', transaction);
-    this.usersService.getUser(this.userData).subscribe(
+    this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
         const userObject: User = response.body[0];
@@ -38,8 +52,11 @@ export class TransactionsComponent {
           if (el.id === transaction.id){
             userObject.transactions?.splice(index,1);
           }
+          if(userObject.transactions?.length! < 1) {
+            delete userObject.transactions;
+          }
         })
-        this.usersService.deleteTransaction(this.userData, userObject).subscribe(
+        this.usersService.deleteTransaction(this.user, userObject).subscribe(
             response => {
               console.log('Transaction deleted successfully:', response);
               // local storage
@@ -59,7 +76,6 @@ export class TransactionsComponent {
   logout() {
     localStorage.removeItem('userData');
     localStorage.removeItem("auth");
-    localStorage.removeItem("currUser");
     this.router.navigate(['auth/signin']);
   }
 
@@ -81,8 +97,6 @@ export class TransactionsComponent {
   @Output() modalEditClosed = new EventEmitter<void>();
   openEditModal(): void {
     this.modalEditOpen = true;
-    console.log(this.selectedTransaction);
-
   }
   closeEditModal(): void {
     this.modalEditOpen = false;

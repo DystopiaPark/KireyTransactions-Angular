@@ -4,54 +4,31 @@
       "name": "Nikola Savic",
       "email": "qqq@qqq.com",
       "password": "!A123",
-      "accountAmount": 345,
-      "id": 849695,
-      "transactions": [
-        {
-          "purchase": "Air Jordans 123",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-22T11:04",
-          "amountSpent": 31,
-          "id": 680619
-        },
-        {
-          "purchase": "Air Jordans",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-23T09:19",
-          "amountSpent": 122,
-          "id": 131898
-        }
-      ]
+      "accountAmount": 295,
+      "id": 849695
     },
     {
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 50,
-      "id": 126355,
+      "accountAmount": 222,
+      "id": 88356,
       "transactions": [
-        {
-          "purchase": "Air Jordans 0",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-25T02:03",
-          "amountSpent": 50,
-          "id": 626039
-        },
-        {
-          "purchase": "Air Jordans 1",
-          "category": "Sneakers",
-          "timeAndDate": "2023-05-25T14:04",
-          "amountSpent": 15,
-          "id": 941011
-        },
         {
           "purchase": "Air Jordans 2",
           "category": "Sneakers",
-          "timeAndDate": "2023-05-25T14:04",
-          "amountSpent": 20,
-          "id": 456858
+          "timeAndDate": "2023-05-26T13:16",
+          "amountSpent": 22,
+          "id": 487693
         }
       ]
+    },
+    {
+      "name": "Filip Stojanovic",
+      "email": "fil@fil.com",
+      "password": "!A123",
+      "accountAmount": 176,
+      "id": 470112
     }
   ]
 }

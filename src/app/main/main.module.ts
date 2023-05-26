@@ -16,10 +16,12 @@ import { AmountComponent } from './homepage/amount/amount.component';
 import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
 import { TransactionEditModalComponent } from './transactions/transaction-edit-modal/transaction-edit-modal.component';
 
+
 @NgModule({
   declarations: [HomepageComponent, TransactionsComponent, AmountComponent, TransactionModalComponent, TransactionEditModalComponent],
   imports: [
     CommonModule,
+    
     MainRoutingModule,
     CardModule, 
     InputTextModule,

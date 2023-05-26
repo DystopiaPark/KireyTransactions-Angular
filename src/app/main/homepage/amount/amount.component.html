@@ -1,6 +1,6 @@
 <p-dialog [(visible)]="modalOpen" [modal]="true" [closable]="false" [header]="modalHeader" [resizable]="false">
    <ng-template pTemplate="content">
-    <form [formGroup]="signupForm" (ngSubmit)="saveAmount()">
+    <form [formGroup]="amountForm" (ngSubmit)="saveAmount()">
       <div class="p-field">
         <label for="amount">Account Amount</label>
         <input
@@ -9,14 +9,14 @@
           formControlName="amount"
           pInputText
           [(ngModel)]="amount"
-          [ngClass]="{ 'p-invalid': signupForm.get('amount')?.invalid && signupForm.get('amount')?.dirty }"
+          [ngClass]="{ 'p-invalid': amountForm.get('amount')?.invalid && amountForm.get('amount')?.dirty }"
         />
-        <small class="p-error" *ngIf="signupForm.get('amount')?.invalid && signupForm.get('amount')?.dirty">
+        <small class="p-error" *ngIf="amountForm.get('amount')?.invalid && amountForm.get('amount')?.dirty">
           Account amount must be a number.
         </small>
       </div>
       <div class="btns">
-        <p-button type="submit" label="Save amount" [disabled]="signupForm.invalid"></p-button>
+        <p-button type="submit" label="Save amount" [disabled]="amountForm.invalid"></p-button>
         <p-button type="button" (click)="closeModal()" label="Cancel"></p-button>
       </div>
     </form>

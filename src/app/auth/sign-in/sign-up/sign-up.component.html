@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="modalOpen" [modal]="true" [header]="modalHeader" [resizable]="false" [closable]="false" [closeOnEscape]="false">
+<p-dialog [(visible)]="modalOpen" [modal]="true" [resizable]="false" [maximizable]="false" [header]="modalHeader" [resizable]="false" [closable]="false" [closeOnEscape]="false" [style]="{'width':'500'}">
   <ng-template pTemplate="content">
     <form [formGroup]="signupForm" (ngSubmit)="registerUser()">
       <div class="p-fluid">
@@ -36,7 +36,7 @@
             pPassword
             [ngClass]="{ 'p-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.dirty }"
             />
-            <small class="p-error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.dirty">
+            <small class="p-error wrap" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.dirty">
             Password must contain at least 5 characters, one uppercase letter, one special character, and one number.
             </small>
         </div>

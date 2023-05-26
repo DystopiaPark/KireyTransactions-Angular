@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -9,27 +8,39 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./amount.component.scss']
 })
 export class AmountComponent implements OnInit {
-  
-  @Input() data: any;
-  amount!: number;
+  amount!:number;
+  user!: any;
   modalHeader = "Set new amount"
-  signupForm!: FormGroup;
+  amountForm!: FormGroup;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, private usersService: UsersService){}
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService){}
 
   ngOnInit(): void {
-    this.amount = this.data.accountAmount;
-    this.signupForm = this.formBuilder.group({
-    amount: ['', Validators.required]
+    this.usersService.getUser().subscribe(
+      (response: any) => {
+        const responseBody = response.body;
+        if (responseBody && responseBody.length > 0) {
+          this.user = responseBody[0];
+          this.amount = this.user.accountAmount;
+        } else {
+          console.error('User data not found.');
+        }
+      },
+      (error: any) => {
+        console.error('Failed to fetch user data:', error);
+      }
+    );
+
+    this.amountForm = this.formBuilder.group({
+    amount: new FormControl(this.amount, [ Validators.required])
   }); 
   }  
   
-
   @Output() amountChanged = new EventEmitter<number>();
 
   // saveAmount in local storage, json server and ship it to parent component to be rendered
   saveAmount () {
-    this.usersService.getUser(this.data).subscribe(
+    this.usersService.getUser().subscribe(
     (response: any) => {
       const responseBody = response.body;
       const concreteObject = response.body[0];
@@ -37,13 +48,12 @@ export class AmountComponent implements OnInit {
       responseBody.shift();
       responseBody.push(updatedObject)
       // server  
-      this.usersService.editUser(this.data, updatedObject).subscribe(
+      this.usersService.editUser(this.user, updatedObject).subscribe(
         response => {
           console.log('Amount updated successfully:', response);
             // parent component
             this.amountChanged.emit(this.amount);
           // local storage
-            localStorage.setItem("userData", JSON.stringify(responseBody))
         },
         error => {
           console.error('Failed to update amount:', error);

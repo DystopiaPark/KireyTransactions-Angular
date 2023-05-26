@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Transactions } from 'src/app/common/models/transactions';
-import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/common/models/user';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -11,24 +10,31 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./transaction-modal.component.scss']
 })
 export class TransactionModalComponent {
-  @Input() transactionArray: any;
+  @Input() transactionArray!: Transactions[];
 
   purchaseForm!: FormGroup;
-  data:any = this.getUserData();
-  amount:number = this.data.accountAmount;
-  modalHeader = "Sign Up"
+  user: any;
+  amount!:number;
+  modalHeader = "Add transaction"
   transactionObject!: Transactions;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private usersService: UsersService) {}
-
-  getUserData() {
-    let rawData: any = localStorage.getItem("userData");
-    let convertedData: any = JSON.parse(rawData);
-    let objectData: any = convertedData[0];
-    return objectData;
-  }
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   ngOnInit(): void {
+    this.usersService.getUser().subscribe(
+      (response: any) => {
+        const responseBody = response.body;
+        if (responseBody && responseBody.length > 0) {
+          this.user = responseBody[0];
+          this.amount = this.user.accountAmount;
+        } else {
+          console.error('User data not found.');
+        }
+      },
+      (error: any) => {
+        console.error('Failed to fetch user data:', error);
+      }
+    );
     this.purchaseForm = this.formBuilder.group({
       purchase: ['', Validators.required],
       category: ['', [Validators.required]],
@@ -53,56 +59,36 @@ updateAmountValidator(): void {
   this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
 }
 
-  addTransaction() {
-  this.usersService.getUser(this.data).subscribe(
+addTransaction() {
+  this.usersService.getUser().subscribe(
     (response: any) => {
-      const responseBody = response.body;
       const userObject: User = response.body[0];
-      this.transactionObject = this.purchaseForm.value;  
+      this.transactionObject = this.purchaseForm.value;
       this.transactionObject.id = this.usersService.randomID();
       userObject.accountAmount -= this.transactionObject.amountSpent;
       this.amount = userObject.accountAmount;
       this.updateAmountValidator();
-      if (userObject.transactions) {
+      if (!userObject.transactions) {
+        userObject.transactions = [];
+      }
       userObject.transactions.push(this.transactionObject);
-      this.transactionArray.push(this.transactionObject);
-      this.usersService.editUser(this.data, userObject).subscribe(
-          response => {
-            console.log('Transaction added successfully:', response);
-              // parent component
-              this.purchaseForm.reset();
-              
-            // local storage
-              localStorage.setItem("userData", JSON.stringify(responseBody))
-          },
-          error => {
-            console.error('Failed to add transaction:', error);
-          }
-        );   
-    } else {
-      userObject.transactions = [];
-      userObject.transactions.push(this.transactionObject);
-      this.transactionArray.push(this.transactionObject);
-      this.usersService.editUser(this.data, userObject).subscribe(
-          response => {
-            console.log('Transaction added successfully:', response);
-            this.purchaseForm.reset();
-            // local storage
-              localStorage.setItem("userData", JSON.stringify(responseBody))
-          },
-          error => {
-            console.error('Failed to add transaction:', error);
-          }
-        );   
-    } 
+      this.usersService.editUser(this.user, userObject).subscribe(
+        response => {
+          console.log('Transaction added successfully:', response);
+          this.transactionArray.push(this.transactionObject);
+          this.purchaseForm.reset();
+        },
+        error => {
+          console.error('Failed to add transaction:', error);
+        }
+      );
     },
-  
     error => {
       console.error('Failed to retrieve object:', error);
     }
   );
   this.closeModal();
-  }
+}
 
   // MODAL
 
