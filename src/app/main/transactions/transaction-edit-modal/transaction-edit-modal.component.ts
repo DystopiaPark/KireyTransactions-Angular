@@ -76,17 +76,16 @@ export class TransactionEditModalComponent implements OnInit {
         this.updateTransactionArray();
         this.updateAmount(editedTransaction.amountSpent);
         this.transactionChanged.emit();
-      }
-     )
+      })
   this.closeEditModal();
   }
   updateAmount(newTransactionPrice: number): void {
     this.selectedTransactionNewValue = this.purchaseForm.value; 
     const updatedObject = { ...this.user, accountAmount: this.user.accountAmount - (newTransactionPrice - this.previousAmount) };
+    this.amountChanged.emit(updatedObject.accountAmount);
     this.usersService.editUser(this.user, updatedObject).subscribe(
       response => {
         console.log('Amount updated successfully:', updatedObject.accountAmount);
-        this.amountChanged.emit(updatedObject.accountAmount);
         this.transactionChanged.emit(undefined);
       },
       error => {

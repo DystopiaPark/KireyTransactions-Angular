@@ -4,14 +4,14 @@
       "name": "Nikola Savic",
       "email": "qqq@qqq.com",
       "password": "!A123",
-      "accountAmount": 28,
+      "accountAmount": 23,
       "id": 849695
     },
     {
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 35,
+      "accountAmount": 15,
       "id": 88356
     },
     {
@@ -20,6 +20,20 @@
       "password": "!A123",
       "accountAmount": 176,
       "id": 470112
+    },
+    {
+      "name": "Pera Peric",
+      "email": "per@per.com",
+      "password": "!A123",
+      "accountAmount": 25,
+      "id": 548393
+    },
+    {
+      "name": "Mika Mikic",
+      "email": "mik@mik.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 29869
     }
   ],
   "transactions": [
@@ -50,10 +64,18 @@
     {
       "purchase": "Air Jordans 2",
       "category": "Sneakers",
-      "timeAndDate": "2023-05-27T14:01",
+      "timeAndDate": "2023-05-27T14:17",
       "amountSpent": 10,
       "userId": 88356,
-      "id": 256251
+      "id": 632624
+    },
+    {
+      "purchase": "Air Jordans 2",
+      "category": "Sneakers",
+      "timeAndDate": "2023-05-27T14:18",
+      "amountSpent": 5,
+      "userId": 849695,
+      "id": 917051
     }
   ]
 }
