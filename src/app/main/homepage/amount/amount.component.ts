@@ -41,7 +41,7 @@ export class AmountComponent implements OnInit {
 
   @Output() amountChanged = new EventEmitter<number>();
 
-  saveAmount(): void {
+  updateAmount(): void {
     if (this.amountForm.valid) {
       const updatedObject = { ...this.user, accountAmount: this.amountForm.value.amount };
       this.usersService.editUser(this.user, updatedObject).subscribe(

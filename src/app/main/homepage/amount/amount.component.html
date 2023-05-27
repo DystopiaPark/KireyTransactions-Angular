@@ -1,6 +1,6 @@
 <p-dialog [(visible)]="modalOpen" [modal]="true" [closable]="false" [header]="modalHeader" [resizable]="false">
    <ng-template pTemplate="content">
-    <form [formGroup]="amountForm" (ngSubmit)="saveAmount()">
+    <form [formGroup]="amountForm" (ngSubmit)="updateAmount()">
       <div class="p-field">
         <label for="amount">Account Amount</label>
         <input

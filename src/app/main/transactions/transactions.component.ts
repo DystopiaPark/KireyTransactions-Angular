@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { User } from '../../common/models/user';
 import { Transactions } from '../../common/models/transactions';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-transactions',
@@ -15,13 +15,10 @@ export class TransactionsComponent implements OnInit {
   transactionArray!: Transactions[];
   amount: any;
 
-  constructor (private router: Router, private usersService: UsersService){}
+  constructor (private router: Router, private usersService: UsersService, private transactionsService: TransactionsService){}
 
   // onAmountChanged get value from child component
-  onAmountChanged(kva: number) {
-    this.amount = kva;
-  }
-  onAmountChanged2(amount: number) {
+  onAmountChanged(amount: number) {
     this.amount = amount;
   }
 
@@ -31,8 +28,10 @@ export class TransactionsComponent implements OnInit {
         const responseBody = response.body;
         if (responseBody && responseBody.length > 0) {
           this.user = responseBody[0];
-          this.transactionArray = this.user.transactions? this.user.transactions : [];
           this.amount = this.user.accountAmount;
+          this.transactionsService.getTransactions(this.user.id).subscribe((response: any) =>{
+            this.transactionArray = response;
+          })
         } else {
           console.error('User data not found.');
         }
@@ -40,42 +39,21 @@ export class TransactionsComponent implements OnInit {
       (error: any) => {
         console.error('Failed to fetch user data:', error);
       }
-    );
+    )
   }
   
 
-
-
-  sendSelectedTransactionToChild(transaction: any) {
-    this.selectedTransaction = transaction;
+  deleteTransaction(transaction: any) {
+    this.transactionsService.deleteTransaction(transaction.id).subscribe((response: any)=> {
+      console.log("Transaction deleted", response);
+      this.updateTransactionArray();
+    })
   }
 
-  deleteTransaction(transaction: any) {
-    console.log('Delete', transaction);
-    this.usersService.getUser().subscribe(
-      (response: any) => {
-        const userObject: User = response.body[0];
-        userObject.transactions?.forEach((el, index) => {
-          if (el.id === transaction.id){
-            userObject.transactions?.splice(index,1);
-          }
-          if(userObject.transactions?.length! < 1) {
-            delete userObject.transactions;
-          }
-        })
-        this.usersService.deleteTransaction(this.user, userObject).subscribe(
-            response => {
-              console.log('Transaction deleted successfully:', response);
-            },
-            error => {
-              console.error('Failed to delete transaction:', error);
-            }
-          );   
-          })
-    const index = this.transactionArray.indexOf(transaction);
-    if (index !== -1) {
-      this.transactionArray.splice(index, 1);
-    }
+  updateTransactionArray() {
+    this.transactionsService.getTransactions(this.user.id).subscribe((response: any) => {
+      this.transactionArray = response;
+    });
   }
 
   logout() {
@@ -84,6 +62,10 @@ export class TransactionsComponent implements OnInit {
     this.router.navigate(['auth/signin']);
   }
 
+  // emited from child
+  sendSelectedTransactionToChild(transaction: any) {
+    this.selectedTransaction = transaction;
+  }
   onTransactionChanged(transaction: any) {
     this.selectedTransaction = transaction;
   }

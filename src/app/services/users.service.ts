@@ -30,13 +30,10 @@ export class UsersService {
     return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
    }
 
-  getUserEmail (user: User) {
+  getUserThroughEmail (user: User) {
   return this.http.get('http://localhost:3000/users?email=' + user.email)
   }
-  
-  deleteTransaction (data:any, object: any) {
-    return this.http.put(`http://localhost:3000/users/${data.id}`, object)
-  }
+
 
   editUser (user: any, object: any) {
     return this.http.put(`http://localhost:3000/users/${user.id}`, object)

@@ -4,4 +4,5 @@ export interface Transactions {
     timeAndDate: Date;
     amountSpent: number;
     id: number;
+    transactionId: number;
 }
