@@ -10,9 +10,11 @@
           pInputText
           [ngClass]="{ 'p-invalid': amountForm.get('amount')?.invalid && amountForm.get('amount')?.dirty }"
         />
-        <small class="p-error" *ngIf="amountForm.get('amount')?.invalid && amountForm.get('amount')?.dirty">
-          Account amount must be a number.
-        </small>
+        <div style="margin-bottom: 1rem">
+          <small class="p-error" *ngIf="amountForm.get('amount')?.invalid && amountForm.get('amount')?.dirty">
+            Account amount must be a number.
+          </small>
+        </div>
       </div>
       <div class="btns">
         <p-button type="submit" label="Save amount" [disabled]="amountForm.invalid"></p-button>

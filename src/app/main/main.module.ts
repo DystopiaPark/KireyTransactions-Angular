@@ -15,10 +15,11 @@ import { TableModule } from 'primeng/table';
 import { AmountComponent } from './homepage/amount/amount.component';
 import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
 import { TransactionEditModalComponent } from './transactions/transaction-edit-modal/transaction-edit-modal.component';
+import { TransactionsNavComponent } from './transactions/transactions-nav/transactions-nav.component';
 
 
 @NgModule({
-  declarations: [HomepageComponent, TransactionsComponent, AmountComponent, TransactionModalComponent, TransactionEditModalComponent],
+  declarations: [HomepageComponent, TransactionsComponent, AmountComponent, TransactionModalComponent, TransactionEditModalComponent, TransactionsNavComponent],
   imports: [
     CommonModule,
     

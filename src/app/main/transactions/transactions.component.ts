@@ -69,8 +69,7 @@ export class TransactionsComponent implements OnInit {
   onTransactionChanged(transaction: any) {
     this.selectedTransaction = transaction;
   }
-
-  // ADD TRANSACTION MODAL
+ // ADD TRANSACTION MODAL
   modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
@@ -79,6 +78,7 @@ export class TransactionsComponent implements OnInit {
   closeModal(): void {
     this.modalOpen = false;
   }
+
   // EDIT TRANSACTION MODAL
   modalEditOpen = false;
   @Output() modalEditClosed = new EventEmitter<void>();
