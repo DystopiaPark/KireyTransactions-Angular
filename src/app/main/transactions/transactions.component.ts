@@ -23,10 +23,6 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTransactionsArray();
-  }
-
-  getTransactionsArray() {
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -66,13 +62,12 @@ export class TransactionsComponent implements OnInit {
     this.router.navigate(['auth/signin']);
   }
 
-  // specific transaction passed to child on edit
+  // emited from child
   sendSelectedTransactionToChild(transaction: any) {
     this.selectedTransaction = transaction;
   }
-  // edit-modal component is undefined on close modal
-  selectedTransactionUndefined() {
-    this.selectedTransaction = undefined;
+  onTransactionChanged(transaction: any) {
+    this.selectedTransaction = transaction;
   }
  // ADD TRANSACTION MODAL
   modalOpen = false;

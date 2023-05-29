@@ -11,28 +11,16 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class TransactionModalComponent {
   @Input() transactionArray!: Transactions[];
+  @Input() amount!: number;
+
   purchaseForm!: FormGroup;
   user: any;
-  amount!:number;
   modalHeader = "Add transaction"
   transactionObject!: Transactions;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
-    this.getUserData();
-  }
-  
-  initializeForm(): void {
-    this.purchaseForm = this.formBuilder.group({
-      purchase: ['', Validators.required],
-      category: ['', [Validators.required]],
-      timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required, Validators.min(1), this.amountValidator(this.amount)]]
-    });
-  }
-  
-  getUserData(){
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -49,6 +37,16 @@ export class TransactionModalComponent {
       }
     );
   }
+  
+  initializeForm(): void {
+    this.purchaseForm = this.formBuilder.group({
+      purchase: ['', Validators.required],
+      category: ['', [Validators.required]],
+      timeAndDate: ['', [Validators.required]],
+      amountSpent: ['', [Validators.required, this.amountValidator(this.amount)]]
+    });
+  }
+  
 
   // Custom validator function
 amountValidator(amount: number): ValidatorFn {
@@ -75,15 +73,18 @@ addTransaction() {
       this.updateTransactionArray();
       this.updateAmount(transaction.amountSpent);
       this.transactionAdded.emit();
+      this.purchaseForm.reset();
      })
      this.closeModal();
 }
 
 updateAmount(transactionPrice: number): void {
-    const updatedObject = { ...this.user, accountAmount: this.amount - transactionPrice };
+    let updatedObject = { ...this.user, accountAmount: this.amount - transactionPrice };
     this.usersService.editUser(this.user, updatedObject).subscribe(
       response => {
         console.log('Amount updated successfully:', updatedObject.accountAmount);
+        this.amount = updatedObject.accountAmount;
+        this.updateAmountValidator();
         this.amountChanged.emit(updatedObject.accountAmount);
       },
       error => {

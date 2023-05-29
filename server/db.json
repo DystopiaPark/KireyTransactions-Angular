@@ -11,7 +11,7 @@
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 20,
+      "accountAmount": 25,
       "id": 88356
     },
     {
@@ -40,26 +40,10 @@
     {
       "purchase": "Air Jordans 2",
       "category": "Sneakers",
-      "timeAndDate": "2023-05-27T14:18",
-      "amountSpent": 5,
-      "userId": 849695,
-      "id": 917051
-    },
-    {
-      "purchase": "Air Jordans 2",
-      "category": "Sneakers",
-      "timeAndDate": "2023-05-29T23:01",
-      "amountSpent": 5,
+      "timeAndDate": "2023-05-29T15:24",
+      "amountSpent": 6,
       "userId": 88356,
-      "id": 976245
-    },
-    {
-      "purchase": "Air Jordans 2",
-      "category": "Sneakers",
-      "timeAndDate": "2023-05-29T11:07",
-      "amountSpent": 10,
-      "userId": 88356,
-      "id": 303103
+      "id": 973427
     }
   ]
 }
