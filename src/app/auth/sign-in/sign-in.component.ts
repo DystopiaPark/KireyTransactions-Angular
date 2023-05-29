@@ -12,7 +12,7 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 })
 export class SignInComponent implements OnInit {
   signinForm!: FormGroup;
-  wrongCredentials = false;
+  wrongCredentials:boolean = false;
   constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   ngOnInit(): void {
@@ -27,10 +27,6 @@ export class SignInComponent implements OnInit {
     this.usersService.getUserData(data).subscribe((value:any) => { 
       if (value && value.body.length === 1) {
           localStorage.setItem("userData", JSON.stringify(value.body))
-          let concreteUser = value.body[0];
-          delete concreteUser.transactions;
-          let newBody = [concreteUser];
-          localStorage.setItem("currUser", JSON.stringify(newBody));
           localStorage.setItem("auth", JSON.stringify(this.auth.isAuthenticated));
           this.auth.isAuthenticated.next(true);
           this.router.navigateByUrl('/main/homepage');
@@ -38,7 +34,7 @@ export class SignInComponent implements OnInit {
         this.wrongCredentials = true;
         setTimeout(()=> {
           this.wrongCredentials = false;
-        }, 1000)
+        }, 1500)
       }
     }, err => {
       alert("something went wrong try again")

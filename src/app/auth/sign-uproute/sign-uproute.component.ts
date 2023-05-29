@@ -11,10 +11,10 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
   styleUrls: ['./sign-uproute.component.scss']
 })
 export class SignUprouteComponent {
-  emailExists = false;
+  signupForm!: FormGroup;
+  emailExists:boolean = false;
 
   constructor(private usersService: UsersService, private formBuilder: FormBuilder, private http: HttpClient) {}
-  signupForm!: FormGroup;
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({

@@ -10,12 +10,22 @@ import { UsersService } from 'src/app/services/users.service';
 export class AmountComponent implements OnInit {
   amount!: number;
   user!: any;
-  modalHeader = "Set new amount";
+  modalHeader:string = "Set new amount";
   amountForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService){}
 
   ngOnInit(): void {
+    this.getUserAndAmount();
+  }
+
+  initializeForm(): void {
+    this.amountForm = this.formBuilder.group({
+      amount: [this.amount, Validators.required]
+    });
+  }
+
+  getUserAndAmount(){
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -31,12 +41,6 @@ export class AmountComponent implements OnInit {
         console.error('Failed to fetch user data:', error);
       }
     );
-  }
-
-  initializeForm(): void {
-    this.amountForm = this.formBuilder.group({
-      amount: [this.amount, Validators.required]
-    });
   }
 
   @Output() amountChanged = new EventEmitter<number>();
@@ -60,7 +64,6 @@ export class AmountComponent implements OnInit {
   // MODAL
   @Input() modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
-
   closeModal(): void {
     this.modalClosed.emit();
   }

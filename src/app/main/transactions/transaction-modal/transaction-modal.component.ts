@@ -11,7 +11,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class TransactionModalComponent {
   @Input() transactionArray!: Transactions[];
-
   purchaseForm!: FormGroup;
   user: any;
   amount!:number;
@@ -21,6 +20,19 @@ export class TransactionModalComponent {
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
+    this.getUserData();
+  }
+  
+  initializeForm(): void {
+    this.purchaseForm = this.formBuilder.group({
+      purchase: ['', Validators.required],
+      category: ['', [Validators.required]],
+      timeAndDate: ['', [Validators.required]],
+      amountSpent: ['', [Validators.required, Validators.min(1), this.amountValidator(this.amount)]]
+    });
+  }
+  
+  getUserData(){
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -37,16 +49,6 @@ export class TransactionModalComponent {
       }
     );
   }
-  
-  initializeForm(): void {
-    this.purchaseForm = this.formBuilder.group({
-      purchase: ['', Validators.required],
-      category: ['', [Validators.required]],
-      timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required, this.amountValidator(this.amount)]]
-    });
-  }
-  
 
   // Custom validator function
 amountValidator(amount: number): ValidatorFn {

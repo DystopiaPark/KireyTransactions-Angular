@@ -10,10 +10,10 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-  emailExists = false;
+  emailExists:boolean = false;
   signupForm!: FormGroup;
 
-  modalHeader = "Sign Up"
+  modalHeader:string = "Sign Up"
 
   constructor(private usersService: UsersService, private formBuilder: FormBuilder) {}
 

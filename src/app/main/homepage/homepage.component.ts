@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output  } from '@angular/core';
-import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 
 
@@ -9,10 +8,16 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit  {
-  user!: any;
+  user: any;
   amount!:number;
+  modalOpen:boolean = false;
+
 
   ngOnInit(): void {
+    this.getUserAndAmount();
+  }
+
+  getUserAndAmount(){
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -30,21 +35,14 @@ export class HomepageComponent implements OnInit  {
   }
 
 
-
-  constructor(private router: Router, private usersService: UsersService) {}
+  constructor(private usersService: UsersService) {}
 
 // onAmountChanged get value from child component
   onAmountChanged(amount: number) {
     this.amount = amount;
   }
-// logout 
-  logout() {
-    localStorage.removeItem('userData');
-    localStorage.removeItem("auth");
-    this.router.navigate(['auth/signin']);
-  }
+
 // modal 
-  modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
     this.modalOpen = true;
