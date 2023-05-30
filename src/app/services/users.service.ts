@@ -13,21 +13,21 @@ export class UsersService {
     return Math.floor(Math.random() * 1000000)
   }
 
+  getUserData(data: any) {
+    return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
+  }
+
+  getUser() {
+    let data = this.getUserFromLocalStorage();
+    return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
+  }
+
   getUserFromLocalStorage(){
     let rawData: any = localStorage.getItem("userData");
     let convertedData: any = JSON.parse(rawData);
     let objectData: any = convertedData[0];
     return objectData;
   }
-
-  getUserData(data: any) {
-    return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
-   }
-
-  getUser() {
-    let data = this.getUserFromLocalStorage();
-    return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
-   }
 
   getUserByEmail (user: User) {
   return this.http.get('http://localhost:3000/users?email=' + user.email)
@@ -39,6 +39,6 @@ export class UsersService {
   }
 
   createUser (user: any) {
-   return this.http.post('http://localhost:3000/users', user);
+    return this.http.post('http://localhost:3000/users', user);
   }
 }

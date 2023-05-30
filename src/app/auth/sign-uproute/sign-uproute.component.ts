@@ -12,7 +12,7 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 })
 export class SignUprouteComponent {
   signupForm!: FormGroup;
-  emailExists:boolean = false;
+  emailExists: boolean = false;
 
   constructor(private usersService: UsersService, private formBuilder: FormBuilder, private http: HttpClient) {}
 

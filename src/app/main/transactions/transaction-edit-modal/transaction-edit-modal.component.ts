@@ -12,6 +12,11 @@ export class TransactionEditModalComponent implements OnInit {
   @Input() transactionArray: any;
   @Input() selectedTransaction: any;
   @Input() amount!: number;
+  @Input() modalEditOpen = false;
+
+  @Output() modalEditClosed = new EventEmitter<void>();
+  @Output() amountChanged = new EventEmitter<number>();
+  @Output() transactionChanged = new EventEmitter<void>();
 
   purchaseForm!: FormGroup;
   user: any;
@@ -61,8 +66,6 @@ export class TransactionEditModalComponent implements OnInit {
       }
     );
   }
-  @Output() amountChanged = new EventEmitter<number>();
-  @Output() transactionChanged = new EventEmitter<void>();
 
   editTransaction() {
     let editedTransaction = this.purchaseForm.value;
@@ -74,6 +77,13 @@ export class TransactionEditModalComponent implements OnInit {
       this.updateAmount(editedTransaction.amountSpent);
     })
   this.closeEditModal();
+  }
+
+  updateTransactionArray() {
+    this.transactionsService.getTransactions(this.user.id).subscribe((response: any) => {
+      console.log(response);
+      this.transactionArray = response;
+    });
   }
   
   updateAmount(newTransactionPrice: number): void {
@@ -91,21 +101,10 @@ export class TransactionEditModalComponent implements OnInit {
     );
   }
 
-  updateTransactionArray() {
-    this.transactionsService.getTransactions(this.user.id).subscribe((response: any) => {
-      console.log(response);
-      this.transactionArray = response;
-    });
-  }
-
-
-  // EDIT MODAL
-  @Input() modalEditOpen = false;
-  @Output() modalEditClosed = new EventEmitter<void>();
   closeEditModal(): void {
     this.modalEditClosed.emit();
   setTimeout(()=> {
     this.transactionChanged.emit(undefined);
-  }, 100)
+  }, 100);
   }
 }

@@ -12,6 +12,11 @@ import { UsersService } from 'src/app/services/users.service';
 export class TransactionModalComponent {
   @Input() transactionArray!: Transactions[];
   @Input() amount!: number;
+  @Input() modalOpen = false;
+
+  @Output() amountChanged = new EventEmitter<number>();
+  @Output() transactionAdded = new EventEmitter<void>();
+  @Output() modalClosed = new EventEmitter<void>();
 
   purchaseForm!: FormGroup;
   user: any;
@@ -21,16 +26,7 @@ export class TransactionModalComponent {
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
-   this.fetchUserData();
-  }
-  
-  initializeForm(): void {
-    this.purchaseForm = this.formBuilder.group({
-      purchase: ['', Validators.required],
-      category: ['', [Validators.required]],
-      timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required, this.amountValidator(this.amount)]]
-    });
+    this.fetchUserData();
   }
 
   fetchUserData(){
@@ -50,39 +46,50 @@ export class TransactionModalComponent {
       }
     );
   }
+
+  initializeForm(): void {
+    this.purchaseForm = this.formBuilder.group({
+      purchase: ['', Validators.required],
+      category: ['', [Validators.required]],
+      timeAndDate: ['', [Validators.required]],
+      amountSpent: ['', [Validators.required, this.amountValidator(this.amount)]]
+    });
+  }
   
+  amountValidator(amount: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const enteredAmount = parseFloat(control.value);
+      return enteredAmount > amount ? { 'exceededAmount': true } : null;
+    };
+  }
 
-  // Custom validator function
-amountValidator(amount: number): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const enteredAmount = parseFloat(control.value);
-    return enteredAmount > amount ? { 'exceededAmount': true } : null;
-  };
-}
+  updateAmountValidator(): void {
+    this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.amount)]);
+    this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
+  }
 
-// Update the amount validator when this.amount changes
-updateAmountValidator(): void {
-  this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.amount)]);
-  this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
-}
-@Output() amountChanged = new EventEmitter<number>();
-@Output() transactionAdded = new EventEmitter<void>();
+  addTransaction() {
+    let transaction = this.purchaseForm.value;
+    transaction.userId = this.user.id;
+    transaction.id = this.usersService.generateRandomID();
+    this.transactionsService.createTransaction(transaction).subscribe((response:any) => {
+    console.log("Transaction added", response);
+    this.updateTransactionArray();
+    this.updateAmount(transaction.amountSpent);
+    this.transactionAdded.emit();
+    this.purchaseForm.reset();
+    })
+    this.closeModal();
+  }
 
-addTransaction() {
-     let transaction = this.purchaseForm.value;
-     transaction.userId = this.user.id;
-     transaction.id = this.usersService.generateRandomID();
-     this.transactionsService.createTransaction(transaction).subscribe((response:any) => {
-      console.log("Transaction added", response);
-      this.updateTransactionArray();
-      this.updateAmount(transaction.amountSpent);
-      this.transactionAdded.emit();
-      this.purchaseForm.reset();
-     })
-     this.closeModal();
-}
+  updateTransactionArray() {
+    this.transactionsService.getTransactions(this.user.id).subscribe((response: any) => {
+      console.log(response);
+      this.transactionArray = response;
+    });
+  }
 
-updateAmount(transactionPrice: number): void {
+  updateAmount(transactionPrice: number): void {
     let updatedObject = { ...this.user, accountAmount: this.amount - transactionPrice };
     this.usersService.editUser(this.user, updatedObject).subscribe(
       response => {
@@ -97,16 +104,6 @@ updateAmount(transactionPrice: number): void {
     );
   }
 
-updateTransactionArray() {
-  this.transactionsService.getTransactions(this.user.id).subscribe((response: any) => {
-    console.log(response);
-    this.transactionArray = response;
-  });
-}
-  // MODAL
-
-  @Input() modalOpen = false;
-  @Output() modalClosed = new EventEmitter<void>();
   closeModal(): void {
     this.modalClosed.emit();
   }

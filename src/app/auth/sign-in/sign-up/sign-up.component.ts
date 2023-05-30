@@ -10,6 +10,10 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
+  @Input() modalOpen:boolean = false;
+
+  @Output() modalClosed = new EventEmitter<void>();
+
   emailExists:boolean = false;
   signupForm!: FormGroup;
   modalHeader:string = "Sign Up"
@@ -56,9 +60,6 @@ export class SignUpComponent {
     );
   }
 
-  // MODAL
-  @Input() modalOpen = false;
-  @Output() modalClosed = new EventEmitter<void>();
   closeModal(): void {
     this.modalClosed.emit();
   }

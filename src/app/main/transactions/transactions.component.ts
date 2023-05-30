@@ -10,6 +10,11 @@ import { TransactionsService } from 'src/app/services/transactions.service';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
+  @Output() modalClosed = new EventEmitter<void>();
+  @Output() modalEditClosed = new EventEmitter<void>();
+
+  modalEditOpen = false;
+  modalOpen = false;
   selectedTransaction: any;
   user: any;
   transactionArray!: Transactions[];
@@ -64,7 +69,6 @@ export class TransactionsComponent implements OnInit {
   onAmountChanged(amount: number) {
     this.amount = amount;
   }
-
   // send selected transaction to child on click
   sendSelectedTransactionToChild(transaction: any) {
     this.selectedTransaction = transaction;
@@ -74,9 +78,6 @@ export class TransactionsComponent implements OnInit {
     this.selectedTransaction = transaction;
   }
 
- // ADD TRANSACTION MODAL
-  modalOpen = false;
-  @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
     this.modalOpen = true;    
   }
@@ -84,9 +85,6 @@ export class TransactionsComponent implements OnInit {
     this.modalOpen = false;
   }
 
-  // EDIT TRANSACTION MODAL
-  modalEditOpen = false;
-  @Output() modalEditClosed = new EventEmitter<void>();
   openEditModal(): void {
     this.modalEditOpen = true;
   }

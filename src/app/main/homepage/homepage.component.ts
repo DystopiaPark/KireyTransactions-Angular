@@ -6,17 +6,18 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent implements OnInit  {
+export class HomepageComponent implements OnInit  { 
+  @Output() modalClosed = new EventEmitter<void>();
+
   user: any;
   amount!:number;
   modalOpen:boolean = false;
 
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.getUserAndAmount();
   }
-
-  constructor(private usersService: UsersService) {}
 
   getUserAndAmount(){
     this.usersService.getUser().subscribe(
@@ -35,13 +36,11 @@ export class HomepageComponent implements OnInit  {
     );
   }
 
-// onAmountChanged get value from child component
+  // get amount value from child component
   onAmountChanged(amount: number) {
     this.amount = amount;
   }
 
-// modal 
-  @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {
     this.modalOpen = true;
   }

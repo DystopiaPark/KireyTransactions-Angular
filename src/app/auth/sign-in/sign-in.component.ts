@@ -11,8 +11,12 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+  @Output() modalClosed = new EventEmitter<void>();
+
+  modalOpen: boolean = false;
   signinForm!: FormGroup;
   invalidCredentials:boolean = false;
+
   constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   ngOnInit(): void {
@@ -40,13 +44,11 @@ export class SignInComponent implements OnInit {
       alert("something went wrong try again")
     })
   }
-  
-  // MODAL
-  modalOpen = false;
-  @Output() modalClosed = new EventEmitter<void>();
+
   openModal(): void {
     this.modalOpen = true;
   }
+  
   closeModal(): void {
     this.modalOpen = false;
   }

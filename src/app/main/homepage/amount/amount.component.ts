@@ -8,6 +8,11 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./amount.component.scss']
 })
 export class AmountComponent implements OnInit {
+  @Input() modalOpen = false;
+  
+  @Output() amountChanged = new EventEmitter<number>();
+  @Output() modalClosed = new EventEmitter<void>();
+
   amount!:number;
   user!:any;
   modalHeader:string = "Set new amount";
@@ -43,8 +48,6 @@ export class AmountComponent implements OnInit {
     );
   }
 
-  @Output() amountChanged = new EventEmitter<number>();
-
   updateAmount(): void {
     if (this.amountForm.valid) {
       const updatedObject = { ...this.user, accountAmount: this.amountForm.value.amount };
@@ -61,9 +64,6 @@ export class AmountComponent implements OnInit {
     this.closeModal();
   }
 
-  // MODAL
-  @Input() modalOpen = false;
-  @Output() modalClosed = new EventEmitter<void>();
   closeModal(): void {
     this.modalClosed.emit();
   }
