@@ -38,12 +38,20 @@
   ],
   "transactions": [
     {
+      "purchase": "Air Jordans 4",
+      "category": "2",
+      "timeAndDate": "2023-05-29T06:07",
+      "amountSpent": 3,
+      "userId": 88356,
+      "id": 485742
+    },
+    {
       "purchase": "Air Jordans 2",
       "category": "Sneakers",
-      "timeAndDate": "2023-05-29T15:24",
-      "amountSpent": 6,
+      "timeAndDate": "2023-05-30T09:00",
+      "amountSpent": 5,
       "userId": 88356,
-      "id": 973427
+      "id": 787662
     }
   ]
 }

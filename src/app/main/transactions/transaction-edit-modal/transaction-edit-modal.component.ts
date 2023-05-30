@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Transactions } from 'src/app/common/models/transactions';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -12,14 +11,14 @@ import { UsersService } from 'src/app/services/users.service';
 export class TransactionEditModalComponent implements OnInit {
   @Input() transactionArray: any;
   @Input() selectedTransaction: any;
+  @Input() amount!: number;
 
   purchaseForm!: FormGroup;
   user: any;
-  modalHeader = "Edit transaction"
-  selectedTransactionNewValue!: Transactions;
+  modalHeader:string = "Edit transaction"
   accountAmount: any;
   previousAmount: any;
-  amount: any;
+  // amount: any;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
@@ -74,14 +73,13 @@ export class TransactionEditModalComponent implements OnInit {
         console.log("Transaction edited!", response);
         this.updateTransactionArray();
         this.updateAmount(editedTransaction.amountSpent);
-        this.transactionChanged.emit();
       })
   this.closeEditModal();
   }
   updateAmount(newTransactionPrice: number): void {
-    this.selectedTransactionNewValue = this.purchaseForm.value; 
     const updatedObject = { ...this.user, accountAmount: this.user.accountAmount - (newTransactionPrice - this.previousAmount) };
-    this.amountChanged.emit(updatedObject.accountAmount);
+    this.amount = updatedObject.accountAmount;
+    this.amountChanged.emit(this.amount);
     this.usersService.editUser(this.user, updatedObject).subscribe(
       response => {
         console.log('Amount updated successfully:', updatedObject.accountAmount);
@@ -106,5 +104,8 @@ export class TransactionEditModalComponent implements OnInit {
   closeEditModal(): void {
     this.modalEditClosed.emit();
     console.log(this.selectedTransaction);
+  setTimeout(()=> {
+    this.transactionChanged.emit(undefined);
+  }, 100)
   }
 }
