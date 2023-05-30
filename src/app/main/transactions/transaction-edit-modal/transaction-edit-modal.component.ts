@@ -15,10 +15,9 @@ export class TransactionEditModalComponent implements OnInit {
 
   purchaseForm!: FormGroup;
   user: any;
-  modalHeader:string = "Edit transaction"
+  modalHeader: string = "Edit transaction"
   accountAmount: any;
   previousAmount: any;
-  // amount: any;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
@@ -29,7 +28,10 @@ export class TransactionEditModalComponent implements OnInit {
       timeAndDate: new FormControl('', Validators.required),
       amountSpent: new FormControl('', Validators.required)
     });
+    this.fetchUserDataAndValidate();
+  }
 
+  fetchUserDataAndValidate() {
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -37,19 +39,17 @@ export class TransactionEditModalComponent implements OnInit {
           this.user = responseBody[0];
           this.accountAmount = this.user.accountAmount;
           this.previousAmount = this.selectedTransaction.amountSpent;
-
+          
           this.purchaseForm.patchValue({
             purchase: this.selectedTransaction.purchase,
             category: this.selectedTransaction.category,
             timeAndDate: this.selectedTransaction.timeAndDate,
             amountSpent: this.selectedTransaction.amountSpent
           });
-
           this.purchaseForm.get('amountSpent')?.setValidators([
             Validators.required,
             Validators.max(this.previousAmount + this.accountAmount)
           ]);
-
           this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
           this.purchaseForm.enable();
         } else {
@@ -61,21 +61,21 @@ export class TransactionEditModalComponent implements OnInit {
       }
     );
   }
-
   @Output() amountChanged = new EventEmitter<number>();
   @Output() transactionChanged = new EventEmitter<void>();
 
   editTransaction() {
     let editedTransaction = this.purchaseForm.value;
     editedTransaction.userId = this.user.id;
-     this.transactionsService.editTransaction(this.selectedTransaction.id, editedTransaction).subscribe(
-      (response: any) => {
-        console.log("Transaction edited!", response);
-        this.updateTransactionArray();
-        this.updateAmount(editedTransaction.amountSpent);
-      })
+    this.transactionsService.editTransaction(this.selectedTransaction.id, editedTransaction).subscribe(
+    (response: any) => {
+      console.log("Transaction edited!", response);
+      this.updateTransactionArray();
+      this.updateAmount(editedTransaction.amountSpent);
+    })
   this.closeEditModal();
   }
+  
   updateAmount(newTransactionPrice: number): void {
     const updatedObject = { ...this.user, accountAmount: this.user.accountAmount - (newTransactionPrice - this.previousAmount) };
     this.amount = updatedObject.accountAmount;
@@ -85,11 +85,12 @@ export class TransactionEditModalComponent implements OnInit {
         console.log('Amount updated successfully:', updatedObject.accountAmount);
         this.transactionChanged.emit(undefined);
       },
-      error => {
-        console.error('Failed to update amount:', error);
+        error => {
+          console.error('Failed to update amount:', error);
       }
     );
   }
+
   updateTransactionArray() {
     this.transactionsService.getTransactions(this.user.id).subscribe((response: any) => {
       console.log(response);
@@ -103,7 +104,6 @@ export class TransactionEditModalComponent implements OnInit {
   @Output() modalEditClosed = new EventEmitter<void>();
   closeEditModal(): void {
     this.modalEditClosed.emit();
-    console.log(this.selectedTransaction);
   setTimeout(()=> {
     this.transactionChanged.emit(undefined);
   }, 100)

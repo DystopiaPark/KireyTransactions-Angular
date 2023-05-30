@@ -33,6 +33,7 @@
     </tr>
   </ng-template>
 </p-table>
+
 <app-transaction-modal 
 (transactionAdded)="updateTransactionArray()"  
 (amountChanged)="onAmountChanged($event)"
@@ -41,11 +42,12 @@
 [modalOpen]="modalOpen" 
 [transactionArray]="transactionArray">
 </app-transaction-modal>
+
 <app-transaction-edit-modal 
 *ngIf="selectedTransaction != undefined"
 (transactionChanged)="updateTransactionArray()" 
 (amountChanged)="onAmountChanged($event)" 
-(transactionChanged)="onTransactionChanged($event)" 
+(transactionChanged)="onEditTransactionClosed($event)" 
 (modalEditClosed)="closeEditModal()"
 [amount]="amount"
 [selectedTransaction]="selectedTransaction" 

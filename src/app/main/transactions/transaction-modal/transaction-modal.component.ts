@@ -15,12 +15,25 @@ export class TransactionModalComponent {
 
   purchaseForm!: FormGroup;
   user: any;
-  modalHeader = "Add transaction"
+  modalHeader: string = "Add transaction"
   transactionObject!: Transactions;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
+   this.fetchUserData();
+  }
+  
+  initializeForm(): void {
+    this.purchaseForm = this.formBuilder.group({
+      purchase: ['', Validators.required],
+      category: ['', [Validators.required]],
+      timeAndDate: ['', [Validators.required]],
+      amountSpent: ['', [Validators.required, this.amountValidator(this.amount)]]
+    });
+  }
+
+  fetchUserData(){
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -36,15 +49,6 @@ export class TransactionModalComponent {
         console.error('Failed to fetch user data:', error);
       }
     );
-  }
-  
-  initializeForm(): void {
-    this.purchaseForm = this.formBuilder.group({
-      purchase: ['', Validators.required],
-      category: ['', [Validators.required]],
-      timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required, this.amountValidator(this.amount)]]
-    });
   }
   
 

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output  } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 
-
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -16,6 +15,8 @@ export class HomepageComponent implements OnInit  {
   ngOnInit(): void {
     this.getUserAndAmount();
   }
+
+  constructor(private usersService: UsersService) {}
 
   getUserAndAmount(){
     this.usersService.getUser().subscribe(
@@ -33,9 +34,6 @@ export class HomepageComponent implements OnInit  {
       }
     );
   }
-
-
-  constructor(private usersService: UsersService) {}
 
 // onAmountChanged get value from child component
   onAmountChanged(amount: number) {

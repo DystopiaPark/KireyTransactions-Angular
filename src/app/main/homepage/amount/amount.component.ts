@@ -8,10 +8,10 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./amount.component.scss']
 })
 export class AmountComponent implements OnInit {
-  amount!: number;
-  user!: any;
+  amount!:number;
+  user!:any;
   modalHeader:string = "Set new amount";
-  amountForm!: FormGroup;
+  amountForm!:FormGroup;
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService){}
 

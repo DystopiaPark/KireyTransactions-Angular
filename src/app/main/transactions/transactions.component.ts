@@ -11,18 +11,17 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 })
 export class TransactionsComponent implements OnInit {
   selectedTransaction: any;
-  user:any;
+  user: any;
   transactionArray!: Transactions[];
   amount: any;
 
   constructor (private router: Router, private usersService: UsersService, private transactionsService: TransactionsService){}
 
-  // onAmountChanged get value from child component
-  onAmountChanged(amount: number) {
-    this.amount = amount;
+  ngOnInit(): void {
+    this.fetchUserData();
   }
 
-  ngOnInit(): void {
+  fetchUserData(){
     this.usersService.getUser().subscribe(
       (response: any) => {
         const responseBody = response.body;
@@ -41,7 +40,6 @@ export class TransactionsComponent implements OnInit {
       }
     )
   }
-  
 
   deleteTransaction(transaction: any) {
     this.transactionsService.deleteTransaction(transaction.id).subscribe((response: any)=> {
@@ -62,13 +60,20 @@ export class TransactionsComponent implements OnInit {
     this.router.navigate(['auth/signin']);
   }
 
-  // emited from child
+  // when amount changes get value from child component
+  onAmountChanged(amount: number) {
+    this.amount = amount;
+  }
+
+  // send selected transaction to child on click
   sendSelectedTransactionToChild(transaction: any) {
     this.selectedTransaction = transaction;
   }
-  onTransactionChanged(transaction: any) {
+  // when editing transaction closes, make selected transaction undefined
+  onEditTransactionClosed(transaction: any) {
     this.selectedTransaction = transaction;
   }
+
  // ADD TRANSACTION MODAL
   modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
