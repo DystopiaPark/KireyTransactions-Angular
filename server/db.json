@@ -11,7 +11,7 @@
       "name": "Milivoje Miletic",
       "email": "mil@mil.com",
       "password": "!A123",
-      "accountAmount": 25,
+      "accountAmount": 13,
       "id": 88356
     },
     {
@@ -34,14 +34,28 @@
       "password": "!A123",
       "accountAmount": 222,
       "id": 29869
+    },
+    {
+      "name": "Nikola Savic",
+      "email": "mila@mila.com",
+      "password": "!A123",
+      "accountAmount": 222,
+      "id": 674067
+    },
+    {
+      "name": "Nikola Savic",
+      "email": "kva@kva.coma",
+      "password": "!A123",
+      "accountAmount": 555,
+      "id": 556244
     }
   ],
   "transactions": [
     {
-      "purchase": "Air Jordans 4",
+      "purchase": "Air Jordans 42",
       "category": "2",
       "timeAndDate": "2023-05-29T06:07",
-      "amountSpent": 3,
+      "amountSpent": 2,
       "userId": 88356,
       "id": 485742
     },
@@ -49,9 +63,17 @@
       "purchase": "Air Jordans 2",
       "category": "Sneakers",
       "timeAndDate": "2023-05-30T09:00",
-      "amountSpent": 5,
+      "amountSpent": 7,
       "userId": 88356,
       "id": 787662
+    },
+    {
+      "purchase": "Air Jordans 4",
+      "category": "Sneakers",
+      "timeAndDate": "2023-05-30T09:15",
+      "amountSpent": 6,
+      "userId": 88356,
+      "id": 960474
     }
   ]
 }

@@ -12,7 +12,7 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 })
 export class SignInComponent implements OnInit {
   signinForm!: FormGroup;
-  wrongCredentials:boolean = false;
+  invalidCredentials:boolean = false;
   constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   ngOnInit(): void {
@@ -23,27 +23,25 @@ export class SignInComponent implements OnInit {
   }  
   
   // LOGIN
-  login(data:any) {
-    this.usersService.getUserData(data).subscribe((value:any) => { 
-      if (value && value.body.length === 1) {
-          localStorage.setItem("userData", JSON.stringify(value.body))
+  login(userLoginData:any) {
+    this.usersService.getUserData(userLoginData).subscribe((response:any) => { 
+      if (response && response.body.length === 1) {
+          localStorage.setItem("userData", JSON.stringify(response.body))
           localStorage.setItem("auth", JSON.stringify(this.auth.isAuthenticated));
           this.auth.isAuthenticated.next(true);
           this.router.navigateByUrl('/main/homepage');
       } else {
-        this.wrongCredentials = true;
+        this.invalidCredentials = true;
         setTimeout(()=> {
-          this.wrongCredentials = false;
+          this.invalidCredentials = false;
         }, 1500)
       }
     }, err => {
       alert("something went wrong try again")
     })
   }
-
   
   // MODAL
-
   modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   openModal(): void {

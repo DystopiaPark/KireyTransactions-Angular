@@ -9,8 +9,6 @@ export class AuthService {
   isAuthenticated = new BehaviorSubject(this.getIsAuthenticated() || false);
   isAuthenticated$ = this.isAuthenticated.asObservable();
 
-  constructor(private http: HttpClient) {}
-
   private getIsAuthenticated(): boolean {
     console.log("Got authentication");
     return JSON.parse(localStorage.getItem("auth")!);

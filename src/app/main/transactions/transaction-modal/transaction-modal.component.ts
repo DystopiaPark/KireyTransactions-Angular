@@ -67,7 +67,7 @@ updateAmountValidator(): void {
 addTransaction() {
      let transaction = this.purchaseForm.value;
      transaction.userId = this.user.id;
-     transaction.id = this.usersService.randomID();
+     transaction.id = this.usersService.generateRandomID();
      this.transactionsService.createTransaction(transaction).subscribe((response:any) => {
       console.log("Transaction added", response);
       this.updateTransactionArray();

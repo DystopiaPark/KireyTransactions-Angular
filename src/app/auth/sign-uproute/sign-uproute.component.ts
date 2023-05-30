@@ -28,8 +28,8 @@ export class SignUprouteComponent {
 
   registerUser () {
     const newUser: User = this.signupForm.value;
-    newUser.id = this.usersService.randomID();
-    this.usersService.getUserThroughEmail(newUser).subscribe(
+    newUser.id = this.usersService.generateRandomID();
+    this.usersService.getUserByEmail(newUser).subscribe(
       (response: Object) => { 
         if (Object.keys(response).length > 0) {
           console.error('Email already exists in the database.');

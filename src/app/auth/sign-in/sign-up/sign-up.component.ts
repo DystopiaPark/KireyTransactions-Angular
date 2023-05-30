@@ -12,11 +12,9 @@ import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 export class SignUpComponent {
   emailExists:boolean = false;
   signupForm!: FormGroup;
-
   modalHeader:string = "Sign Up"
 
   constructor(private usersService: UsersService, private formBuilder: FormBuilder) {}
-
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -27,12 +25,10 @@ export class SignUpComponent {
     });
   }  
   
-
-  
   registerUser () {
     const newUser: User = this.signupForm.value;
-    newUser.id = this.usersService.randomID();
-    this.usersService.getUserThroughEmail(newUser).subscribe(
+    newUser.id = this.usersService.generateRandomID();
+    this.usersService.getUserByEmail(newUser).subscribe(
       (response: Object) => { 
         if (Object.keys(response).length > 0) {
           console.error('Email already exists in the database.');
@@ -61,7 +57,6 @@ export class SignUpComponent {
   }
 
   // MODAL
-
   @Input() modalOpen = false;
   @Output() modalClosed = new EventEmitter<void>();
   closeModal(): void {

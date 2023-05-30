@@ -6,11 +6,10 @@ import { User } from '../common/models/user';
   providedIn: 'root'
 })
 export class UsersService {
-  model = "users";
 
   constructor(private http: HttpClient) {}
 
-  randomID(){
+  generateRandomID(){
     return Math.floor(Math.random() * 1000000)
   }
 
@@ -30,7 +29,7 @@ export class UsersService {
     return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
    }
 
-  getUserThroughEmail (user: User) {
+  getUserByEmail (user: User) {
   return this.http.get('http://localhost:3000/users?email=' + user.email)
   }
 
