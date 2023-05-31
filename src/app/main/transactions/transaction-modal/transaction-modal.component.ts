@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Transactions } from 'src/app/common/models/transactions';
 import { TransactionsService } from 'src/app/services/transactions.service';
@@ -9,7 +9,7 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './transaction-modal.component.html',
   styleUrls: ['./transaction-modal.component.scss']
 })
-export class TransactionModalComponent {
+export class TransactionModalComponent implements OnInit, OnChanges {
   @Input() transactionArray!: Transactions[];
   @Input() amount!: number;
   @Input() modalOpen = false;
@@ -27,6 +27,14 @@ export class TransactionModalComponent {
 
   ngOnInit(): void {
     this.fetchUserData();
+    this.initializeForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['amount'] && !changes['amount'].firstChange) {
+      this.updateAmountValidator();
+      // console.log(changes);
+    }
   }
 
   fetchUserData(){
@@ -57,8 +65,13 @@ export class TransactionModalComponent {
   }
   
   updateAmountValidator(): void {
-    this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.amount)]);
-    this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
+    if (this.purchaseForm) {
+      const amountSpentControl = this.purchaseForm.get('amountSpent');
+      if (amountSpentControl) {
+        amountSpentControl.setValidators([Validators.required, this.amountValidator(this.amount)]);
+        amountSpentControl.updateValueAndValidity();
+      }
+    }
   }
 
   amountValidator(amount: number): ValidatorFn {
@@ -77,7 +90,6 @@ export class TransactionModalComponent {
     this.updateTransactionArray();
     this.updateAmount(transaction.amountSpent);
     this.transactionAdded.emit();
-    this.purchaseForm.reset();
     })
     this.closeModal();
   }
@@ -106,5 +118,6 @@ export class TransactionModalComponent {
 
   closeModal(): void {
     this.modalClosed.emit();
+    this.purchaseForm.reset();
   }
 }
