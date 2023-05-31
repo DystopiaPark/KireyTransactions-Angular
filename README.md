@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
 
+## Prerequisites
+Git
+Node.js and NPM
+Install Angular CLI via npm i -g @angular/cli
+Install PrimeNG via npm install primeng
+Install JSON-Server via npm install json-server
+
 ## Web: Getting Started
 
 The `npm start` calls the `serve:all` command which is a convenience method that runs the `serve:api` and `serve:web` commands concurrently. You can run each command separately if you need to.
