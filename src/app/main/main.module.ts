@@ -21,8 +21,7 @@ import { HomepagenavComponent } from './homepage/homepagenav/homepagenav.compone
 @NgModule({
   declarations: [HomepageComponent, TransactionsComponent, AmountComponent, TransactionModalComponent, TransactionEditModalComponent, HomepagenavComponent],
   imports: [
-    CommonModule,
-    
+    CommonModule,  
     MainRoutingModule,
     CardModule, 
     InputTextModule,

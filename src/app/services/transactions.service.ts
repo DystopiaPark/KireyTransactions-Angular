@@ -11,6 +11,7 @@ export class TransactionsService {
   createTransaction (transaction: any) {
     return this.http.post('http://localhost:3000/transactions', transaction);
   }
+  
   editTransaction(id:number, editedTransaction: any){
     return this.http.put(`http://localhost:3000/transactions/${id}`, editedTransaction)
   }

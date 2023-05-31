@@ -56,16 +56,16 @@ export class TransactionModalComponent {
     });
   }
   
+  updateAmountValidator(): void {
+    this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.amount)]);
+    this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
+  }
+
   amountValidator(amount: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const enteredAmount = parseFloat(control.value);
       return enteredAmount > amount ? { 'exceededAmount': true } : null;
     };
-  }
-
-  updateAmountValidator(): void {
-    this.purchaseForm.get('amountSpent')?.setValidators([Validators.required, this.amountValidator(this.amount)]);
-    this.purchaseForm.get('amountSpent')?.updateValueAndValidity();
   }
 
   addTransaction() {

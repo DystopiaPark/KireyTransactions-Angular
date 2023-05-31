@@ -65,7 +65,7 @@ export class TransactionsComponent implements OnInit {
     this.router.navigate(['auth/signin']);
   }
 
-  // when amount changes get value from child component
+  // when amount changes get value from child component and send it to parent
   onAmountChanged(amount: number) {
     this.amount = amount;
   }
@@ -84,7 +84,6 @@ export class TransactionsComponent implements OnInit {
   closeModal(): void {
     this.modalOpen = false;
   }
-
   openEditModal(): void {
     this.modalEditOpen = true;
   }
