@@ -16,10 +16,11 @@ import { AmountComponent } from './homepage/amount/amount.component';
 import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
 import { TransactionEditModalComponent } from './transactions/transaction-edit-modal/transaction-edit-modal.component';
 import { HomepagenavComponent } from './homepage/homepagenav/homepagenav.component';
+import { TransactionnavComponent } from './transactions/transactionnav/transactionnav.component';
 
 
 @NgModule({
-  declarations: [HomepageComponent, TransactionsComponent, AmountComponent, TransactionModalComponent, TransactionEditModalComponent, HomepagenavComponent],
+  declarations: [HomepageComponent, TransactionsComponent, AmountComponent, TransactionModalComponent, TransactionEditModalComponent, HomepagenavComponent, TransactionnavComponent],
   imports: [
     CommonModule,  
     MainRoutingModule,

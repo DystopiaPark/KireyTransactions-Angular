@@ -59,12 +59,6 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
-  logout() {
-    localStorage.removeItem('userData');
-    localStorage.removeItem("auth");
-    this.router.navigate(['auth/signin']);
-  }
-
   // store selected transaction on click, it will be input into child
   storeSelectedTransaction(transaction: any) {
     this.selectedTransaction = transaction;
