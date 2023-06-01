@@ -1,5 +1,5 @@
 <app-homepagenav></app-homepagenav>
-<p>Welcome, {{user?.name}} your current balance is {{balance}}</p>
+<p>Welcome, {{user?.name}} your current balance is {{balance | currency: "USD"}}</p>
 <button pButton type="button" label="Change amount" (click)="openModal()"></button>
 <app-amount (balanceChanged)="onAmountChanged($event)" [modalOpen]="modalOpen" (modalClosed)="closeModal()" [balance]="balance"></app-amount>
 

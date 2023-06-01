@@ -12,6 +12,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
 import { AmountComponent } from './homepage/amount/amount.component';
 import { TransactionModalComponent } from './transactions/transaction-modal/transaction-modal.component';
 import { TransactionEditModalComponent } from './transactions/transaction-edit-modal/transaction-edit-modal.component';
@@ -34,6 +35,7 @@ import { TransactionnavComponent } from './transactions/transactionnav/transacti
     HttpClientModule,
     ReactiveFormsModule,
     TableModule,
+    DropdownModule 
   ]
 })
 export class MainModule { }

@@ -22,6 +22,7 @@ export class TransactionModalComponent implements OnInit, OnChanges {
   user: any;
   modalHeader: string = "Add transaction"
   transactionObject!: Transactions;
+  categories: string[] = ["Unknown", "Clothing", "Tech", "Equipment"]; 
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
@@ -57,7 +58,7 @@ export class TransactionModalComponent implements OnInit, OnChanges {
   initializeForm(): void {
     this.purchaseForm = this.formBuilder.group({
       purchase: ['', Validators.required],
-      category: ['', [Validators.required]],
+      category: ['', Validators.required],
       timeAndDate: ['', [Validators.required]],
       amountSpent: ['', [Validators.required, this.amountValidator(this.balance)]]
     });
@@ -81,6 +82,7 @@ export class TransactionModalComponent implements OnInit, OnChanges {
   }
 
   addTransaction() {
+    console.log(this.purchaseForm.value);
     let transaction = this.purchaseForm.value;
     transaction.userId = this.user.id;
     transaction.id = this.usersService.generateRandomID();

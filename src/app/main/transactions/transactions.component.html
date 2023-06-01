@@ -1,8 +1,8 @@
 <app-transactionnav></app-transactionnav>
-<h1>Purchase Table</h1>
+<h2>Purchase Table</h2>
 <div class="balance-transaction">
   <button pButton type="button" label="Add Transaction" (click)="openModal()"></button>
-  <h3>Current balance: {{this.balance}}</h3>
+  <h3>Current balance: {{this.balance | currency: "USD"}}</h3>
 </div>
 <p-table [value]="transactionArray">
   <ng-template pTemplate="header">
