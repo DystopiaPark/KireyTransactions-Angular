@@ -4,7 +4,7 @@
       "name": "Nikola Savic",
       "email": "qqq@qqq.com",
       "password": "!A123",
-      "accountAmount": 23,
+      "accountAmount": 4450,
       "id": 849695
     },
     {
@@ -15,7 +15,5 @@
       "id": 470112
     }
   ],
-  "transactions": [
-
-  ]
+  "transactions": []
 }

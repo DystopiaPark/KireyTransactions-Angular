@@ -1,10 +1,10 @@
 <app-transactionnav></app-transactionnav>
-<h2>Purchase Table</h2>
 <div class="balance-transaction">
   <button pButton type="button" label="Add Transaction" (click)="openModal()"></button>
   <h3>Current balance: {{this.balance | currency: "USD"}}</h3>
 </div>
-<p *ngIf="transactionArray && transactionArray.length === 0">No transactions as of this moment...</p>
+<h2>Transactions Table</h2>
+<p *ngIf="transactionArray && transactionArray.length === 0">No transactions as of now...</p>
 <p-table [value]="transactionArray" *ngIf="transactionArray && transactionArray.length > 0">
   <ng-template pTemplate="header">
     <tr>
