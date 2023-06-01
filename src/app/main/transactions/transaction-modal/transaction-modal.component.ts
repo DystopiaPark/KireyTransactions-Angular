@@ -11,10 +11,10 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class TransactionModalComponent implements OnInit, OnChanges {
   @Input() transactionArray!: Transactions[];
-  @Input() amount!: number;
+  @Input() balance!: number;
   @Input() modalOpen = false;
 
-  @Output() amountChanged = new EventEmitter<number>();
+  @Output() balanceChanged = new EventEmitter<number>();
   @Output() transactionAdded = new EventEmitter<void>();
   @Output() modalClosed = new EventEmitter<void>();
 
@@ -33,7 +33,6 @@ export class TransactionModalComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['amount'] && !changes['amount'].firstChange) {
       this.updateAmountValidator();
-      // console.log(changes);
     }
   }
 
@@ -43,7 +42,7 @@ export class TransactionModalComponent implements OnInit, OnChanges {
         const responseBody = response.body;
         if (responseBody && responseBody.length > 0) {
           this.user = responseBody[0];
-          this.amount = this.user.accountAmount;
+          this.balance = this.user.accountAmount;
           this.initializeForm();
         } else {
           console.error('User data not found.');
@@ -60,7 +59,7 @@ export class TransactionModalComponent implements OnInit, OnChanges {
       purchase: ['', Validators.required],
       category: ['', [Validators.required]],
       timeAndDate: ['', [Validators.required]],
-      amountSpent: ['', [Validators.required, this.amountValidator(this.amount)]]
+      amountSpent: ['', [Validators.required, this.amountValidator(this.balance)]]
     });
   }
   
@@ -68,7 +67,7 @@ export class TransactionModalComponent implements OnInit, OnChanges {
     if (this.purchaseForm) {
       const amountSpentControl = this.purchaseForm.get('amountSpent');
       if (amountSpentControl) {
-        amountSpentControl.setValidators([Validators.required, this.amountValidator(this.amount)]);
+        amountSpentControl.setValidators([Validators.required, this.amountValidator(this.balance)]);
         amountSpentControl.updateValueAndValidity();
       }
     }
@@ -102,16 +101,16 @@ export class TransactionModalComponent implements OnInit, OnChanges {
   }
 
   updateAmount(transactionPrice: number): void {
-    let updatedObject = { ...this.user, accountAmount: this.amount - transactionPrice };
+    let updatedObject = { ...this.user, accountAmount: this.balance - transactionPrice };
     this.usersService.editUser(this.user, updatedObject).subscribe(
       response => {
-        console.log('Amount updated successfully:', updatedObject.accountAmount);
-        this.amount = updatedObject.accountAmount;
+        console.log('Balance updated successfully:', updatedObject.accountAmount);
+        this.balance = updatedObject.accountAmount;
         this.updateAmountValidator();
-        this.amountChanged.emit(updatedObject.accountAmount);
+        this.balanceChanged.emit(updatedObject.accountAmount);
       },
       error => {
-        console.error('Failed to update amount:', error);
+        console.error('Failed to update balance:', error);
       }
     );
   }

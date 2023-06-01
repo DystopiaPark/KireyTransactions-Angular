@@ -13,12 +13,12 @@ export class TransactionsComponent implements OnInit {
   @Output() modalClosed = new EventEmitter<void>();
   @Output() modalEditClosed = new EventEmitter<void>();
 
-  modalEditOpen = false;
-  modalOpen = false;
+  modalEditOpen: boolean = false;
+  modalOpen: boolean = false;
   selectedTransaction: any;
   user: any;
   transactionArray!: Transactions[];
-  amount: any;
+  balance: any;
 
   constructor (private router: Router, private usersService: UsersService, private transactionsService: TransactionsService){}
 
@@ -32,7 +32,7 @@ export class TransactionsComponent implements OnInit {
         const responseBody = response.body;
         if (responseBody && responseBody.length > 0) {
           this.user = responseBody[0];
-          this.amount = this.user.accountAmount;
+          this.balance = this.user.accountAmount;
           this.transactionsService.getTransactions(this.user.id).subscribe((response: any) =>{
             this.transactionArray = response;
           })
@@ -65,17 +65,17 @@ export class TransactionsComponent implements OnInit {
     this.router.navigate(['auth/signin']);
   }
 
-  // when amount changes get value from child component and send it to parent
-  onAmountChanged(amount: number) {
-    this.amount = amount;
-  }
-  // send selected transaction to child on click
-  sendSelectedTransactionToChild(transaction: any) {
+  // store selected transaction on click, it will be input into child
+  storeSelectedTransaction(transaction: any) {
     this.selectedTransaction = transaction;
   }
-  // when editing transaction closes, make selected transaction undefined
+  // when editing transaction closes, make selected transaction undefined [this is from child]
   onEditTransactionClosed(transaction: any) {
     this.selectedTransaction = transaction;
+  }
+  // when amount changes get value from child component and send it to parent [this is from child]
+  onAmountChanged(balance: number) {
+    this.balance = balance;
   }
 
   openModal(): void {
@@ -84,6 +84,7 @@ export class TransactionsComponent implements OnInit {
   closeModal(): void {
     this.modalOpen = false;
   }
+
   openEditModal(): void {
     this.modalEditOpen = true;
   }

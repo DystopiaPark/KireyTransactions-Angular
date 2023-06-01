@@ -10,7 +10,7 @@ export class HomepageComponent implements OnInit  {
   @Output() modalClosed = new EventEmitter<void>();
 
   user: any;
-  amount!:number;
+  balance!:number;
   modalOpen:boolean = false;
 
   constructor(private usersService: UsersService) {}
@@ -25,7 +25,7 @@ export class HomepageComponent implements OnInit  {
         const responseBody = response.body;
         if (responseBody && responseBody.length > 0) {
           this.user = responseBody[0];
-          this.amount = this.user.accountAmount;
+          this.balance = this.user.accountAmount;
         } else {
           console.error('User data not found.');
         }
@@ -37,8 +37,8 @@ export class HomepageComponent implements OnInit  {
   }
 
   // get amount value from child component
-  onAmountChanged(amount: number) {
-    this.amount = amount;
+  onAmountChanged(balance: number) {
+    this.balance = balance;
   }
 
   openModal(): void {

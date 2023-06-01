@@ -6,7 +6,7 @@
   </div>
 </div>
 <h1>Purchase Table</h1>
-<h3>Current balance: {{this.amount}}</h3>
+<h3>Current balance: {{this.balance}}</h3>
 <p-table [value]="transactionArray">
   <ng-template pTemplate="header">
     <tr>
@@ -23,9 +23,9 @@
       <td>{{ transaction.purchase }}</td>
       <td>{{ transaction.category }}</td>
       <td>{{ transaction.timeAndDate | date: "medium" }}</td>
-      <td>{{ transaction.amountSpent }}</td>
+      <td>{{ transaction.amountSpent | currency: "USD" }}</td>
       <td>
-        <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="sendSelectedTransactionToChild(transaction)" (click)="openEditModal()"></button>
+        <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="storeSelectedTransaction(transaction)" (click)="openEditModal()"></button>
       </td>
       <td>
         <button pButton icon="pi pi-trash" class="p-button-danger" (click)="deleteTransaction(transaction)"></button>
@@ -36,9 +36,9 @@
 
 <app-transaction-modal 
 (transactionAdded)="updateTransactionArray()"  
-(amountChanged)="onAmountChanged($event)"
+(balanceChanged)="onAmountChanged($event)"
 (modalClosed)="closeModal()" 
-[amount]="amount"
+[balance]="balance"
 [modalOpen]="modalOpen" 
 [transactionArray]="transactionArray">
 </app-transaction-modal>
@@ -46,11 +46,11 @@
 <app-transaction-edit-modal 
 *ngIf="selectedTransaction != undefined"
 (transactionChanged)="updateTransactionArray()" 
-(amountChanged)="onAmountChanged($event)" 
+(balanceChanged)="onAmountChanged($event)" 
 (transactionChanged)="onEditTransactionClosed($event)" 
 (modalEditClosed)="closeEditModal()"
-[amount]="amount"
+[balance]="balance"
 [selectedTransaction]="selectedTransaction" 
 [transactionArray]="transactionArray" 
-[modalEditOpen]="modalEditOpen" 
-></app-transaction-edit-modal>
+[modalEditOpen]="modalEditOpen" >
+</app-transaction-edit-modal>

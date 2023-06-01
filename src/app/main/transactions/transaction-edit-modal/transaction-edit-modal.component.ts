@@ -11,11 +11,11 @@ import { UsersService } from 'src/app/services/users.service';
 export class TransactionEditModalComponent implements OnInit {
   @Input() transactionArray: any;
   @Input() selectedTransaction: any;
-  @Input() amount!: number;
+  @Input() balance!: number;
   @Input() modalEditOpen = false;
 
   @Output() modalEditClosed = new EventEmitter<void>();
-  @Output() amountChanged = new EventEmitter<number>();
+  @Output() balanceChanged = new EventEmitter<number>();
   @Output() transactionChanged = new EventEmitter<void>();
 
   purchaseForm!: FormGroup;
@@ -88,15 +88,15 @@ export class TransactionEditModalComponent implements OnInit {
   
   updateAmount(newTransactionPrice: number): void {
     const updatedObject = { ...this.user, accountAmount: this.user.accountAmount - (newTransactionPrice - this.previousAmount) };
-    this.amount = updatedObject.accountAmount;
-    this.amountChanged.emit(this.amount);
+    this.balance = updatedObject.accountAmount;
+    this.balanceChanged.emit(this.balance);
     this.usersService.editUser(this.user, updatedObject).subscribe(
       response => {
-        console.log('Amount updated successfully:', updatedObject.accountAmount);
+        console.log('Balance updated successfully:', updatedObject.accountAmount);
         this.transactionChanged.emit(undefined);
       },
         error => {
-          console.error('Failed to update amount:', error);
+          console.error('Failed to update balance:', error);
       }
     );
   }

@@ -9,11 +9,10 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class AmountComponent implements OnInit {
   @Input() modalOpen = false;
-  
-  @Output() amountChanged = new EventEmitter<number>();
+  @Input() balance!: number;
+  @Output() balanceChanged = new EventEmitter<number>();
   @Output() modalClosed = new EventEmitter<void>();
 
-  amount!:number;
   user!:any;
   modalHeader:string = "Set new amount";
   amountForm!:FormGroup;
@@ -26,7 +25,7 @@ export class AmountComponent implements OnInit {
 
   initializeForm(): void {
     this.amountForm = this.formBuilder.group({
-      amount: [this.amount, Validators.required]
+      amount: [this.balance, Validators.required]
     });
   }
 
@@ -36,7 +35,7 @@ export class AmountComponent implements OnInit {
         const responseBody = response.body;
         if (responseBody && responseBody.length > 0) {
           this.user = responseBody[0];
-          this.amount = this.user.accountAmount;
+          this.balance = this.user.accountAmount;
           this.initializeForm();
         } else {
           console.error('User data not found.');
@@ -54,7 +53,7 @@ export class AmountComponent implements OnInit {
       this.usersService.editUser(this.user, updatedObject).subscribe(
         response => {
           console.log('Amount updated successfully:', response);
-          this.amountChanged.emit(this.amountForm.value.amount);
+          this.balanceChanged.emit(this.amountForm.value.amount);
         },
         error => {
           console.error('Failed to update amount:', error);
