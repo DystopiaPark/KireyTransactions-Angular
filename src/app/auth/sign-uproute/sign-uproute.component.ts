@@ -14,7 +14,7 @@ export class SignUprouteComponent {
   signupForm!: FormGroup;
   emailExists: boolean = false;
 
-  constructor(private usersService: UsersService, private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private usersService: UsersService, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({

@@ -20,7 +20,7 @@ export class TransactionsComponent implements OnInit {
   transactionArray!: Transactions[];
   balance: any;
 
-  constructor (private router: Router, private usersService: UsersService, private transactionsService: TransactionsService){}
+  constructor (private usersService: UsersService, private transactionsService: TransactionsService){}
 
   ngOnInit(): void {
     this.fetchUserData();
