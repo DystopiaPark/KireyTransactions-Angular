@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Transactions } from '../../common/models/transactions';
-import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
@@ -35,6 +34,8 @@ export class TransactionsComponent implements OnInit {
           this.balance = this.user.accountAmount;
           this.transactionsService.getTransactions(this.user.id).subscribe((response: any) =>{
             this.transactionArray = response;
+            console.log(this.transactionArray);
+            
           })
         } else {
           console.error('User data not found.');

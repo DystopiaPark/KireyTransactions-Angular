@@ -4,7 +4,8 @@
   <button pButton type="button" label="Add Transaction" (click)="openModal()"></button>
   <h3>Current balance: {{this.balance | currency: "USD"}}</h3>
 </div>
-<p-table [value]="transactionArray">
+<p *ngIf="transactionArray && transactionArray.length === 0">No transactions as of this moment...</p>
+<p-table [value]="transactionArray" *ngIf="transactionArray && transactionArray.length > 0">
   <ng-template pTemplate="header">
     <tr>
       <th>Purchase</th>
