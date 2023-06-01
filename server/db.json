@@ -8,56 +8,14 @@
       "id": 849695
     },
     {
-      "name": "Milivoje Miletic",
-      "email": "mil@mil.com",
-      "password": "!A123",
-      "accountAmount": 35,
-      "id": 88356
-    },
-    {
       "name": "Filip Stojanovic",
       "email": "fil@fil.com",
       "password": "!A123",
       "accountAmount": 176,
       "id": 470112
-    },
-    {
-      "name": "Pera Peric",
-      "email": "per@per.com",
-      "password": "!A123",
-      "accountAmount": 25,
-      "id": 548393
-    },
-    {
-      "name": "Mika Mikic",
-      "email": "mik@mik.com",
-      "password": "!A123",
-      "accountAmount": 222,
-      "id": 29869
-    },
-    {
-      "name": "Nikola Savic",
-      "email": "mila@mila.com",
-      "password": "!A123",
-      "accountAmount": 222,
-      "id": 674067
-    },
-    {
-      "name": "Nikola Savic",
-      "email": "kva@kva.coma",
-      "password": "!A123",
-      "accountAmount": 555,
-      "id": 556244
     }
   ],
   "transactions": [
-    {
-      "purchase": "Air Jordans 2",
-      "category": "Tech",
-      "timeAndDate": "2023-06-01T16:58",
-      "amountSpent": 5,
-      "userId": 88356,
-      "id": 13769
-    }
+
   ]
 }
