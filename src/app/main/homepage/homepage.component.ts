@@ -38,7 +38,7 @@ export class HomepageComponent implements OnInit  {
   }
 
   deleteUser(){
-    if ( confirm(`Are you sure you want to delete ${this.user.name}?`)){
+    if ( confirm(`Are you sure you want to delete ${this.user.name} permanently?`)){
     this.usersService.deleteUser(this.user.id).subscribe(
       (response: any) => {
         console.log('User was deleted', response);

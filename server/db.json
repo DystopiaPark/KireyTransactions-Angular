@@ -4,19 +4,11 @@
       "name": "Filip Stojanovic",
       "email": "fil@fil.com",
       "password": "!A123",
-      "accountAmount": 3900,
+      "accountAmount": 3700,
       "id": 735284
     }
   ],
   "transactions": [
-    {
-      "purchase": "Air Jordans",
-      "category": "Clothing",
-      "timeAndDate": "2023-06-02T10:23",
-      "amountSpent": 200,
-      "userId": 735284,
-      "id": 251727
-    },
     {
       "purchase": "Notebook",
       "category": "Tech",
@@ -32,6 +24,14 @@
       "amountSpent": 100,
       "userId": 735284,
       "id": 113197
+    },
+    {
+      "purchase": "Air Jordans",
+      "category": "Clothing",
+      "timeAndDate": "2023-06-02T10:30",
+      "amountSpent": 200,
+      "userId": 735284,
+      "id": 924215
     }
   ]
 }

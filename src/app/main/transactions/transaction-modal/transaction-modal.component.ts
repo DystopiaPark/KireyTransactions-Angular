@@ -22,7 +22,7 @@ export class TransactionModalComponent implements OnInit, OnChanges {
   user: any;
   modalHeader: string = "Add transaction"
   transactionObject!: Transactions;
-  categories: string[] = ["Unknown", "Clothing", "Tech", "Equipment"]; 
+  categories: string[] = ["Other", "Clothing", "Tech", "Equipment"]; 
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 
