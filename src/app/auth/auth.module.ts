@@ -13,9 +13,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { SignUprouteComponent } from './sign-uproute/sign-uproute.component';
+import { AdminSignInComponent } from './admin-sign-in/admin-sign-in.component';
 
 @NgModule({
-  declarations: [SignInComponent, SignUpComponent, SignUprouteComponent],
+  declarations: [SignInComponent, SignUpComponent, SignUprouteComponent, AdminSignInComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
