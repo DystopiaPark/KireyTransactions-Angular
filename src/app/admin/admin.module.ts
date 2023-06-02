@@ -14,11 +14,12 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { AdminHomepageComponent } from './admin-homepage/admin-homepage.component';
 import { AdminInfoComponent } from './admin-info/admin-info.component';
-
+import { AdminHomepageNavComponent } from './admin-homepage/admin-homepage-nav/admin-homepage-nav.component';
+import { AdminHomepageMainComponent } from './admin-homepage/admin-homepage-main/admin-homepage-main.component';
 
 @NgModule({
-  declarations: [AdminHomepageComponent, AdminInfoComponent],
-  imports: [
+declarations: [AdminHomepageComponent, AdminInfoComponent, AdminHomepageNavComponent, AdminHomepageMainComponent],
+imports: [
     AdminRoutingModule,
     CommonModule,  
     CardModule, 
@@ -31,7 +32,7 @@ import { AdminInfoComponent } from './admin-info/admin-info.component';
     HttpClientModule,
     ReactiveFormsModule,
     TableModule,
-    DropdownModule 
-  ]
+    DropdownModule
+]
 })
 export class AdminModule { }

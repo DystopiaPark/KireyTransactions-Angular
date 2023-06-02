@@ -25,6 +25,9 @@ export class UsersService {
     let data = this.getUserFromLocalStorage();
     return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
   }
+  getUsers() {
+    return this.http.get('http://localhost:3000/users')
+  }
 
   getUserFromLocalStorage(){
     let rawData: any = localStorage.getItem("userData");

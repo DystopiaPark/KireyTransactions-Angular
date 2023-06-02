@@ -1,4 +1,4 @@
-{ 
+{
   "admins": [
     {
       "name": "Admin",
@@ -13,6 +13,13 @@
       "password": "!A123",
       "accountAmount": 3700,
       "id": 735284
+    },
+    {
+      "name": "Milivoje Miletic",
+      "email": "mil@mil.com",
+      "password": "!A123",
+      "accountAmount": 3000,
+      "id": 126860
     }
   ],
   "transactions": [
