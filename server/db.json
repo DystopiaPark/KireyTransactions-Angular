@@ -1,6 +1,11 @@
 {
   "users": [
     {
+      "name": "Admin",
+      "email": "admin@admin",
+      "password": "!A123"
+    },
+    {
       "name": "Filip Stojanovic",
       "email": "fil@fil.com",
       "password": "!A123",

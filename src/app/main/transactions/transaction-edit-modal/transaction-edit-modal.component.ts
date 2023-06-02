@@ -23,6 +23,7 @@ export class TransactionEditModalComponent implements OnInit {
   modalHeader: string = "Edit transaction"
   accountAmount: any;
   previousAmount: any;
+  categories: string[] = ["Other", "Clothing", "Tech", "Equipment"]; 
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService, private transactionsService: TransactionsService) {}
 

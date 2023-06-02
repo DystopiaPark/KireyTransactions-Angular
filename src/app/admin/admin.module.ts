@@ -1,39 +1,37 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { CommonModule } from '@angular/common';
+import { AdminRoutingModule } from './admin-routing.module';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from "primeng/password";
+import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
 
-import { AppComponent } from './app.component';
+import { AdminHomepageComponent } from './admin-homepage/admin-homepage.component';
+import { AdminInfoComponent } from './admin-info/admin-info.component';
+
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AdminHomepageComponent, AdminInfoComponent],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    AdminRoutingModule,
+    CommonModule,  
     CardModule, 
     InputTextModule,
     PasswordModule,
     FormsModule,
     ButtonModule,
     DialogModule,
-    BrowserAnimationsModule,
     InputNumberModule,
     HttpClientModule,
     ReactiveFormsModule,
     TableModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    DropdownModule 
+  ]
 })
-export class AppModule { }
+export class AdminModule { }
