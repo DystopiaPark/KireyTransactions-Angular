@@ -9,6 +9,8 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   getLoginData(data: any) {
-    return this.http.get(`http://localhost:3000/admins?email=admin@admin&password=!A123`, {observe:'response'});
+    console.log(data.email);
+    
+    return this.http.get(`http://localhost:3000/admins?email=${data.email}&password=${data.password}`, {observe:'response'});
   }
 }

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { passwordPattern } from 'src/app/common/constants/passwordPattern';
 import { AdminService } from 'src/app/services/admin.service';
-import { AdminGuard } from 'src/app/common/guards/admin-guard.guard';
 import { AdminAuthService } from 'src/app/services/admin-auth.service';
 
 @Component({
@@ -28,11 +26,8 @@ export class AdminSignInComponent {
   // LOGIN
   login(userLoginData:any) {
     this.adminService.getLoginData(userLoginData).subscribe((response:any) => { 
-      console.log(response.body);
       
       if (response && response.body.length === 1) {
-        console.log(response.body);
-        
           localStorage.setItem("adminData", JSON.stringify(response.body))
           localStorage.setItem("adminAuth", JSON.stringify(this.adminAuth.isAuthenticated));
           this.adminAuth.isAuthenticated.next(true);
