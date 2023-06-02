@@ -34,7 +34,7 @@
 
 <app-transaction-modal 
 (transactionAdded)="updateTransactionArray()"  
-(balanceChanged)="onAmountChanged($event)"
+(balanceChanged)="onBalanceChanged($event)"
 (modalClosed)="closeModal()" 
 [balance]="balance"
 [modalOpen]="modalOpen" 
@@ -44,7 +44,7 @@
 <app-transaction-edit-modal 
 *ngIf="selectedTransaction != undefined"
 (transactionChanged)="updateTransactionArray()" 
-(balanceChanged)="onAmountChanged($event)" 
+(balanceChanged)="onBalanceChanged($event)" 
 (transactionChanged)="onEditTransactionClosed($event)" 
 (modalEditClosed)="closeEditModal()"
 [balance]="balance"

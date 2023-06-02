@@ -4,7 +4,7 @@
       "name": "Nikola Savic",
       "email": "qqq@qqq.com",
       "password": "!A123",
-      "accountAmount": 4450,
+      "accountAmount": 4250,
       "id": 849695
     },
     {
@@ -15,5 +15,14 @@
       "id": 470112
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "purchase": "Air Jordans 2",
+      "category": "Clothing",
+      "timeAndDate": "2023-06-02T10:17",
+      "amountSpent": 200,
+      "userId": 849695,
+      "id": 482572
+    }
+  ]
 }

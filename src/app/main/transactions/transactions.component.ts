@@ -68,8 +68,8 @@ export class TransactionsComponent implements OnInit {
   onEditTransactionClosed(transaction: any) {
     this.selectedTransaction = transaction;
   }
-  // when amount changes get value from child component and send it to parent [this is from child]
-  onAmountChanged(balance: number) {
+  // when balance changes get value from child component and send it to parent [this is from child]
+  onBalanceChanged(balance: number) {
     this.balance = balance;
   }
 
