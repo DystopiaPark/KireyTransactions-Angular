@@ -2,6 +2,7 @@
     <h2>Login</h2>
     <form [formGroup]="signinForm" (ngSubmit)="login(this.signinForm.value)">
         <div class="p-fluid">
+
             <div class="p-field">
                 <label for="email">Email</label>
                 <input
@@ -34,11 +35,13 @@
                     </small>
                 </div>
             </div>
+            
             <p-button type="submit" label="Sign in" [disabled]="signinForm.invalid"></p-button>
         </div>
     </form>
     <div class="p-field">
         <p>Don't have an account? <span routerLink="/auth/signup">Sign up.</span></p>
+        <p>Are you an admin? <span routerLink="/auth/signinadmin">Sign in here.</span></p>
         <p-button type="button" label="Sign up" (click)="openModal() "></p-button>
     </div>
 </div>

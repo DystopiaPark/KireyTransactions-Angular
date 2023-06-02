@@ -1,1 +1,46 @@
-<p>admin-sign-in works!</p>
+<div class="login-form">
+    <h2>Admin Login</h2>
+    <form [formGroup]="signinForm" (ngSubmit)="login(this.signinForm.value)">
+        <div class="p-fluid">
+
+            <div class="p-field">
+                <label for="email">Email</label>
+                <input
+                id="email"
+                type="email"
+                formControlName="email"
+                pInputText
+                [ngClass]="{ 'p-invalid': signinForm.get('email')?.invalid && signinForm.get('email')?.dirty }"
+                />
+                <small class="p-error" *ngIf="signinForm.get('email')?.invalid && signinForm.get('email')?.dirty">
+                Please enter a valid email address.
+                </small>
+            </div>
+
+            <div class="p-field">
+                <label for="password">Password</label>
+                <input
+                id="password"
+                type="password"
+                formControlName="password"
+                pInputText
+                [ngClass]="{ 'p-invalid': signinForm.get('password')?.invalid && signinForm.get('password')?.dirty }"
+                />
+                <small class="p-error" *ngIf="signinForm.get('password')?.invalid && signinForm.get('password')?.dirty">
+                Password must contain at least 5 characters, one uppercase letter, one special character, and one number.
+                </small>
+                <div class="margin">
+                    <small class="p-error" *ngIf="invalidCredentials && signinForm.get('email')?.valid">
+                        Email doesn't exist or your password is wrong.
+                    </small>
+                </div>
+            </div>
+            
+            <p-button type="submit" label="Sign in" [disabled]="signinForm.invalid"></p-button>
+        </div>
+    </form>
+    <div class="p-field">
+        <p>Back to user login page <span routerLink="/auth/signin">Log in.</span></p>
+
+    </div>
+</div>
