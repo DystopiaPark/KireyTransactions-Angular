@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output  } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class HomepageComponent implements OnInit  {
   balance!:number;
   modalOpen:boolean = false;
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, private router: Router) {}
 
   ngOnInit(): void {
     this.getUserAndAmount();
@@ -34,6 +35,21 @@ export class HomepageComponent implements OnInit  {
         console.error('Failed to fetch user data:', error);
       }
     );
+  }
+
+  deleteUser(){
+    if ( confirm(`Are you sure you want to delete ${this.user.name}?`)){
+    this.usersService.deleteUser(this.user.id).subscribe(
+      (response: any) => {
+        console.log('User was deleted', response);
+        localStorage.removeItem('userData');
+        localStorage.removeItem('auth');
+        this.router.navigate(['auth/signin']);
+      },
+      (error: any) => {
+        console.error('Failed to delete user:', error);
+      }
+    )}
   }
 
   // get amount value from child component

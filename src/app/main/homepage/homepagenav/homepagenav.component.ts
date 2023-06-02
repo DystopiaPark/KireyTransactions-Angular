@@ -12,7 +12,7 @@ export class HomepagenavComponent {
 
   logout() {
     localStorage.removeItem('userData');
-    localStorage.removeItem("auth");
+    localStorage.removeItem('auth');
     this.router.navigate(['auth/signin']);
   }
 }

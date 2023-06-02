@@ -12,8 +12,12 @@ export class UsersService {
   generateRandomID(){
     return Math.floor(Math.random() * 1000000)
   }
+  
+  createUser (user: any) {
+    return this.http.post('http://localhost:3000/users', user);
+  }
 
-  getUserData(data: any) {
+  getLoginData(data: any) {
     return this.http.get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`, {observe:'response'});
   }
 
@@ -33,12 +37,11 @@ export class UsersService {
   return this.http.get('http://localhost:3000/users?email=' + user.email)
   }
 
-
   editUser (user: any, object: any) {
     return this.http.put(`http://localhost:3000/users/${user.id}`, object)
   }
 
-  createUser (user: any) {
-    return this.http.post('http://localhost:3000/users', user);
+  deleteUser (id:number) {
+    return this.http.delete(`http://localhost:3000/users/${id}`)
   }
 }

@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
   
   // LOGIN
   login(userLoginData:any) {
-    this.usersService.getUserData(userLoginData).subscribe((response:any) => { 
+    this.usersService.getLoginData(userLoginData).subscribe((response:any) => { 
       if (response && response.body.length === 1) {
           localStorage.setItem("userData", JSON.stringify(response.body))
           localStorage.setItem("auth", JSON.stringify(this.auth.isAuthenticated));
