@@ -23,7 +23,7 @@
             <td>{{ user.id }}</td>
             <td>{{ user.accountAmount | currency: "USD" }}</td>
             <td>
-                <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="storeSelectedUser(user)" (click)="openEditModal()"></button>
+                <button pButton icon="pi pi-pencil" class="p-button-secondary" (click)="storeSelectedUser(user)" (click)="openEditUserModal()"></button>
             </td>
             <td>
                 <button pButton icon="pi pi-credit-card" class="p-button-info" (click)="viewTransactions(user)" (click)="openTransactionsModal()"></button>
@@ -34,3 +34,7 @@
         </tr>
     </ng-template>
 </p-table>
+<app-admin-edit-user-modal
+(modalEditUserClosed)="closeEditModal()"
+[modalEditUserOpen]="modalEditUserOpen"
+></app-admin-edit-user-modal>

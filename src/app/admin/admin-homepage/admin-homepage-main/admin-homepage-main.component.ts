@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription, interval, switchMap } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -9,8 +8,12 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./admin-homepage-main.component.scss']
 })
 export class AdminHomepageMainComponent implements OnInit {
+  @Output() modalEditUserClosed = new EventEmitter<void>();
+
   usersArray!: any;
   private dataSubscription!: Subscription;
+  modalEditUserOpen: boolean = false;
+  selectedUser: any;
 
   constructor (private usersService: UsersService){}
 
@@ -31,7 +34,9 @@ export class AdminHomepageMainComponent implements OnInit {
     )
   }
 
-  storeSelectedUser(user:any){}
+  storeSelectedUser(user:any){
+    this.selectedUser = user;
+  }
 
   deleteUser(user:any){
     this.usersService.deleteUser(user.id).subscribe(
@@ -45,7 +50,13 @@ export class AdminHomepageMainComponent implements OnInit {
     this.dataSubscription.unsubscribe();
   }
 
-  openEditModal(){}
   openTransactionsModal(){}
   viewTransactions(user:any){}
+
+  openEditUserModal(): void{
+    this.modalEditUserOpen = true;
+  }
+  closeEditModal(): void {
+    this.modalEditUserOpen = false;
+  }
 }

@@ -1,1 +1,67 @@
-<p>admin-edit-user-modal works!</p>
+<p-dialog [(visible)]="modalEditUserOpen" [modal]="true" [header]="modalHeader" [resizable]="false" [closable]="false" [closeOnEscape]="false">
+<ng-template pTemplate="content">
+    <form [formGroup]="purchaseForm" (ngSubmit)="editUser()">
+    <div class="p-fluid">
+        
+        <div class="p-field">
+            <label for="name">Name: </label>
+            <input id="name" type="text" formControlName="name" pInputText />
+            <small class="p-error" *ngIf="purchaseForm.get('name')?.invalid && purchaseForm.get('name')?.dirty">
+                Name is required.
+            </small>
+        </div>
+
+        <div class="p-field">
+            <label for="email">Email: </label>
+            <input id="email" type="email" formControlName="email" pInputText />
+            <small class="p-error" *ngIf="purchaseForm.get('email')?.invalid && purchaseForm.get('email')?.dirty">
+                Email is required.
+            </small>
+        </div>
+
+        <div class="p-field">
+            <label for="password">Password: </label>
+            <input id="password" type="password" formControlName="password" pInputText />
+            <small class="p-error" *ngIf="purchaseForm.get('password')?.invalid && purchaseForm.get('password')?.dirty">
+                Password is required.
+            </small>
+        </div>
+    
+        
+        <div class="p-field">
+            <label for="usedId">User Id: </label>
+            <input
+                id="usedId"
+                type="number"
+                formControlName="usedId"
+                pInputText
+                [ngClass]="{ 'p-invalid': purchaseForm.get('usedId')?.invalid && purchaseForm.get('usedId')?.dirty }"
+            />
+            <small class="p-error" *ngIf="purchaseForm.get('password')?.invalid && purchaseForm.get('password')?.dirty">
+                Id is required.
+            </small>
+        </div>
+
+        <div class="p-field">
+            <label for="balance">Balance: </label>
+            <input
+                id="balance"
+                type="number"
+                formControlName="balance"
+                pInputText
+                [ngClass]="{ 'p-invalid': purchaseForm.get('balance')?.invalid && purchaseForm.get('balance')?.dirty }"
+            />
+            <small class="p-error" *ngIf="purchaseForm.get('password')?.invalid && purchaseForm.get('password')?.dirty">
+                Balance is required.
+            </small>
+        </div>
+
+        <div class="btns">
+            <p-button type="submit" label="Save transaction" [disabled]="purchaseForm.invalid"></p-button>
+            <p-button type="button" (click)="closeEditUserModal()" label="Cancel"></p-button>
+        </div>
+        
+    </div>
+    </form>
+</ng-template>
+</p-dialog>

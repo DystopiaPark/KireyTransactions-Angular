@@ -77,7 +77,7 @@ export class TransactionEditModalComponent implements OnInit {
       this.updateTransactionArray();
       this.updateAmount(editedTransaction.amountSpent);
     })
-  this.closeEditModal();
+    this.closeEditModal();
   }
 
   updateTransactionArray() {
