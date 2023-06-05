@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../common/models/user';
+import { Observable, interval, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+
+  private pollingInterval = 5000;
 
   constructor(private http: HttpClient) {}
 
@@ -46,5 +49,13 @@ export class UsersService {
 
   deleteUser (id:number) {
     return this.http.delete(`http://localhost:3000/users/${id}`)
+  }
+
+
+
+  getUpdatedUsers(): Observable<any[]> {
+    return interval(5000).pipe(
+      switchMap(() => this.http.get<any[]>('http://localhost:3000/users'))
+    );
   }
 }
