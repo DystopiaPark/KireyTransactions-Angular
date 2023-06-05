@@ -16,9 +16,10 @@ import { AdminHomepageComponent } from './admin-homepage/admin-homepage.componen
 import { AdminInfoComponent } from './admin-info/admin-info.component';
 import { AdminHomepageNavComponent } from './admin-homepage/admin-homepage-nav/admin-homepage-nav.component';
 import { AdminHomepageMainComponent } from './admin-homepage/admin-homepage-main/admin-homepage-main.component';
+import { AdminEditUserModalComponent } from './admin-homepage/admin-edit-user-modal/admin-edit-user-modal.component';
 
 @NgModule({
-declarations: [AdminHomepageComponent, AdminInfoComponent, AdminHomepageNavComponent, AdminHomepageMainComponent],
+declarations: [AdminHomepageComponent, AdminInfoComponent, AdminHomepageNavComponent, AdminHomepageMainComponent, AdminEditUserModalComponent],
 imports: [
     AdminRoutingModule,
     CommonModule,  

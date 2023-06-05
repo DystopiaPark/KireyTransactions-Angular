@@ -20,13 +20,6 @@
       "password": "!A123",
       "accountAmount": 222,
       "id": 710041
-    },
-    {
-      "name": "Nemanja Nikolic",
-      "email": "meu@meu.com",
-      "password": "!A!23",
-      "accountAmount": 222,
-      "id": 334243
     }
   ],
   "transactions": [
